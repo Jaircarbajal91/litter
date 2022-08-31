@@ -27,6 +27,7 @@ def get_all_user_tweets(username):
 
 @tweet_routes.route('/home/')
 @tweet_routes.route('/home')
+@login_required
 def get_all_tweets():
     tweets = Tweet.query.all()
     result = [tweet.to_dict() for tweet in tweets]
@@ -82,6 +83,7 @@ def update_tweet(id):
 
 @tweet_routes.route('/<int:id>/', methods=['DELETE'])
 @tweet_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
 def delete_tweet(id):
   tweet = Tweet.query.get(id)
   if tweet is not None:
