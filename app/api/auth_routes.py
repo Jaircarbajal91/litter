@@ -66,9 +66,9 @@ def sign_up():
             username=form.data['username'].lower(),
             email=form.data['email'],
             password=form.data['password'],
-            first_name=form.data['first_name'],
-            last_name=form.data['last_name'],
-            profile_image=form.data['profile_image']
+            first_name=form.data['firstName'],
+            last_name=form.data['lastName'],
+            profile_image=form.data['profileImage']
         )
         db.session.add(user)
         db.session.commit()

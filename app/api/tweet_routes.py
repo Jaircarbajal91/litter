@@ -1,5 +1,75 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from crypt import methods
+from flask import Blueprint, jsonify, session, request
+from flask_login import login_required, current_user
+from app.models import Tweet, db
+from app.forms import TweetForm
+from .auth_routes import validation_errors_to_error_messages
+import datetime
+
+
+today = datetime.datetime.now()
 
 tweet_routes = Blueprint('tweets', __name__)
+
+
+@tweet_routes.route('/', methods=['POST'])
+@tweet_routes.route('', methods=['POST'])
+@login_required
+def post_new_tweet():
+    form = TweetForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_tweet = Tweet(
+            content=form.data['content'],
+            user_id=int(current_user.get_id()),
+            created_at=today,
+            updated_at=today
+        )
+        db.session.add(new_tweet)
+        db.session.commit()
+        return new_tweet.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@tweet_routes.route('/<int:id>/', methods=['PUT'])
+@tweet_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_tweet(id):
+    tweet = Tweet.query.get(id)
+    if tweet is not None:
+        tweet = tweet.to_dict()
+        if tweet['user_id'] != int(current_user.get_id()):
+            return {'errors': 'You are unauthorized to update this tweet'}, 403
+        else:
+            form = TweetForm()
+            form['csrf_token'].data = request.cookies['csrf_token']
+            if form.validate_on_submit():
+                new_tweet = Tweet(
+                    content=form.data['content'],
+                    user_id=int(current_user.get_id()),
+                    created_at=tweet['created_at'],
+                    updated_at=today
+                )
+                db.session.add(new_tweet)
+                db.session.commit()
+                return new_tweet.to_dict()
+            return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+    else:
+        return {'errors': 'Tweet not found'}, 404
+
+
+@tweet_routes.route('/<int:id>/', methods=['DELETE'])
+@tweet_routes.route('/<int:id>', methods=['DELETE'])
+def delete_tweet(id):
+  tweet = Tweet.query.get(id)
+  if tweet is not None:
+    tweet_dict = tweet.to_dict()
+    if tweet_dict['user_id'] != int(current_user.get_id()):
+            return {'errors': 'You are unauthorized to delete this tweet'}, 403
+    else:
+      form = TweetForm()
+      form['csrf_token'].data = request.cookies['csrf_token']
+      db.session.delete(tweet)
+      db.session.commit()
+      return {"message": "Tweet successfully deleted"}
+  return {'errors': 'Tweet not found'}, 404

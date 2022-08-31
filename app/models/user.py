@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     profile_image = db.Column(db.String(255), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    user_tweets = db.relationship('Tweet', back_populates='user')
+    user_tweets = db.relationship('Tweet', back_populates='user', cascade='all, delete')
 
 
     @property

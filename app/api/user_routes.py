@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from app.models import User, Tweet
+from .auth_routes import validation_errors_to_error_messages
 
 user_routes = Blueprint('users', __name__)
 
@@ -29,10 +30,12 @@ def get_all_user_tweets(username):
         tweets = Tweet.query.filter(Tweet.user_id == id).all()
         result = [tweet.to_dict() for tweet in tweets]
         return {'tweets': result}
-    return {"error": "username not found"}
+    return {"error": "username not found"}, 404
 
 
 @user_routes.route('/home')
 @user_routes.route('/home/')
 def get_all_tweets():
-    pass
+    tweets = Tweet.query.all()
+    result = [tweet.to_dict() for tweet in tweets]
+    return {'tweets': result}
