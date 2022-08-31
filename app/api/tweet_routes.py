@@ -1,7 +1,7 @@
 from crypt import methods
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import Tweet, db
+from app.models import Tweet, db, User
 from app.forms import TweetForm
 from .auth_routes import validation_errors_to_error_messages
 import datetime
@@ -10,6 +10,29 @@ import datetime
 today = datetime.datetime.now()
 
 tweet_routes = Blueprint('tweets', __name__)
+
+
+@tweet_routes.route('/<path:username>/')
+@tweet_routes.route('/<path:username>')
+@login_required
+def get_all_user_tweets(username):
+    user = User.query.filter(User.username == username).first()
+    if user:
+        id = user.to_dict()["id"]
+        tweets = Tweet.query.filter(Tweet.user_id == id).all()
+        result = [tweet.to_dict() for tweet in tweets]
+        return {'tweets': result}
+    return {"error": "username not found"}, 404
+
+
+@tweet_routes.route('/home/')
+@tweet_routes.route('/home')
+@login_required
+def get_all_tweets():
+    tweets = Tweet.query.all()
+    result = [tweet.to_dict() for tweet in tweets]
+    return {'tweets': result}
+
 
 
 @tweet_routes.route('/', methods=['POST'])
@@ -60,6 +83,7 @@ def update_tweet(id):
 
 @tweet_routes.route('/<int:id>/', methods=['DELETE'])
 @tweet_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
 def delete_tweet(id):
   tweet = Tweet.query.get(id)
   if tweet is not None:
