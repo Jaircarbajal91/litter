@@ -25,3 +25,4 @@ RUN pip install psycopg2
 # Start the flask environment by setting our
 # closing command to gunicorn app:app
 CMD gunicorn app:app
+
