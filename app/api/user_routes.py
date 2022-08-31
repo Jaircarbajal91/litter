@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask_login import login_required, current_user
+from app.models import User, Tweet
 
 user_routes = Blueprint('users', __name__)
 
@@ -17,3 +17,22 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/<path:username>')
+@user_routes.route('/<path:username>/')
+@login_required
+def get_all_user_tweets(username):
+    user = User.query.filter(User.username == username).first()
+    if user:
+        id = user.to_dict()["id"]
+        tweets = Tweet.query.filter(Tweet.user_id == id).all()
+        result = [tweet.to_dict() for tweet in tweets]
+        return {'tweets': result}
+    return {"error": "username not found"}
+
+
+@user_routes.route('/home')
+@user_routes.route('/home/')
+def get_all_tweets():
+    pass
