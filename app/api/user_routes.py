@@ -20,8 +20,8 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route('/<path:username>')
 @user_routes.route('/<path:username>/')
+@user_routes.route('/<path:username>')
 @login_required
 def get_all_user_tweets(username):
     user = User.query.filter(User.username == username).first()
@@ -33,8 +33,8 @@ def get_all_user_tweets(username):
     return {"error": "username not found"}, 404
 
 
-@user_routes.route('/home')
 @user_routes.route('/home/')
+@user_routes.route('/home')
 def get_all_tweets():
     tweets = Tweet.query.all()
     result = [tweet.to_dict() for tweet in tweets]
