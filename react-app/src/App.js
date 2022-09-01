@@ -21,10 +21,13 @@ function App() {
 
 
   const allTweets = useSelector(state => state.tweets.tweetsList)
+  const sessionUser = useSelector(state => state.user)
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      await dispatch(getAllTweetsThunk())
+      if (sessionUser) {
+        await dispatch(getAllTweetsThunk())
+      }
       setLoaded(true);
 
     })();
@@ -42,7 +45,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/home' exact={true} >
           <NavBar />
-          <Tweets tweets={allTweets}/>
+          <Tweets tweets={allTweets} />
         </ProtectedRoute>
         <Route path='/login'>
           <LoginForm />
