@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -11,16 +11,22 @@ import { authenticate } from './store/session';
 import WhiteCatIcon from './assets/images/WhiteCatIcon.svg'
 import backgroundImage from './assets/images/background.png'
 import SplashPage from './components/SplashPage';
+import { getAllTweetsThunk } from './store/tweets';
+import Tweets from './components/Tweets';
 import './index.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
+
+  const allTweets = useSelector(state => state.tweets.tweetsList)
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
+      await dispatch(getAllTweetsThunk())
       setLoaded(true);
+
     })();
   }, [dispatch]);
 
@@ -31,13 +37,13 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <ProtectedRoute path='/home' exact={true} >
-          <NavBar />
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
         <Route path='/' exact={true}>
           <SplashPage />
         </Route>
+        <ProtectedRoute path='/home' exact={true} >
+          <NavBar />
+          <Tweets tweets={allTweets}/>
+        </ProtectedRoute>
         <Route path='/login'>
           <LoginForm />
         </Route>

@@ -1,8 +1,8 @@
 from app.models import db, Tweet
-import datetime
+from datetime import datetime, timezone
 
 
-today = datetime.datetime.now()
+today = datetime.now(timezone.utc)
 
 def seed_tweets():
     t1 = Tweet(content="I'm just a demo user", user_id=1, created_at=today, updated_at=today)
