@@ -5,10 +5,8 @@ from app.models import Tweet, db, User
 from app.forms import TweetForm
 from .auth_routes import validation_errors_to_error_messages
 from datetime import datetime, timezone
-from tzlocal import get_localzone
+from datetime import datetime, date, timedelta
 
-
-today = datetime.now(timezone.utc)
 
 tweet_routes = Blueprint('tweets', __name__)
 
@@ -46,8 +44,8 @@ def post_new_tweet():
         new_tweet = Tweet(
             content=form.data['content'],
             user_id=int(current_user.get_id()),
-            created_at=today.astimezone(get_localzone()),
-            updated_at=today.astimezone(get_localzone())
+            # created_at=today.astimezone(get_localzone()),
+            # updated_at=today.astimezone(get_localzone())
         )
         db.session.add(new_tweet)
         db.session.commit()
@@ -69,7 +67,7 @@ def update_tweet(id):
             form['csrf_token'].data = request.cookies['csrf_token']
             if form.validate_on_submit():
                 tweet.content = form.data["content"]
-                tweet.updated_at = today.astimezone(get_localzone())
+                # tweet.updated_at = today.astimezone(get_localzone())
                 db.session.commit()
                 return tweet.to_dict()
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400

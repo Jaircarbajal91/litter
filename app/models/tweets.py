@@ -12,8 +12,8 @@ class Tweet(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(280), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
-    updated_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), onupdate=db.func.now())
+
 
     user = db.relationship(
         'User', back_populates='user_tweets', foreign_keys=[user_id])
@@ -27,6 +27,5 @@ class Tweet(db.Model, UserMixin):
             'id': self.id,
             'content': self.content,
             'user_id': self.user_id,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'created_at': self.created_at
         }
