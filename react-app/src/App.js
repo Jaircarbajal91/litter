@@ -8,13 +8,17 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import WhiteCatIcon from './assets/images/WhiteCatIcon.svg'
+import backgroundImage from './assets/images/background.png'
+import SplashPage from './components/SplashPage';
+import './index.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -26,23 +30,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
       <Switch>
-        <Route path='/login' exact={true}>
+        <ProtectedRoute path='/home' exact={true} >
+          <NavBar />
+          <h1>My Home Page</h1>
+        </ProtectedRoute>
+        <Route path='/' exact={true}>
+          <SplashPage />
+        </Route>
+        <Route path='/login'>
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );

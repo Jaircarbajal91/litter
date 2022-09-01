@@ -1,1 +1,12 @@
-/* TODO Add site wide styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-width: 98vw;
+  background-color: black;
+}
+#root {
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+}
