@@ -1,4 +1,4 @@
-const GET_ALL_TWEETS = 'session/GET_ALL_TWEETS';
+const GET_ALL_TWEETS = 'tweets/GET_ALL_TWEETS';
 
 
 const getAllTweetsAction = (tweets) => ({
@@ -6,13 +6,12 @@ const getAllTweetsAction = (tweets) => ({
   tweets
 });
 
-
 export const getAllTweetsThunk = () => async (dispatch) => {
   const response = await fetch('/api/tweets/home');
 
   if (response.ok) {
     const tweets = await response.json();
-    dispatch(getAllTweetsAction(tweets))
+    await dispatch(getAllTweetsAction(tweets))
     return tweets;
   } else if (response.status < 500) {
     const data = await response.json();

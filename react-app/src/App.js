@@ -11,8 +11,7 @@ import { authenticate } from './store/session';
 import WhiteCatIcon from './assets/images/WhiteCatIcon.svg'
 import backgroundImage from './assets/images/background.png'
 import SplashPage from './components/SplashPage';
-import { getAllTweetsThunk } from './store/tweets';
-import Tweets from './components/Tweets';
+import HomeTweets from './components/HomeTweets';
 import './index.css'
 
 function App() {
@@ -20,14 +19,11 @@ function App() {
   const dispatch = useDispatch();
 
 
-  const allTweets = useSelector(state => state.tweets.tweetsList)
-  const sessionUser = useSelector(state => state.user)
+
+  const sessionUser = useSelector(state => state.session.user)
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      if (sessionUser) {
-        await dispatch(getAllTweetsThunk())
-      }
       setLoaded(true);
 
     })();
@@ -45,7 +41,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/home' exact={true} >
           <NavBar />
-          {allTweets?.length > 0 && <Tweets tweets={allTweets} />}
+          <HomeTweets sessionUser={sessionUser}/>
         </ProtectedRoute>
         <Route path='/login'>
           <LoginForm />
