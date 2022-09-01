@@ -45,7 +45,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/home' exact={true} >
           <NavBar />
-          <Tweets tweets={allTweets} />
+          {allTweets?.length > 0 && <Tweets tweets={allTweets} />}
         </ProtectedRoute>
         <Route path='/login'>
           <LoginForm />
