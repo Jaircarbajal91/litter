@@ -1,0 +1,145 @@
+.splash-page.container {
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: TwitterChirpExtendedHeavy, Verdana, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
+  height: 97vh;
+  color: white;
+}
+
+.splash-page.top.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 80%;
+  /* justify-content: center; */
+  padding: 2em;
+}
+
+.join-header {
+  padding-bottom: .5em;
+  border-bottom: 1px solid grey;
+  width: 100%;
+  max-width: 326px;
+  font-size: 1.5em;
+  margin-bottom: .1em;
+}
+
+.icon.container {
+  width: 3.5em;
+}
+.splash-page.cat-icon-1 {
+  max-width: 100%;
+}
+
+.login.button {
+  width: 100%;
+  max-width: 326px;
+  border: 1px solid grey;
+  background-color: #000000;
+  padding: 1em;
+  border-radius: 3em;
+  color: #1B9BEF;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.signup.button {
+  border: none;
+  background-color: #1B9BEF;
+  color: white;
+  padding: 1em;
+  border-radius: 3em;
+  width: 100%;
+  max-width: 326px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.signin.container {
+  width: 100%;
+}
+
+.happening-header {
+  font-size: 3em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+
+
+.splash-page.bottom.container {
+  display: flex;
+  width: 100%;
+  height: 20em;
+  min-height: 20em;
+  background-image: url('../../assets/images/background.png');
+  object-fit: cover;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.splash-page.cat-icon-2 {
+  width: 70%;
+  min-width: 30%;
+  z-index: 1;
+}
+
+
+
+
+
+@media screen and (min-width: 1000px) {
+
+  .splash-page.container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .splash-page.cat-icon-2 {
+    width: 45%;
+    max-width: 45%;
+  }
+
+  .splash-page.bottom.container {
+    min-height: 100%;
+    min-width: 59%;
+  }
+  .splash-page.top.container {
+    min-width: 41%;
+    justify-content: center;
+    margin-top: -5em;
+  }
+  .happening-header {
+    font-size: 4em;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+  }
+
+  .join-header {
+    font-size: 2em;
+    margin-top: -1em;
+  }
+
+  .signup.button {
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .splash-page.cat-icon-2 {
+    max-width: 60%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .splash-page.cat-icon-2 {
+    max-width: 40%;
+  }
+}
