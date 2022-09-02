@@ -16,11 +16,12 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 #modal-content {
   position: absolute;
   background-color: black;
-  border-radius: .7em;
+  border-radius: 1em;
+  box-shadow: 0 0 10px 0 rgb(82, 82, 82);
 }

@@ -119,12 +119,12 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       <div className='exit-icon' onClick={() => setShowSignup(false)}>
         <img src={exit} alt='exit-icon' />
       </div>
-      <form onSubmit={onSignUp}>
+      <form className='sign-up' onSubmit={onSignUp}>
         <div className='other-errors'>
           {errors.length > 0 && <span>{errors[0]}</span>}
         </div>
         <div className='signup-form input-fields'>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='text'
               className={`input username`}
@@ -136,7 +136,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors username'>{usernameErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='text'
               className={`input first-name`}
@@ -148,7 +148,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors first-name'>{firstNameErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='text'
               className={`input last-name`}
@@ -160,7 +160,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors last-name'>{lastNameErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='url'
               className={`input url`}
@@ -172,7 +172,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors url'>{profileImageErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='email'
               className={`input email`}
@@ -184,7 +184,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors email'>{emailErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='password'
               className={`input password`}
@@ -196,7 +196,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
             ></input>
             <span className='signup-errors password'>{passwordErrors[0]}</span>
           </div>
-          <div>
+          <div className='signup input-wrapper'>
             <input
               type='password'
               className={`input repeat password`}
