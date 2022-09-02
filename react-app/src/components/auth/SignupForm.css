@@ -1,0 +1,19 @@
+.signup-form-container {
+  width: 600px;
+  max-width: 600px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.exit-icon {
+  width: 1em;
+}
+
+.button.signup.form:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
