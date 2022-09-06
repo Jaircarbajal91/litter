@@ -2,9 +2,12 @@ import { useHistory } from 'react-router-dom'
 import WhiteCatIcon from '../../assets/images/WhiteCatIcon.svg'
 import './SpashPage.css'
 
-const SplashPage = () => {
+const SplashPage = ({ setShowLogin, setShowSignup, sessionUser }) => {
   const history = useHistory()
 
+  if (sessionUser) {
+    history.push('/home')
+  }
   return (
     <div className='splash-page container'>
       <div className='splash-page top container'>
@@ -15,10 +18,10 @@ const SplashPage = () => {
           <h1 className='happening-header' >Happening Meow</h1>
           <h3 className='join-header'>Join Litter today.</h3>
         </div>
-        <button className='signup button' onClick={() => history.push('/signup')}>Create account</button>
+        <button className='signup button' onClick={() => setShowSignup(true)}>Create account</button>
         <div className='signin container'>
           <h4>Already have an account?</h4>
-          <button className='login button' onClick={() => history.push('/login')}>Sign in</button>
+          <button className='login button' onClick={() => setShowLogin(true)}>Sign in</button>
         </div>
       </div>
       <div className='splash-page bottom container'>

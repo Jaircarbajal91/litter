@@ -12,10 +12,13 @@ import WhiteCatIcon from './assets/images/WhiteCatIcon.svg'
 import backgroundImage from './assets/images/background.png'
 import SplashPage from './components/SplashPage';
 import HomeTweets from './components/HomeTweets';
+import { Modal } from './context/Modal'
 import './index.css'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
   const dispatch = useDispatch();
 
 
@@ -37,18 +40,18 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path='/' exact={true}>
-          <SplashPage />
+          <SplashPage sessionUser={sessionUser} setShowSignup={setShowSignup} setShowLogin={setShowLogin}/>
+          {showLogin && <Modal onClose={() => setShowLogin(false)}>
+            <LoginForm setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+          </Modal>}
+          {showSignup && <Modal onClose={() => setShowSignup(false)}>
+              <SignUpForm setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+            </Modal>}
         </Route>
         <ProtectedRoute path='/home' exact={true} >
           <NavBar />
-          <HomeTweets sessionUser={sessionUser}/>
+          <HomeTweets sessionUser={sessionUser} />
         </ProtectedRoute>
-        <Route path='/login'>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
         {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
