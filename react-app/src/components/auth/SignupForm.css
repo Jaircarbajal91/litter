@@ -105,9 +105,10 @@ input.inputs::placeholder {
   margin-left: .6em;
 }
 
-.username-cond-error {
+.username.username-cond-error {
   color: red;
 }
+
 .first-name.first-name-cond-error {
   color: red;
 }

@@ -18,6 +18,7 @@ const LoginForm = ({ setShowLogin, setShowSignup }) => {
     if (data) {
       setErrors(data);
     } else {
+      setShowLogin(false)
       history.push('/home')
     }
   };
