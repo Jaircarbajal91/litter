@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import BlueCatIcon from '../../assets/images/BlueCatIcon.svg'
 import { login } from '../../store/session';
 import exit from '../../assets/images/exit.svg'
 
@@ -18,6 +19,7 @@ const LoginForm = ({ setShowLogin, setShowSignup }) => {
     if (data) {
       setErrors(data);
     } else {
+      setShowLogin(false)
       history.push('/home')
     }
   };
@@ -41,43 +43,47 @@ const LoginForm = ({ setShowLogin, setShowSignup }) => {
   }
 
   return (
-    <>
-      <div className='exit-icon' onClick={() => setShowLogin(false)}>
-        <img src={exit} alt='exit-icon' />
+    <div className='login form container'>
+      <div className='top-row container'>
+        <img className='exit-icon' onClick={() => setShowSignup(false)} src={exit} alt='exit-icon' />
+        <img className='sign-up cat-icon' src={BlueCatIcon} alt="cat-icon" />
       </div>
-      <form onSubmit={onLogin}>
+      <div className='signup-header'><h1>Log in</h1></div>
+      <form className='login form' onSubmit={onLogin}>
         <div>
           {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+            <span key={ind}>{error}</span>
           ))}
         </div>
-        <div>
-          <label htmlFor='email'>Email</label>
+        <div className='login input-wrapper'>
           <input
             name='email'
+            className={`input email login`}
             type='text'
             placeholder='Email'
             value={email}
             onChange={updateEmail}
           />
         </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={updatePassword}
-          />
-          <button type='submit'>Login</button>
+        <div className='signup-form input-fields'>
+          <div className='login input-wrapper'>
+            <input
+              name='password'
+              className={`input password login`}
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
+            <button type='submit'>Login</button>
+          </div>
         </div>
       </form>
       <div className='signup-redirect-container'>
         <span className='register-button'>Don't have an account?</span>
-        <span className='register-button' onClick={registerNewUser}> Sign up</span>
+        <span className='register-button login-text' onClick={registerNewUser}> Sign up</span>
       </div>
-    </>
+    </div>
   );
 };
 

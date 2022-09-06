@@ -61,7 +61,7 @@ form.sign-up {
 
 span.signup-errors {
   display: block;
-  font-size: .7rem;
+  font-size: .8rem;
   padding-left: .6em;
   margin: .2em 0px;
   min-height: 1.2em;
@@ -87,10 +87,6 @@ input.input {
   margin: 0;
 }
 
-input.inputs::placeholder {
-  color: red;
-}
-
 .signup-form.input-fields {
   min-width: 90%;
 }
@@ -105,9 +101,72 @@ input.inputs::placeholder {
   margin-left: .6em;
 }
 
-.username-cond-error {
-  color: red;
+input.input.username.username-cond-error:focus {
+  outline: none;
 }
-.first-name.first-name-cond-error {
-  color: red;
+input.input.username.username-cond-error {
+  border: 1px solid red;
+}
+span.username.username-cond-error {
+  color: rgb(243, 49, 49);
+}
+
+
+input.input.first-name.first-name-cond-error:focus {
+  outline: none;
+}
+input.input.first-name.first-name-cond-error {
+  border: 1px solid red;
+}
+span.first-name.first-name-cond-error {
+  color: rgb(243, 49, 49);
+}
+
+
+input.input.last-name.last-name-cond-error:focus {
+  outline: none;
+}
+input.input.last-name.last-name-cond-error {
+  border: 1px solid red;
+}
+span.last-name.last-name-cond-error {
+  color: rgb(255, 0, 0);
+}
+
+
+input.input.url.profile-image-cond-error:focus {
+  outline: none;
+}
+input.input.url.profile-image-cond-error {
+  border: 1px solid red;
+}
+span.url.profile-image-cond-error {
+  color: rgb(255, 0, 0);
+}
+
+
+input.input.email.email-cond-error:focus {
+  outline: none;
+}
+input.input.email.email-cond-error {
+  border: 1px solid red;
+}
+span.email.email-cond-error {
+  color: rgb(255, 0, 0);
+}
+
+input.input.password.password-cond-error:focus {
+  outline: none;
+}
+input.input.password.password-cond-error {
+  border: 1px solid red;
+}
+span.password.password-cond-error {
+  color: rgb(255, 0, 0);
+}
+
+
+.other-errors {
+  position: relative;
+  top: 1em
 }
