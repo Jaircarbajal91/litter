@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import exit from '../../assets/images/exit.svg'
+import BlueCatIcon from '../../assets/images/BlueCatIcon.svg'
 import './SignupForm.css'
 
 const SignUpForm = ({ setShowSignup, setShowLogin }) => {
@@ -21,6 +22,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [isDisabled, setIsDisabled] = useState(true)
+  const [condErrorClass, setCondErrorClass] = useState('success')
 
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -50,10 +52,20 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
 
 
     if (username.length < 1) errors.username.push('Please enter a username')
-    if (username.length > 25) errors.username.push('Username is too long')
+    if (username.length > 25) {
+      setCondErrorClass('username-cond-error')
+      errors.username.push('Username is too long')
+    } else {
+      setCondErrorClass('username-success')
+    }
 
     if (firstName.length < 1) errors.firstName.push('Please enter First Name')
-    if (firstName.length > 30) errors.firstName.push('First name is too long')
+    if (firstName.length > 30) {
+      setCondErrorClass('first-name-cond-error')
+      errors.firstName.push('First name is too long')
+    } else {
+      setCondErrorClass('first-name-success')
+    }
 
     if (lastName.length < 1) errors.lastName.push('Please enter Last Name')
     if (lastName.length > 30) errors.lastName.push('Last name is too long')
@@ -116,9 +128,11 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
 
   return (
     <div className='signup-form-container'>
-      <div className='exit-icon' onClick={() => setShowSignup(false)}>
-        <img src={exit} alt='exit-icon' />
+      <div className='top-row container'>
+        <img className='exit-icon' onClick={() => setShowSignup(false)} src={exit} alt='exit-icon' />
+        <img className='sign-up cat-icon' src={BlueCatIcon} alt="cat-icon" />
       </div>
+      <div className='signup-header'><h1>Sign up</h1></div>
       <form className='sign-up' onSubmit={onSignUp}>
         <div className='other-errors'>
           {errors.length > 0 && <span>{errors[0]}</span>}
@@ -134,7 +148,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={username}
               required
             ></input>
-            <span className='signup-errors username'>{usernameErrors[0]}</span>
+            <span className={`signup-errors username ${condErrorClass}`}>{usernameErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -146,7 +160,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={firstName}
               required
             ></input>
-            <span className='signup-errors first-name'>{firstNameErrors[0]}</span>
+            <span className={`signup-errors first-name ${condErrorClass}`}>{firstNameErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -158,7 +172,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={lastName}
               required
             ></input>
-            <span className='signup-errors last-name'>{lastNameErrors[0]}</span>
+            <span className={`signup-errors last-name ${condErrorClass}`}>{lastNameErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -170,7 +184,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={profileImage}
               required
             ></input>
-            <span className='signup-errors url'>{profileImageErrors[0]}</span>
+            <span className={`signup-errors url ${condErrorClass}`}>{profileImageErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -182,7 +196,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={email}
               required
             ></input>
-            <span className='signup-errors email'>{emailErrors[0]}</span>
+            <span className={`signup-errors email ${condErrorClass}`}>{emailErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -194,7 +208,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={password}
               required
             ></input>
-            <span className='signup-errors password'>{passwordErrors[0]}</span>
+            <span className={`signup-errors password ${condErrorClass}`}>{passwordErrors[0]}</span>
           </div>
           <div className='signup input-wrapper'>
             <input
@@ -206,14 +220,14 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               value={repeatPassword}
               required
             ></input>
-            <span className='signup-errors repeat-password'>{passwordErrors[0]}</span>
+            <span className={`signup-errors repeat password ${condErrorClass}`}>{passwordErrors[0]}</span>
           </div>
         </div>
         <button disabled={isDisabled} className='button signup form' type='submit'>Sign Up</button>
       </form>
       <div className='Login-redirect-container'>
         <span className='login-redirect'>Have an account already?</span>
-        <span className='login-button' onClick={backToLogin}> Log in</span>
+        <span className='login-text' onClick={backToLogin}> Log in</span>
       </div>
     </div>
   );

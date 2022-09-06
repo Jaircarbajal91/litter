@@ -1,7 +1,7 @@
 .signup-form-container {
   width: 600px;
   max-width: 600px;
-  height: 700px;
+  height: 800px;
   padding: 1em;
   display: flex;
   flex-direction: column;
@@ -14,10 +14,23 @@
   cursor: pointer;
   height: fit-content;
 }
+.top-row.container {
+  margin-bottom: 1em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 
 .button.signup.form {
   min-width: 75%;
 }
+
+.sign-up.cat-icon {
+  width: 7%;
+  position: relative;
+  left: 45%
+}
+
 
 .button.signup.form:disabled{
   border: 1px solid #999999;
@@ -65,6 +78,15 @@ input.input {
   margin: .3em 0;
 }
 
+.signup-header {
+  text-align: center;
+  margin: 0;
+}
+
+.signup-header h1 {
+  margin: 0;
+}
+
 input.inputs::placeholder {
   color: red;
 }
@@ -75,4 +97,17 @@ input.inputs::placeholder {
 
 .input-wrapper {
   width: 100%;
+}
+
+.login-text {
+  color: #189BEE;
+  cursor: pointer;
+  margin-left: .6em;
+}
+
+.username-cond-error {
+  color: red;
+}
+.first-name.first-name-cond-error {
+  color: red;
 }
