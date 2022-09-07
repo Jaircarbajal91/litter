@@ -202,7 +202,10 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               className={`input username ${usernameCondClass}`}
               placeholder='Enter a username'
               name='username'
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                setUsername(e.target.value)
+                setErrors([])
+              }}
               value={username}
               required
             ></input>
@@ -253,7 +256,10 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               className={`input email ${emailCondClass}`}
               placeholder='Email'
               name='email'
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                setErrors([])
+              }}
               value={email}
               required
             ></input>
