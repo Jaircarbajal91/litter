@@ -26,9 +26,16 @@ def get_all_user_tweets(username):
 @tweet_routes.route('/home')
 @login_required
 def get_all_tweets():
-    tweets = Tweet.query.all()
-    result = [tweet.to_dict() for tweet in tweets]
-    return {'tweets': result}
+    tweets = db.session.query(Tweet) \
+        .options(db.joinedload(Tweet.user)).all()
+    if tweets is not None and len(tweets) > 0:
+        tweets_details = []
+        for tweet in tweets:
+            user = tweet.user.to_dict()
+            tweet = tweet.to_dict()
+            tweet['user'] = user
+            tweets_details.append(tweet)
+    return {'tweets': tweets_details}
 
 
 

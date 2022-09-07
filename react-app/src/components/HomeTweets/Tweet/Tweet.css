@@ -1,0 +1,71 @@
+.tweet-container {
+  width: 600px;
+  display: flex;
+  border: .2px solid grey;
+  border-top: none;
+  padding: .5em;
+  font-size: .9rem;
+}
+
+.tweet-left-container {
+  width: 13%;
+  height: fit-content;
+}
+
+.profile-image {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 3.3em;
+  min-width: 3.3em;
+  height: 3.3em;
+  min-height: 3.3em;
+  cursor: pointer;
+  margin-left: 1em;
+}
+
+.tweet-right-container {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.top-tweet-container {
+  display: flex;
+  margin-bottom: 1em;
+  justify-content: space-between;
+}
+
+.bottom-tweet-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1em;
+}
+.tweet.icon {
+  width: 1.3em;
+  cursor: pointer;
+}
+
+.tweet-name {
+  font-weight: 600;
+  letter-spacing: -.05rem;
+  cursor: pointer;
+}
+
+.tweet-name:hover {
+  text-decoration: underline;
+}
+
+.tweet-content {
+  padding-right: 2em;
+  word-wrap: break-word;
+}
+
+.tweet.username,
+.tweet.created-at {
+  word-wrap: break-word;
+  color: #71767A;
+}
+
+.tweet.username {
+  cursor: pointer;
+}

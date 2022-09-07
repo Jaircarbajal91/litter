@@ -31,7 +31,9 @@ export default function tweetsReducer(state = {}, action) {
       action.tweets.tweets.forEach(tweet => {
         newState[tweet.id] = tweet
       });
-      newState.tweetsList = [...action.tweets.tweets]
+      newState.tweetsList = [...action.tweets.tweets].sort(function(a,b){
+        return new Date(b.created_at) - new Date(a.created_at);
+      })
       return newState;
     }
     default:

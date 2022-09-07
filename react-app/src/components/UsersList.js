@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-function UsersList() {
+function UsersList({ sessionUser }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -13,7 +13,9 @@ function UsersList() {
     fetchData();
   }, []);
 
-  const userComponents = users.map((user) => {
+
+  const filteredUsers = users.filter(user => sessionUser.id !== user.id).slice(0, 3)
+  const userComponents = filteredUsers.map((user) => {
     return (
       <li key={user.id}>
         <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
@@ -22,10 +24,10 @@ function UsersList() {
   });
 
   return (
-    <>
-      <h1>User List: </h1>
+    <div className='users-list container'>
+      <h2>Who to follow</h2>
       <ul>{userComponents}</ul>
-    </>
+    </div>
   );
 }
 

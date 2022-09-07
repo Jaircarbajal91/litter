@@ -13,7 +13,7 @@ const HomeTweets = ({sessionUser}) => {
     }
   }, [dispatch, tweets?.length])
   return tweetsLoaded && (
-    <div>
+    <div className='tweets-container'>
       {tweets.map(tweet => (
         <Tweet key={tweet.id} tweet={tweet} />
       ))}

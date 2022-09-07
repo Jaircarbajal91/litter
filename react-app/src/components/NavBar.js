@@ -1,18 +1,22 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
-import SignOut from '../assets/images/signout.svg'
+import WhiteCatIcon from '../assets/images/WhiteCatIcon.svg'
+import HomeIcon from '../assets/images/home.svg'
 import './NavBar.css'
 
 const NavBar = () => {
   const history = useHistory()
   return (
     <nav className='navbar'>
-        <div onClick={() => history.push('/')} className='navlink'>
-            <img className='signout-icon' src={SignOut} alt="signout-icon" />
-            <span>Home</span>
-        </div>
-        {/* <li>
+      <div>
+        <img src={WhiteCatIcon} alt='cat-icon' />
+      </div>
+      <div onClick={() => history.push('/')} className='navlink'>
+        <img className='home-icon' src={HomeIcon} alt="home-icon" />
+        <span>Home</span>
+      </div>
+      {/* <li>
           <NavLink to='/login' exact={true} activeClassName='active'>
             Login
           </NavLink>
@@ -27,9 +31,9 @@ const NavBar = () => {
             Users
           </NavLink>
         </li> */}
-        <div>
-          <LogoutButton />
-        </div>
+      <div>
+        <LogoutButton />
+      </div>
     </nav>
   );
 }
