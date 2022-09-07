@@ -13,6 +13,7 @@ import backgroundImage from './assets/images/background.png'
 import SplashPage from './components/SplashPage';
 import HomeTweets from './components/HomeTweets';
 import NewTweetForm from './components/NewTweetForm';
+import UserTweets from './components/UserTweets';
 import { Modal } from './context/Modal'
 import './index.css'
 
@@ -52,19 +53,18 @@ function App() {
             </Modal>}
           </Route>
           <ProtectedRoute path='/home' exact={true} >
-            <div className="home-tweets-container">
+            <div className="home tweets container">
               <NewTweetForm sessionUser={sessionUser}/>
               <HomeTweets sessionUser={sessionUser} />
             </div>
           </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId' exact={true} >
-            <User />
+          <ProtectedRoute path='/:username' exact={true} >
+            <UserTweets sessionUser={sessionUser} />
           </ProtectedRoute>
         </Switch>
         {sessionUser && <UsersList sessionUser={sessionUser} />}
       </BrowserRouter>
     </div>
-
   );
 }
 

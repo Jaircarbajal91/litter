@@ -95,12 +95,16 @@
   /* fill: #E0255E; */
 }
 
+.tweet.icon.heart {
+  width: 1.12em;
+}
+
 
 .tweet.icon.comment:hover {
   filter: invert(52%) sepia(84%) saturate(2079%) hue-rotate(177deg) brightness(93%) contrast(102%);
 }
 
-.heart.icon.container,
+.heart-icon-container,
 .comment-icon-container {
   display: flex;
   align-items: center;
@@ -112,15 +116,17 @@
   border-radius: 50%;
 }
 
+.heart-icon.container {
+
+}
+
 .comment-icon-container:hover {
   background-color: rgba(27, 93, 137, .5);
-  padding: .3em;
   border-radius: 50%;
 }
 
 .heart-icon-container:hover {
-  background-color: rgba(91, 29, 48, 0.5);
-  padding: .3em;
+  background-color: rgba(105, 33, 54, 0.5);
   border-radius: 50%;
 }
 

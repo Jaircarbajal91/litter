@@ -17,8 +17,14 @@ def get_all_user_tweets(username):
     if user:
         id = user.to_dict()["id"]
         tweets = Tweet.query.filter(Tweet.user_id == id).all()
-        result = [tweet.to_dict() for tweet in tweets]
-        return {'tweets': result}
+        tweets_details = []
+        if tweets is not None and len(tweets) > 0:
+            for tweet in tweets:
+                user = tweet.user.to_dict()
+                tweet = tweet.to_dict()
+                tweet['user'] = user
+                tweets_details.append(tweet)
+        return {'tweets': tweets_details}
     return {"error": "username not found"}, 404
 
 
@@ -36,7 +42,6 @@ def get_all_tweets():
             tweet['user'] = user
             tweets_details.append(tweet)
     return {'tweets': tweets_details}
-
 
 
 @tweet_routes.route('/', methods=['POST'])
@@ -81,15 +86,15 @@ def update_tweet(id):
 @tweet_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_tweet(id):
-  tweet = Tweet.query.get(id)
-  if tweet is not None:
-    tweet_dict = tweet.to_dict()
-    if tweet_dict['user_id'] != int(current_user.get_id()):
+    tweet = Tweet.query.get(id)
+    if tweet is not None:
+        tweet_dict = tweet.to_dict()
+        if tweet_dict['user_id'] != int(current_user.get_id()):
             return {'errors': 'You are unauthorized to delete this tweet'}, 403
-    else:
-      form = TweetForm()
-      form['csrf_token'].data = request.cookies['csrf_token']
-      db.session.delete(tweet)
-      db.session.commit()
-      return {"message": "Tweet successfully deleted"}
-  return {'errors': 'Tweet not found'}, 404
+        else:
+            form = TweetForm()
+            form['csrf_token'].data = request.cookies['csrf_token']
+            db.session.delete(tweet)
+            db.session.commit()
+            return {"message": "Tweet successfully deleted"}
+    return {'errors': 'Tweet not found'}, 404

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 
@@ -7,7 +8,7 @@ import './NewTweetForm.css'
 const NewTweetForm = ({ sessionUser }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
-
+  const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
   useEffect(() => {
@@ -27,7 +28,7 @@ const NewTweetForm = ({ sessionUser }) => {
   return (
     <div className='new-tweet-container'>
       <div className='right-new-tweet-container'>
-        <img className='new-tweet profile-image' src={profileImage} alt="" />
+        <img onClick={() => history.push(`/${username}`)} className='new-tweet profile-image' src={profileImage} alt="" />
       </div>
       <div className='left-new-tweet-container'>
         <div className='new-tweet errors'>
