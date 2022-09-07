@@ -1,0 +1,104 @@
+.login.form.container {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.login.form {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.other-errors.login {
+  height: 7%;
+  display: flex;
+  justify-content: center;
+}
+
+.other-errors.login > span {
+  color: red;
+}
+
+.button.login.form {
+  background-color: #189BEE;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  height: 3em;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.button.login.form:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.login.buttons {
+  margin-top: 1em;
+  display: flex;
+  width: 100%;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.button.demo {
+  display: flex;
+  min-width: 50%;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background-color: rgb(231, 118, 13);
+  border-radius: 3em;
+  cursor: pointer;
+}
+
+.login-form.input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 70%;
+  padding: 1em;
+}
+input.input.login {
+  width: 93%;
+  min-height: 2.5em;
+  margin-bottom: 1em;
+}
+
+.login.errors {
+  min-height: 1.3em;
+  position: relative;
+  top: -.5em;
+  font-size: .9rem;
+  padding-left: .6em;
+}
+
+.login.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 50%;
+}
+
+.login-errors-container {
+  display: flex;
+  height: fit-content;
+  width: 100%;
+  padding-left: .8em;
+}

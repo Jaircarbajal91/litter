@@ -37,29 +37,30 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path='/' exact={true}>
-          <SplashPage sessionUser={sessionUser} setShowSignup={setShowSignup} setShowLogin={setShowLogin}/>
-          {showLogin && <Modal onClose={() => setShowLogin(false)}>
-            <LoginForm setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
-          </Modal>}
-          {showSignup && <Modal onClose={() => setShowSignup(false)}>
+    <div className='main-content-container'>
+      <BrowserRouter>
+        {sessionUser && <NavBar />}
+        <Switch>
+          <Route path='/' exact={true}>
+            <SplashPage sessionUser={sessionUser} setShowSignup={setShowSignup} setShowLogin={setShowLogin} />
+            {showLogin && <Modal onClose={() => setShowLogin(false)}>
+              <LoginForm setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+            </Modal>}
+            {showSignup && <Modal onClose={() => setShowSignup(false)}>
               <SignUpForm setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
             </Modal>}
-        </Route>
-        <ProtectedRoute path='/home' exact={true} >
-          <NavBar />
-          <HomeTweets sessionUser={sessionUser} />
-        </ProtectedRoute>
-        {/* <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute> */}
-      </Switch>
-    </BrowserRouter>
+          </Route>
+          <ProtectedRoute path='/home' exact={true} >
+            <HomeTweets sessionUser={sessionUser} />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+          </ProtectedRoute>
+        </Switch>
+        <UsersList sessionUser={sessionUser} />
+      </BrowserRouter>
+    </div>
+
   );
 }
 
