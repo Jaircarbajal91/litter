@@ -17,13 +17,22 @@ body {
   font-family: TwitterChirpExtendedHeavy, Verdana, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-.main-content-container {
+.main-content-container.true {
   display: flex;
   width: 100vw;
   justify-content: center;
+  gap: 2em;
 }
 
 .navbar {
   position: sticky;
   top: 10px;
+}
+
+.home-tweets-container {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border-left: .2px solid grey;
+  border-right: .2px solid grey;
 }

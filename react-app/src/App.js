@@ -12,6 +12,7 @@ import WhiteCatIcon from './assets/images/WhiteCatIcon.svg'
 import backgroundImage from './assets/images/background.png'
 import SplashPage from './components/SplashPage';
 import HomeTweets from './components/HomeTweets';
+import NewTweetForm from './components/NewTweetForm';
 import { Modal } from './context/Modal'
 import './index.css'
 
@@ -37,7 +38,7 @@ function App() {
   }
 
   return (
-    <div className='main-content-container'>
+    <div className={`main-content-container ${sessionUser !== null}`}>
       <BrowserRouter>
         {sessionUser && <NavBar />}
         <Switch>
@@ -51,13 +52,16 @@ function App() {
             </Modal>}
           </Route>
           <ProtectedRoute path='/home' exact={true} >
-            <HomeTweets sessionUser={sessionUser} />
+            <div className="home-tweets-container">
+              <NewTweetForm sessionUser={sessionUser}/>
+              <HomeTweets sessionUser={sessionUser} />
+            </div>
           </ProtectedRoute>
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
           </ProtectedRoute>
         </Switch>
-        <UsersList sessionUser={sessionUser} />
+        {sessionUser && <UsersList sessionUser={sessionUser} />}
       </BrowserRouter>
     </div>
 

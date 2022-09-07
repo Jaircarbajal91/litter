@@ -6,9 +6,11 @@ function UsersList({ sessionUser }) {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch('/api/users/');
-      const responseData = await response.json();
-      setUsers(responseData.users);
+      if (sessionUser) {
+        const response = await fetch('/api/users/');
+        const responseData = await response.json();
+        setUsers(responseData.users);
+      }
     }
     fetchData();
   }, []);

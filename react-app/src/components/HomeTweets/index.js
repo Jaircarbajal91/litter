@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { getAllTweetsThunk } from '../../store/tweets'
 import Tweet from './Tweet'
 
-const HomeTweets = ({sessionUser}) => {
+const HomeTweets = ({ sessionUser }) => {
   const [tweetsLoaded, setTweetsLoaded] = useState(false)
   const dispatch = useDispatch()
   const tweets = useSelector(state => state.tweets.tweetsList)
@@ -15,7 +15,7 @@ const HomeTweets = ({sessionUser}) => {
   return tweetsLoaded && (
     <div className='tweets-container'>
       {tweets.map(tweet => (
-        <Tweet key={tweet.id} tweet={tweet} />
+        <Tweet key={tweet.id} sessionUser={sessionUser} tweet={tweet} />
       ))}
     </div>
   )
