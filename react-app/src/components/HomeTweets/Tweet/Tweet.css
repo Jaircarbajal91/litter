@@ -1,7 +1,8 @@
 .tweet-container {
   width: 600px;
+  height: fit-content;
   display: flex;
-  border: .2px solid grey;
+  border-bottom: .2px solid grey;
   border-top: none;
   padding: .5em;
   font-size: .9rem;
@@ -33,15 +34,26 @@
   display: flex;
   margin-bottom: 1em;
   justify-content: space-between;
+  align-items: center;
 }
 
 .bottom-tweet-container {
   display: flex;
   justify-content: space-evenly;
+  height: 2em;
+  align-items: center;
   margin-top: 1em;
 }
+
+.tweet-delete-container {
+  position: relative;
+}
+
+.tweet.icon.delete {
+  width: 2em;
+}
 .tweet.icon {
-  width: 1.3em;
+  width: 1.4em;
   cursor: pointer;
 }
 
@@ -55,6 +67,12 @@
   text-decoration: underline;
 }
 
+.tweet-user-info {
+  display: flex;
+  width: fit-content;
+  justify-content: space-between;
+}
+
 .tweet-content {
   padding-right: 2em;
   word-wrap: break-word;
@@ -64,8 +82,79 @@
 .tweet.created-at {
   word-wrap: break-word;
   color: #71767A;
+  margin-left: .7em;
+  margin-right: .1em;
 }
 
 .tweet.username {
   cursor: pointer;
+}
+
+.tweet.icon.heart:hover {
+  filter: invert(36%) sepia(89%) saturate(5470%) hue-rotate(327deg) brightness(90%) contrast(96%);
+  /* fill: #E0255E; */
+}
+
+
+.tweet.icon.comment:hover {
+  filter: invert(52%) sepia(84%) saturate(2079%) hue-rotate(177deg) brightness(93%) contrast(102%);
+}
+
+.heart.icon.container,
+.comment-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .3em;
+  height: 1.4em;
+  width: 1.4em;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.comment-icon-container:hover {
+  background-color: rgba(27, 93, 137, .5);
+  padding: .3em;
+  border-radius: 50%;
+}
+
+.heart-icon-container:hover {
+  background-color: rgba(91, 29, 48, 0.5);
+  padding: .3em;
+  border-radius: 50%;
+}
+
+
+.drop-down.tweet {
+  width: 20em;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 1em;
+  right: .3em;
+  box-shadow: 0 0 10px rgb(113, 113, 113);
+  margin-bottom: -20px;
+  border-radius: .7em;
+  box-sizing: border-box;
+  background-color: black;
+  padding: 1em;
+  z-index: 99;
+}
+
+.drop-down.item {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.drop-down.icon {
+  height: 3.2em;
+  max-height: 3.2em;
+  width: 3.2em;
+  max-width: 3.2em;
+  border-radius: 50%;
+  background-color: white;
+
 }
