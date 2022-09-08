@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { deleteTweetThunk, getAllTweetsThunk } from "../../store/tweets";
 import './DeleteTweet.css'
 
-const DeleteTweet = ({ setShowDeleteTweet, tweet }) => {
+const DeleteTweet = ({ setShowDeleteTweet, tweet, username }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -11,8 +11,11 @@ const DeleteTweet = ({ setShowDeleteTweet, tweet }) => {
     await dispatch(deleteTweetThunk(tweet.id));
     setShowDeleteTweet(false);
     await dispatch(getAllTweetsThunk());
-    history.push('/home');
+    if (!username) {
+      history.push('/home');
+    }
   }
+  console.log(username)
   return (
     <div className="delete-tweet container">
       <h2>Are you sure you want to delete this tweet?</h2>

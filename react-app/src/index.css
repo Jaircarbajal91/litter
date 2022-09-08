@@ -34,7 +34,7 @@ body {
   flex-direction: column;
   width: fit-content;
   height: fit-content;
-  max-width: 601px;
+  max-width: 605px;
   box-sizing: border-box;
   border-left: .2px solid grey;
   border-right: .2px solid grey;

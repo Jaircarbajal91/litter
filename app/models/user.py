@@ -16,6 +16,9 @@ class User(db.Model, UserMixin):
 
     user_tweets = db.relationship('Tweet', back_populates='user', cascade='all, delete')
 
+    user_comments = db.relationship('Comment', back_populates='user', cascade='all, delete')
+
+
 
     @property
     def password(self):
