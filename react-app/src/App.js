@@ -68,7 +68,7 @@ function App() {
             </div>
           </ProtectedRoute>
         </Switch>
-        {sessionUser && <UsersList sessionUser={sessionUser} />}
+        {/* {sessionUser && <UsersList sessionUser={sessionUser} />} */}
       </BrowserRouter>
     </div>
   );
