@@ -3,14 +3,21 @@
   height: fit-content;
   display: flex;
   border-bottom: .2px solid grey;
+  box-sizing: border-box;
   border-top: none;
   padding: .5em;
   font-size: .9rem;
+  cursor: pointer;
+}
+
+.tweet-container:hover {
+  background-color: #121212;
 }
 
 .tweet-left-container {
   width: 13%;
   height: fit-content;
+  z-index: 99;
 }
 
 .profile-image {
@@ -133,7 +140,7 @@
 
 .drop-down.tweet {
   width: 20em;
-  height: fit-content;
+  height: 12em;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -144,7 +151,6 @@
   border-radius: .7em;
   box-sizing: border-box;
   background-color: black;
-  padding: 1em;
   z-index: 99;
 }
 
@@ -153,13 +159,31 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  width: 100%;
+  padding-bottom: 1em;
+  cursor: pointer;
+  border-radius: .7em;
+}
+
+.drop-down.item:first-child {
+  border-radius: .7em .7em 0px 0px;
+  border: .5px solid grey;
+}
+
+.drop-down.item:nth-child(2) {
+  border-radius: 0px 0px .7em .7em;
+  border: .5px solid grey;
+}
+
+.drop-down.item:hover {
+  background-color: #71767A;
 }
 
 .drop-down.icon {
-  height: 3.2em;
-  max-height: 3.2em;
-  width: 3.2em;
-  max-width: 3.2em;
+  height: 2.5em;
+  max-height: 2.5em;
+  width: 2.5em;
+  max-width: 2.5em;
   border-radius: 50%;
   background-color: white;
 

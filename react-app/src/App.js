@@ -15,6 +15,7 @@ import HomeTweets from './components/HomeTweets';
 import NewTweetForm from './components/NewTweetForm';
 import UserTweets from './components/UserTweets';
 import { Modal } from './context/Modal'
+import SingleTweet from './components/SingleTweet';
 import './index.css'
 
 function App() {
@@ -54,12 +55,17 @@ function App() {
           </Route>
           <ProtectedRoute path='/home' exact={true} >
             <div className="home tweets container">
-              <NewTweetForm sessionUser={sessionUser}/>
+              <NewTweetForm sessionUser={sessionUser} />
               <HomeTweets sessionUser={sessionUser} />
             </div>
           </ProtectedRoute>
           <ProtectedRoute path='/:username' exact={true} >
             <UserTweets sessionUser={sessionUser} />
+          </ProtectedRoute>
+          <ProtectedRoute path='/tweets/:tweetId' exact={true} >
+            <div className="home tweets container">
+              <SingleTweet sessionUser={sessionUser} />
+            </div>
           </ProtectedRoute>
         </Switch>
         {sessionUser && <UsersList sessionUser={sessionUser} />}

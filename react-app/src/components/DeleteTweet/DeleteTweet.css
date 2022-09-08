@@ -1,0 +1,29 @@
+.delete-tweet.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+}
+
+.delete-tweet.buttons.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.delete-tweet.button {
+  width: 45%;
+  height: 2.6em;
+  border-radius: 3em;
+  cursor: pointer;
+  border: none;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.delete-tweet.button.yes {
+  background-color: rgb(13, 179, 244);
+
+  color: white;
+}

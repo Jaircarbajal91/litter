@@ -1,7 +1,8 @@
 const GET_ALL_TWEETS = 'tweets/GET_ALL_TWEETS';
 const GET_USER_TWEETS = 'tweets/GET_USER_TWEETS';
-const CREATE_NEW_TWEET = 'tweets/CREATE_NEW_TWEETS';
-const UPDATE_TWEET = 'tweets/UPDATE_TWEETS';
+const CREATE_NEW_TWEET = 'tweets/CREATE_NEW_TWEET';
+const UPDATE_TWEET = 'tweets/UPDATE_TWEET';
+const DELETE_TWEET = 'tweets/DELETE_TWEET'
 
 
 const getAllTweetsAction = (tweets) => ({
@@ -22,6 +23,11 @@ const createNewTweetAction = (tweet) => ({
 const updateTweetAction = (tweet) => ({
   type: UPDATE_TWEET,
   tweet
+});
+
+const deleteTweetAction = (id) => ({
+  type: DELETE_TWEET,
+  id
 });
 
 
@@ -106,6 +112,25 @@ export const updateTweetThunk = (id, content) => async (dispatch) => {
   }
 }
 
+export const deleteTweetThunk = (id) => async (dispatch) => {
+  const response = await fetch(`/api/tweets/${id}`, {
+    method: "DELETE"
+  });
+
+  if (response.ok) {
+    const deletedTweet = await response.json();
+    await dispatch(deleteTweetAction(id))
+    return deletedTweet;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
 
 
 
@@ -140,6 +165,11 @@ export default function tweetsReducer(state = {}, action) {
     case UPDATE_TWEET: {
       const newState = { ...state }
       newState[action.tweet.id] = action.tweet
+      return newState
+    }
+    case DELETE_TWEET: {
+      const newState = { ...state }
+      delete newState[action.id]
       return newState
     }
     default:

@@ -71,12 +71,15 @@ def update_tweet(id):
         if tweet_dict['user_id'] != int(current_user.get_id()):
             return {'errors': 'You are unauthorized to update this tweet'}, 403
         else:
+            user = User.query.filter(User.id == tweet_dict["user_id"]).first()
             form = TweetForm()
             form['csrf_token'].data = request.cookies['csrf_token']
             if form.validate_on_submit():
                 tweet.content = form.data["content"]
+                result = tweet.to_dict()
+                result["user"] = user.to_dict()
                 db.session.commit()
-                return tweet.to_dict()
+                return result
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400
     else:
         return {'errors': 'Tweet not found'}, 404

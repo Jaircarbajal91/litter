@@ -30,19 +30,31 @@ const Tweet = ({ tweet, sessionUser }) => {
   }, [showDropDown]);
 
   return (
-    <div className='tweet-container'>
+    <div onClick={() => history.push(`/tweets/${tweet.id}`)} className='tweet-container'>
       <div className='tweet-left-container'>
-        <img onClick={() => history.push(`/${username}`)} className='profile-image' src={profileImage} alt="" />
+        <img onClick={(e) => {
+          e.stopPropagation()
+          history.push(`/${username}`)
+        }} className='profile-image' src={profileImage} alt="" />
       </div>
       <div className='tweet-right-container'>
         <div className='top-tweet-container'>
           <div className='tweet-user-info'>
-            <span onClick={() => history.push(`/${username}`)} className='tweet-name'>{firstName} {lastName}</span>
-            <span onClick={() => history.push(`/${username}`)} className='tweet username'> @{username} </span>
+            <span onClick={(e) => {
+              e.stopPropagation()
+              history.push(`/${username}`)
+            }} className='tweet-name'>{firstName} {lastName}</span>
+            <span onClick={(e) => {
+              e.stopPropagation()
+              history.push(`/${username}`)
+            }} className='tweet username'> @{username} </span>
             <span className='tweet created-at'>• {formattedDate} ago</span>
           </div>
           {sessionUser.id === id && <div className='tweet-delete-container'>
-            <img onClick={() => setShowDropDown(prev => !prev)} className="tweet icon delete" src={litter} alt="delete-icon" />
+            <img onClick={(e) => {
+              e.stopPropagation()
+              setShowDropDown(prev => !prev)
+            }} className="tweet icon delete" src={litter} alt="delete-icon" />
             {showDropDown && <div className='drop-down tweet'>
               <div className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
