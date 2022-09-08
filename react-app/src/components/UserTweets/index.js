@@ -69,7 +69,7 @@ const UserTweets = ({ sessionUser }) => {
             <h3>{firstName} {lastName}</h3>
             <span>@{username}</span>
           </div>
-          <button>Follow</button>
+          {/* <button>Follow</button> */}
         </div>
       </div>
       {userTweets?.length > 0 ? userTweets.map(tweet => (
