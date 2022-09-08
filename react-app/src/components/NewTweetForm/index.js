@@ -41,6 +41,8 @@ const NewTweetForm = ({ sessionUser }) => {
             type="textarea"
             placeholder="What's happening?"
             className='input textarea'
+            cols='60'
+            rows='8'
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />

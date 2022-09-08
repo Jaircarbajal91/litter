@@ -31,5 +31,6 @@ class Tweet(db.Model, UserMixin):
             'id': self.id,
             'content': self.content,
             'user_id': self.user_id,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'tweet_comments': [x.to_dict() for x in self.tweet_comments],
         }

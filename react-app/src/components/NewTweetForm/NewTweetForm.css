@@ -60,11 +60,13 @@
 .input.textarea {
   border: none;
   height: 100%;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
   font-size: 1.2rem;
   overflow-y: auto;
   word-wrap: break-word;
   padding-left: 0;
+  white-space: pre-wrap;
 }
 
 .input.textarea:focus {

@@ -144,6 +144,11 @@ export default function tweetsReducer(state = {}, action) {
       newState.tweetsList = [...action.tweets.tweets].sort(function(a,b){
         return new Date(b.created_at) - new Date(a.created_at);
       })
+      newState.tweetsList.forEach(tweet => {
+        tweet.tweet_comments.sort(function(a,b){
+          return new Date(b.created_at) - new Date(a.created_at);
+        })
+      })
       return newState;
     }
     case GET_USER_TWEETS: {
@@ -154,6 +159,11 @@ export default function tweetsReducer(state = {}, action) {
       })
       newState.userTweets.userTweetsList = [...action.tweets.tweets].sort(function(a,b){
         return new Date(b.created_at) - new Date(a.created_at);
+      })
+      newState.userTweets.userTweetsList.forEach(tweet => {
+        tweet.tweet_comments.sort(function(a,b){
+          return new Date(b.created_at) - new Date(a.created_at);
+        })
       })
       return newState
     }

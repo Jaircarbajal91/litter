@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -38,5 +39,6 @@ class User(db.Model, UserMixin):
             'firstName': self.first_name,
             'lastName': self.last_name,
             'email': self.email,
-            'profileImage': self.profile_image
+            'profileImage': self.profile_image,
+            'user_tweets': [x.to_dict() for x in self.user_tweets]
         }

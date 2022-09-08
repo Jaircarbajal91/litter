@@ -53,7 +53,7 @@ def update_comment(id):
             if form.validate_on_submit():
                 comment.content = form.data["content"]
                 result = comment.to_dict()
-                result["user"] = user.to_dict()
+                # result["user"] = user.to_dict()
                 db.session.commit()
                 return result
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400

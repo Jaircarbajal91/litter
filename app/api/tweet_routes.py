@@ -22,12 +22,12 @@ def get_all_user_tweets(username):
                 user = tweet.user.to_dict()
                 tweet = tweet.to_dict()
                 tweet['user'] = user
-                comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
-                if comments is not None and len(comments) > 0:
-                    comments_result = [comment.to_dict() for comment in comments]
-                    tweet["comments"] = comments_result
-                else:
-                    tweet["comments"] = []
+                # comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
+                # if comments is not None and len(comments) > 0:
+                #     comments_result = [comment.to_dict() for comment in comments]
+                #     tweet["comments"] = comments_result
+                # else:
+                #     tweet["comments"] = []
                 tweets_details.append(tweet)
         return {'tweets': tweets_details}
     return {"error": "username not found"}, 404
@@ -45,12 +45,12 @@ def get_all_tweets():
             user = tweet.user.to_dict()
             tweet = tweet.to_dict()
             tweet['user'] = user
-            comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
-            if comments is not None and len(comments) > 0:
-                comments_result = [comment.to_dict() for comment in comments]
-                tweet["comments"] = comments_result
-            else:
-                tweet["comments"] = []
+            # comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
+            # if comments is not None and len(comments) > 0:
+            #     comments_result = [comment.to_dict() for comment in comments]
+            #     tweet["comments"] = comments_result
+            # else:
+            #     tweet["comments"] = []
             tweets_details.append(tweet)
     return {'tweets': tweets_details}
 

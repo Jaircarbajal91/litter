@@ -11,13 +11,15 @@ import stretch2 from '../../assets/images/stretch2.png'
 import { Modal } from '../../context/Modal'
 import UpdateTweetForm from '../UpdateTweetForm'
 import DeleteTweet from '../DeleteTweet'
-
+import Comment from '../Comment'
 import './SingleTweet.css'
 
 const SingleTweet = ({ sessionUser }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [showUpdateTweetForm, setShowUpdateTweetForm] = useState(false)
   const [showDeleteTweet, setShowDeleteTweet] = useState(false)
+  const [showUpdateComment, setShowUpdateComment] = useState(false)
+  const [showDeleteComment, setShowDeleteComment] = useState(false)
   const [showDropDown, setShowDropDown] = useState(false)
   const dispatch = useDispatch()
   const { tweetId } = useParams()
@@ -53,71 +55,86 @@ const SingleTweet = ({ sessionUser }) => {
     )
   }
   return isLoaded && (
-    <div className="single single tweet container">
-      {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
-        <UpdateTweetForm tweet={tweet} sessionUser={sessionUser} setShowUpdateTweetForm={setShowUpdateTweetForm} />
+    <>
+      <div className="single single tweet container">
+        {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
+          <UpdateTweetForm tweet={tweet} sessionUser={sessionUser} setShowUpdateTweetForm={setShowUpdateTweetForm} />
         </Modal>}
-      {showDeleteTweet && <Modal onClose={() => setShowDeleteTweet(false)}>
-        <DeleteTweet tweet={tweet} setShowDeleteTweet={setShowDeleteTweet}/>
+        {showDeleteTweet && <Modal onClose={() => setShowDeleteTweet(false)}>
+          <DeleteTweet tweet={tweet} setShowDeleteTweet={setShowDeleteTweet} />
         </Modal>}
-      <div className="top single tweet-container">
-        <div className='user info container'>
-          <div className=' top left user-info container'>
+        <div className="top single tweet-container">
+          <div className='user info container'>
+            <div className=' top left user-info container'>
+              <img onClick={(e) => {
+                e.stopPropagation()
+                history.push(`/${user.username}`)
+              }} className='profile-image' src={user.profileImage} alt="profile-image" />
+            </div>
+            <div className='top mid user-info container'>
+              <span onClick={(e) => {
+                e.stopPropagation()
+                history.push(`/${user.username}`)
+              }} className='tweet-name'>{user.firstName} {user.lastName}</span>
+              <span onClick={(e) => {
+                e.stopPropagation()
+                history.push(`/${user.username}`)
+              }} className='tweet username'> @{user.username} </span>
+            </div>
+          </div>
+          {sessionUser.id === user.id && <div className='tweet-delete-container'>
             <img onClick={(e) => {
               e.stopPropagation()
-              history.push(`/${user.username}`)
-            }} className='profile-image' src={user.profileImage} alt="profile-image" />
-          </div>
-          <div className='top mid user-info container'>
-            <span onClick={(e) => {
-              e.stopPropagation()
-              history.push(`/${user.username}`)
-            }} className='tweet-name'>{user.firstName} {user.lastName}</span>
-            <span onClick={(e) => {
-              e.stopPropagation()
-              history.push(`/${user.username}`)
-            }} className='tweet username'> @{user.username} </span>
-          </div>
-        </div>
-        {sessionUser.id === user.id && <div className='tweet-delete-container'>
-          <img onClick={(e) => {
-            e.stopPropagation()
-            setShowDropDown(prev => !prev)
-          }} className="tweet icon delete" src={litter} alt="delete-icon" />
-          {showDropDown && <div className='drop-down tweet'>
-            <div onClick={(e) => {
-              e.stopPropagation()
-              setShowUpdateTweetForm(true)
-            }} className='drop-down item'>
-              <img className='drop-down icon' src={stretch} alt="strech icon" />
-              <span className='drop-down text'>Update Tweet</span>
-            </div>
-            <div onClick={(e) => {
-              e.stopPropagation()
-              setShowDeleteTweet(true)
-            }} className='drop-down item'>
-              <span className='drop-down text'>Delete Tweet</span>
-              <img className='drop-down icon' src={stretch2} alt="strech icon" />
-            </div>
+              setShowDropDown(prev => !prev)
+            }} className="tweet icon delete" src={litter} alt="delete-icon" />
+            {showDropDown && <div className='drop-down tweet'>
+              <div onClick={(e) => {
+                e.stopPropagation()
+                setShowUpdateTweetForm(true)
+              }} className='drop-down item'>
+                <img className='drop-down icon' src={stretch} alt="strech icon" />
+                <span className='drop-down text'>Update Tweet</span>
+              </div>
+              <div onClick={(e) => {
+                e.stopPropagation()
+                setShowDeleteTweet(true)
+              }} className='drop-down item'>
+                <span className='drop-down text'>Delete Tweet</span>
+                <img className='drop-down icon' src={stretch2} alt="strech icon" />
+              </div>
+            </div>}
           </div>}
-        </div>}
-      </div>
-      <div className='middle-tweet-container single'>
-        <span className='tweet-content'>{tweet.content}</span>
-      </div>
-      <div className='date-container'>
-        <span className='single tweet created-at'>{formattedDate}</span>
-      </div>
-      <div className='single bottom-tweet-container'>
-        <div className='comment-icon-container'>
-          {/* <img className='tweet icon comment' src={commentIcon} alt="comment-icon" /> */}
         </div>
-        <div className='heart-icon-container'>
-          {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
+        <div className='middle-tweet-container single'>
+          <span className='tweet-content'>{tweet.content}</span>
         </div>
+        <div className='date-container'>
+          <span className='single tweet created-at'>{formattedDate}</span>
+        </div>
+        <div className='single bottom-tweet-container'>
+          <div onClick={(e) => {
+            e.stopPropagation()
+            history.push(`/tweets/${tweet.id}`)
+          }} className='comment-info-container'>
+            <div className='comment-icon-container'>
+              <img className='tweet icon comment' src={commentIcon} alt="comment-icon" />
+            </div >
+            <div className='comment-counter'>
+              <span>{tweet.tweet_comments.length}</span>
+            </div>
+          </div>
+          <div className='heart-icon-container'>
+            {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
+          </div>
+        </div>
+        REPLY FORM GOES HERE
       </div>
-      REPLY FORM GOES HERE
-    </div>
+      <div className='comments-container'>
+          {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (
+            <Comment tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment} setShowUpdateComment={setShowUpdateComment} setShowDeleteComment={setShowDeleteComment}/>
+          ))}
+      </div>
+    </>
   )
 }
 
