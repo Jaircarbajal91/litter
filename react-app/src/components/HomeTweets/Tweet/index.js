@@ -1,5 +1,6 @@
 import { format, formatDistanceToNow } from 'date-fns'
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import commentIcon from '../../../assets/images/commentIcon.svg'
 import heartIcon from '../../../assets/images/heartIcon.svg'
 import litter from '../../../assets/images/litter.svg'
@@ -11,6 +12,7 @@ const Tweet = ({ tweet, sessionUser }) => {
   const [showDropDown, setShowDropDown] = useState(false)
   const newDate = Date.parse(tweet.created_at);
   const formattedDate = formatDistanceToNow(newDate, { includeSeconds: true })
+  const history = useHistory()
   const { user } = tweet
   const { email, firstName, lastName, profileImage, username, id } = user
 
@@ -26,21 +28,33 @@ const Tweet = ({ tweet, sessionUser }) => {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showDropDown]);
-  console.log(showDropDown)
+
   return (
-    <div className='tweet-container'>
+    <div onClick={() => history.push(`/tweets/${tweet.id}`)} className='tweet-container'>
       <div className='tweet-left-container'>
-        <img className='profile-image' src={profileImage} alt="" />
+        <img onClick={(e) => {
+          e.stopPropagation()
+          history.push(`/${username}`)
+        }} className='profile-image' src={profileImage} alt="" />
       </div>
       <div className='tweet-right-container'>
         <div className='top-tweet-container'>
           <div className='tweet-user-info'>
-            <span className='tweet-name'>{firstName} {lastName}</span>
-            <span className='tweet username'> @{username} </span>
+            <span onClick={(e) => {
+              e.stopPropagation()
+              history.push(`/${username}`)
+            }} className='tweet-name'>{firstName} {lastName}</span>
+            <span onClick={(e) => {
+              e.stopPropagation()
+              history.push(`/${username}`)
+            }} className='tweet username'> @{username} </span>
             <span className='tweet created-at'>• {formattedDate} ago</span>
           </div>
           {sessionUser.id === id && <div className='tweet-delete-container'>
-            <img onClick={() => setShowDropDown(prev => !prev)} className="tweet icon delete" src={litter} alt="delete-icon" />
+            <img onClick={(e) => {
+              e.stopPropagation()
+              setShowDropDown(prev => !prev)
+            }} className="tweet icon delete" src={litter} alt="delete-icon" />
             {showDropDown && <div className='drop-down tweet'>
               <div className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />

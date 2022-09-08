@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
+import { getAllTweetsThunk, updateTweetThunk } from '../../store/tweets'
 
-import './NewTweetForm.css'
+import './UpdateTweetForm.css'
 
-const NewTweetForm = ({ sessionUser }) => {
+const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   const [errors, setErrors] = useState([])
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(tweet.content)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
@@ -20,17 +20,19 @@ const NewTweetForm = ({ sessionUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (errors.length) return
-    await dispatch(createNewTweetThunk(content))
+    await dispatch(updateTweetThunk(tweet.id, content))
     await dispatch(getAllTweetsThunk())
     setContent('')
+    setShowUpdateTweetForm(false)
   }
 
   return (
-    <div className='new-tweet-container'>
-      <div className='right-new-tweet-container'>
+    <div className='new-tweet-container update'>
+      <div className='right-new-tweet-container update'>
         <img onClick={() => history.push(`/${username}`)} className='new-tweet profile-image' src={profileImage} alt="" />
       </div>
       <div className='left-new-tweet-container'>
+        <h3 className='update-tweet-header'>Update Tweet</h3>
         <div className='new-tweet errors'>
           {errors.length > 0 && errors.map(error => (
             <p>{error}</p>
@@ -45,7 +47,7 @@ const NewTweetForm = ({ sessionUser }) => {
             onChange={(e) => setContent(e.target.value)}
           />
           <div className='new-tweet-button container'>
-            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
+            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Update</button>
           </div>
         </form>
       </div>
@@ -53,4 +55,4 @@ const NewTweetForm = ({ sessionUser }) => {
   )
 }
 
-export default NewTweetForm
+export default UpdateTweetForm

@@ -1,0 +1,65 @@
+.user-profile.tweet {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-around;
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 300px;
+  border-bottom: .5px solid grey;
+}
+
+.header-container > h2 {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.header-container.user {
+  height: fit-content;
+  padding-left: 2em;
+}
+
+.tweets.count {
+  padding: 0;
+  margin: 0;
+  color: #71767A;
+  font-size: .9rem;
+}
+
+.profile-image.user-profile {
+  width: 8em;
+  height: 8em;
+  border: 2px solid rgb(155, 155, 155);
+  margin-bottom: .6em;
+  cursor:unset;
+}
+
+.middle.container.user.tweet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-profile.info.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile.info.container > h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.user-profile.info.container > span {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  color: #71767A;
+  font-size: .9rem;
+}
