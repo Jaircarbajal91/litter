@@ -110,10 +110,10 @@ const SingleTweet = ({ sessionUser }) => {
       </div>
       <div className='single bottom-tweet-container'>
         <div className='comment-icon-container'>
-          <img className='tweet icon comment' src={commentIcon} alt="comment-icon" />
+          {/* <img className='tweet icon comment' src={commentIcon} alt="comment-icon" /> */}
         </div>
         <div className='heart-icon-container'>
-          <img className='tweet icon heart' src={heartIcon} alt="heart-icon" />
+          {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
         </div>
       </div>
       REPLY FORM GOES HERE
