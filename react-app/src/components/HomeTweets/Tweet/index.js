@@ -6,9 +6,12 @@ import heartIcon from '../../../assets/images/heartIcon.svg'
 import litter from '../../../assets/images/litter.svg'
 import stretch from '../../../assets/images/stretch.png'
 import stretch2 from '../../../assets/images/stretch2.png'
+import { Modal } from '../../../context/Modal'
+import UpdateTweetForm from '../../UpdateTweetForm'
+import DeleteTweet from '../../DeleteTweet'
 import './Tweet.css'
 
-const Tweet = ({ tweet, sessionUser }) => {
+const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdateTweetForm }) => {
   const [showDropDown, setShowDropDown] = useState(false)
   const newDate = Date.parse(tweet.created_at);
   const formattedDate = formatDistanceToNow(newDate, { includeSeconds: true })
@@ -16,16 +19,12 @@ const Tweet = ({ tweet, sessionUser }) => {
   const { user } = tweet
   const { email, firstName, lastName, profileImage, username, id } = user
 
-
   useEffect(() => {
     if (!showDropDown) return;
-
     const closeMenu = () => {
       setShowDropDown(false);
     };
-
     document.addEventListener('click', closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showDropDown]);
 
@@ -56,11 +55,19 @@ const Tweet = ({ tweet, sessionUser }) => {
               setShowDropDown(prev => !prev)
             }} className="tweet icon delete" src={litter} alt="delete-icon" />
             {showDropDown && <div className='drop-down tweet'>
-              <div className='drop-down item'>
+              <div onClick={(e) => {
+                e.stopPropagation()
+                setTweet(tweet)
+                setShowUpdateTweetForm(true)
+              }} className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
                 <span className='drop-down text'>Update Tweet</span>
               </div>
-              <div className='drop-down item'>
+              <div onClick={(e) => {
+                e.stopPropagation()
+                setTweet(tweet)
+                setShowDeleteTweet(true)
+              }} className='drop-down item'>
                 <span className='drop-down text'>Delete Tweet</span>
                 <img className='drop-down icon' src={stretch2} alt="strech icon" />
               </div>

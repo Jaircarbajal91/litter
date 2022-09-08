@@ -17,7 +17,6 @@
 .tweet-left-container {
   width: 13%;
   height: fit-content;
-  z-index: 99;
 }
 
 .profile-image {
@@ -123,9 +122,6 @@
   border-radius: 50%;
 }
 
-.heart-icon.container {
-
-}
 
 .comment-icon-container:hover {
   background-color: rgba(27, 93, 137, .5);
