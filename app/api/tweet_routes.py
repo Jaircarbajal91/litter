@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import Tweet, db, User
+from app.models import Tweet, comments, db, User, Comment
 from app.forms import TweetForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -22,6 +22,12 @@ def get_all_user_tweets(username):
                 user = tweet.user.to_dict()
                 tweet = tweet.to_dict()
                 tweet['user'] = user
+                comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
+                if comments is not None and len(comments) > 0:
+                    comments_result = [comment.to_dict() for comment in comments]
+                    tweet["comments"] = comments_result
+                else:
+                    tweet["comments"] = []
                 tweets_details.append(tweet)
         return {'tweets': tweets_details}
     return {"error": "username not found"}, 404
@@ -39,6 +45,12 @@ def get_all_tweets():
             user = tweet.user.to_dict()
             tweet = tweet.to_dict()
             tweet['user'] = user
+            comments = Comment.query.filter(Comment.tweet_id == tweet["id"]).all()
+            if comments is not None and len(comments) > 0:
+                comments_result = [comment.to_dict() for comment in comments]
+                tweet["comments"] = comments_result
+            else:
+                tweet["comments"] = []
             tweets_details.append(tweet)
     return {'tweets': tweets_details}
 
@@ -71,12 +83,18 @@ def update_tweet(id):
             return {'errors': 'You are unauthorized to update this tweet'}, 403
         else:
             user = User.query.filter(User.id == tweet_dict["user_id"]).first()
+            comments = Comment.query.filter(Comment.tweet_id == tweet_dict["id"]).all()
             form = TweetForm()
             form['csrf_token'].data = request.cookies['csrf_token']
             if form.validate_on_submit():
                 tweet.content = form.data["content"]
                 result = tweet.to_dict()
                 result["user"] = user.to_dict()
+                if comments is not None and len(comments) > 0:
+                    comments_result = [comment.to_dict() for comment in comments]
+                    result["comments"] = comments_result
+                else:
+                    result["comments"] = []
                 db.session.commit()
                 return result
             return {'errors': validation_errors_to_error_messages(form.errors)}, 400
