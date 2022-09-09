@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk } from '../../store/tweets'
 
-import './NewCommentForm.css'
+import './UpdateCommentForm.css'
 
-const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
+const UpdateCommentForm = ({ tweet, sessionUser, comment, setShowUpdateCommentForm }) => {
   const [errors, setErrors] = useState([])
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(comment.content)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
@@ -20,8 +20,8 @@ const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (errors.length) return
-    const res = await fetch(`/api/comments/${tweet.id}`, {
-      method: "POST",
+    const res = await fetch(`/api/comments/${comment.id}`, {
+      method: "PUT",
       headers: {
         'Content-type': 'application/json'
       },
@@ -30,12 +30,13 @@ const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
     if (res.ok) {
       await dispatch(getAllTweetsThunk())
       setContent('')
-      setShowNewCommentForm(false)
+      setShowUpdateCommentForm(false)
     } else {
       const data = await res.json()
       console.log(data)
     }
   }
+
   return (
     <div className='new-tweet-container comment'>
       <div className='right-new-tweet-container'>
@@ -70,4 +71,4 @@ const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
   )
 }
 
-export default NewCommentForm
+export default UpdateCommentForm

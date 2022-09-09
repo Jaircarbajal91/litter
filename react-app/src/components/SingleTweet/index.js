@@ -13,14 +13,17 @@ import UpdateTweetForm from '../UpdateTweetForm'
 import DeleteTweet from '../DeleteTweet'
 import Comment from '../Comment'
 import NewCommentForm from '../NewCommentForm'
+import UpdateCommentForm from '../UpdateCommentForm'
+import DeleteComment from '../DeleteComment'
 import './SingleTweet.css'
 
 const SingleTweet = ({ sessionUser }) => {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [commentToUpdate, setCommentToUpdate] = useState({})
   const [showUpdateTweetForm, setShowUpdateTweetForm] = useState(false)
   const [showDeleteTweet, setShowDeleteTweet] = useState(false)
   const [showNewCommentForm, setShowNewCommentForm] = useState(false)
-  const [showUpdateComment, setShowUpdateComment] = useState(false)
+  const [showUpdateCommentForm, setShowUpdateCommentForm] = useState(false)
   const [showDeleteComment, setShowDeleteComment] = useState(false)
   const [showDropDown, setShowDropDown] = useState(false)
   const dispatch = useDispatch()
@@ -56,6 +59,7 @@ const SingleTweet = ({ sessionUser }) => {
       <div className='page-not-found'>404 Page not found</div>
     )
   }
+
   return isLoaded && (
     <>
       <div className="single single tweet container">
@@ -67,6 +71,12 @@ const SingleTweet = ({ sessionUser }) => {
         </Modal>}
         {showNewCommentForm && <Modal onClose={() => setShowNewCommentForm(false)}>
           <NewCommentForm sessionUser={sessionUser} tweet={tweet} setShowNewCommentForm={setShowNewCommentForm} />
+        </Modal>}
+        {showUpdateCommentForm && <Modal onClose={() => setShowUpdateCommentForm(false)}>
+          <UpdateCommentForm comment={commentToUpdate} sessionUser={sessionUser} tweet={tweet} setShowUpdateCommentForm={setShowUpdateCommentForm} />
+        </Modal>}
+        {showDeleteComment && <Modal onClose={() => setShowDeleteComment(false)}>
+          <DeleteComment comment={commentToUpdate} sessionUser={sessionUser} tweet={tweet} setShowDeleteComment={setShowDeleteComment} />
         </Modal>}
         <div className="top single tweet-container">
           <div className='user info container'>
@@ -136,7 +146,7 @@ const SingleTweet = ({ sessionUser }) => {
       </div>
       <div className='comments-container'>
           {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (
-            <Comment tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment} setShowUpdateComment={setShowUpdateComment} setShowDeleteComment={setShowDeleteComment} setShowNewCommentForm={setShowNewCommentForm} />
+            <Comment tweet={tweet} tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment}  setShowDeleteComment={setShowDeleteComment} setShowNewCommentForm={setShowNewCommentForm} setCommentToUpdate={setCommentToUpdate} setShowUpdateCommentForm={setShowUpdateCommentForm}/>
           ))}
       </div>
     </>

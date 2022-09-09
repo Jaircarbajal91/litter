@@ -2,3 +2,16 @@
   width: 34em;
   height: fit-content;
 }
+
+.replying-to.content > span:first-child {
+  color: #757575;
+}
+.replying-to.content > span:nth-child(2) {
+  color: #1B9BEF;
+}
+
+.replying-to.content {
+  position: relative;
+  top: 1em;
+  font-size: .9rem;
+}

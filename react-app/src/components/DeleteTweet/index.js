@@ -15,7 +15,6 @@ const DeleteTweet = ({ setShowDeleteTweet, tweet, username }) => {
       history.push('/home');
     }
   }
-  console.log(username)
   return (
     <div className="delete-tweet container">
       <h2>Are you sure you want to delete this tweet?</h2>
