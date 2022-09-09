@@ -1,3 +1,8 @@
 .tweet-container.comment {
   cursor: unset;
+  padding-bottom: 1.4em;
+}
+
+.tweet-content.comment {
+  padding: .5em;
 }

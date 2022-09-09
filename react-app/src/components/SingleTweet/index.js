@@ -12,6 +12,7 @@ import { Modal } from '../../context/Modal'
 import UpdateTweetForm from '../UpdateTweetForm'
 import DeleteTweet from '../DeleteTweet'
 import Comment from '../Comment'
+import NewCommentForm from '../NewCommentForm'
 import './SingleTweet.css'
 
 const SingleTweet = ({ sessionUser }) => {
@@ -127,7 +128,7 @@ const SingleTweet = ({ sessionUser }) => {
             {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
           </div>
         </div>
-        REPLY FORM GOES HERE
+        <NewCommentForm sessionUser={sessionUser} tweet={tweet}/>
       </div>
       <div className='comments-container'>
           {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (

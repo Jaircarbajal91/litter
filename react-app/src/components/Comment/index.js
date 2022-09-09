@@ -27,9 +27,18 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (!showDropDown) return;
+    const closeMenu = () => {
+      setShowDropDown(false);
+    };
+    document.addEventListener('click', closeMenu);
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showDropDown]);
+
   const newDate = Date.parse(comment.created_at);
   const formattedDate = formatDistanceToNow(newDate, { includeSeconds: true })
-console.log(comment)
+  console.log(comment)
   const user = users.find(user => user.id === comment.user_id)
   return isLoaded && (
     <div className="tweet-container comment">
@@ -52,7 +61,7 @@ console.log(comment)
             }} className='tweet username'> @{user.username} </span>
             <span className='tweet created-at'>• {formattedDate} ago</span>
           </div>
-          {sessionUser.id === user.id && <div className='tweet-delete-container'>
+          {sessionUser.id === comment.user_id && <div className='tweet-delete-container'>
             <img onClick={(e) => {
               e.stopPropagation()
               setShowDropDown(prev => !prev)
@@ -64,21 +73,21 @@ console.log(comment)
                 // setShowUpdateTweetForm(true)
               }} className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
-                <span className='drop-down text'>Update Tweet</span>
+                <span className='drop-down text'>Update Comment</span>
               </div>
               <div onClick={(e) => {
                 e.stopPropagation()
                 // setTweet(tweet)
                 // setShowDeleteTweet(true)
               }} className='drop-down item'>
-                <span className='drop-down text'>Delete Tweet</span>
+                <span className='drop-down text'>Delete Comment</span>
                 <img className='drop-down icon' src={stretch2} alt="strech icon" />
               </div>
             </div>}
           </div>}
         </div>
         <div className='middle-tweet-container'>
-          <span className='tweet-content'>{comment.content}</span>
+          <span className='tweet-content comment'>{comment.content}</span>
         </div>
         {/* <div className='bottom-tweet-container comment'>
           <div onClick={(e) => {
@@ -90,7 +99,7 @@ console.log(comment)
             </div >
               <div className='comment-counter'>
                 {/* <span>{tweet.tweet_comments.length}</span> */}
-              {/* </div>
+        {/* </div>
           </div>
           <div className='heart-icon-container'>
             <img className='tweet icon heart' src={heartIcon} alt="heart-icon" />
