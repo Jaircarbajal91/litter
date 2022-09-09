@@ -1,8 +1,14 @@
 .tweet-container.comment {
   cursor: unset;
   padding-bottom: 1.4em;
+  height: fit-content;
 }
 
 .tweet-content.comment {
   padding: .5em;
+}
+
+.replying-to.content.comment {
+  position: relative;
+  top: -.9em;
 }

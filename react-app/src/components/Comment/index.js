@@ -8,7 +8,7 @@ import stretch from '../../assets/images/stretch.png'
 import stretch2 from '../../assets/images/stretch2.png'
 import './Comment.css'
 
-const Comment = ({ comment, sessionUser, tweetOwner }) => {
+const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, setShowUpdateCommentForm, setShowDeleteComment }) => {
   const [users, setUsers] = useState([]);
   const [showDropDown, setShowDropDown] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -36,9 +36,9 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
     return () => document.removeEventListener("click", closeMenu);
   }, [showDropDown]);
 
+
   const newDate = Date.parse(comment.created_at);
   const formattedDate = formatDistanceToNow(newDate, { includeSeconds: true })
-  console.log(comment)
   const user = users.find(user => user.id === comment.user_id)
   return isLoaded && (
     <div className="tweet-container comment">
@@ -48,7 +48,7 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
           history.push(`/${user.username}`)
         }} className='profile-image' src={user.profileImage} alt="" />
       </div>
-      <div className='tweet-right-container'>
+      <div className='tweet-right-container comment'>
         <div className='top-tweet-container'>
           <div className='tweet-user-info'>
             <span onClick={(e) => {
@@ -69,16 +69,16 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
             {showDropDown && <div className='drop-down tweet'>
               <div onClick={(e) => {
                 e.stopPropagation()
-                // setTweet(tweet)
-                // showNewCommentForm(true)
+                setCommentToUpdate(comment)
+                setShowUpdateCommentForm(true)
               }} className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
                 <span className='drop-down text'>Update Comment</span>
               </div>
               <div onClick={(e) => {
                 e.stopPropagation()
-                // setTweet(tweet)
-                // setShowDeleteTweet(true)
+                setCommentToUpdate(comment)
+                setShowDeleteComment(true)
               }} className='drop-down item'>
                 <span className='drop-down text'>Delete Comment</span>
                 <img className='drop-down icon' src={stretch2} alt="strech icon" />
@@ -86,6 +86,10 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
             </div>}
           </div>}
         </div>
+        <div className='replying-to content comment'>
+            <span>Replying to </span>
+            <span>@{tweet.user.username}</span>
+          </div>
         <div className='middle-tweet-container'>
           <span className='tweet-content comment'>{comment.content}</span>
         </div>
