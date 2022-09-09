@@ -184,3 +184,17 @@
   background-color: white;
 
 }
+
+.comment-info-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.comment-info-container > div > span {
+  color: #71767A;
+}
+
+.comment-info-container > div > span:hover {
+  color: #1B9BEF;
+}

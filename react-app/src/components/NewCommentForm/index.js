@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
+import { getAllTweetsThunk } from '../../store/tweets'
 
-import './NewTweetForm.css'
+import './NewCommentForm.css'
 
-const NewTweetForm = ({ sessionUser }) => {
+const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const history = useHistory()
@@ -13,20 +13,32 @@ const NewTweetForm = ({ sessionUser }) => {
   const dispatch = useDispatch()
   useEffect(() => {
     const newErrors = []
-    if (content.length >= 280) newErrors.push("Maximum tweet length is 280 characters.")
+    if (content.length >= 280) newErrors.push("Maximum comment length is 280 characters.")
     setErrors(newErrors)
   }, [content, errors.length])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (errors.length) return
-    await dispatch(createNewTweetThunk(content))
-    await dispatch(getAllTweetsThunk())
-    setContent('')
+    const res = await fetch(`/api/comments/${tweet.id}`, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({content})
+    })
+    if (res.ok) {
+      await dispatch(getAllTweetsThunk())
+      setContent('')
+      setShowNewCommentForm(false)
+    } else {
+      const data = await res.json()
+      console.log(data)
+    }
   }
 
   return (
-    <div className='new-tweet-container'>
+    <div className='new-tweet-container comment'>
       <div className='right-new-tweet-container'>
         <img onClick={() => history.push(`/${username}`)} className='new-tweet profile-image' src={profileImage} alt="" />
       </div>
@@ -39,7 +51,7 @@ const NewTweetForm = ({ sessionUser }) => {
         <form className='new-tweet form' onSubmit={handleSubmit}>
           <input
             type="textarea"
-            placeholder="What's happening?"
+            placeholder="Tweet your reply"
             className='input textarea'
             cols='60'
             rows='8'
@@ -55,4 +67,4 @@ const NewTweetForm = ({ sessionUser }) => {
   )
 }
 
-export default NewTweetForm
+export default NewCommentForm
