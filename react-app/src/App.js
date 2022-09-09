@@ -16,6 +16,7 @@ import NewTweetForm from './components/NewTweetForm';
 import UserTweets from './components/UserTweets';
 import { Modal } from './context/Modal'
 import SingleTweet from './components/SingleTweet';
+import PageNotFound from './components/PageNotFound';
 import './index.css'
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
   return (
     <div className={`main-content-container ${sessionUser !== null}`}>
       <BrowserRouter>
-        {sessionUser && <NavBar sessionUser={sessionUser}/>}
+        {sessionUser && <NavBar sessionUser={sessionUser} />}
         <Switch>
           <Route path='/' exact={true}>
             <SplashPage sessionUser={sessionUser} setShowSignup={setShowSignup} setShowLogin={setShowLogin} />
@@ -67,6 +68,12 @@ function App() {
               <SingleTweet sessionUser={sessionUser} />
             </div>
           </ProtectedRoute>
+          <Route path='/page-not-found' >
+            <PageNotFound />
+          </Route>
+          <Route path='*' >
+            <PageNotFound />
+          </Route>
         </Switch>
         {sessionUser && <UsersList sessionUser={sessionUser} />}
       </BrowserRouter>

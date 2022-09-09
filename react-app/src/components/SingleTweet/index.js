@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { useParams, useHistory } from "react-router-dom"
+import { useParams, useHistory, Redirect } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getAllTweetsThunk } from "../../store/tweets"
@@ -15,6 +15,7 @@ import Comment from '../Comment'
 import NewCommentForm from '../NewCommentForm'
 import UpdateCommentForm from '../UpdateCommentForm'
 import DeleteComment from '../DeleteComment'
+import PageNotFound from '../PageNotFound'
 import './SingleTweet.css'
 
 const SingleTweet = ({ sessionUser }) => {
@@ -55,9 +56,7 @@ const SingleTweet = ({ sessionUser }) => {
   }
   let user = tweet?.user
   if (isLoaded && !tweet) {
-    return (
-      <div className='page-not-found'>404 Page not found</div>
-    )
+    return <Redirect to={"/home/page-not-found"}/>
   }
 
   return isLoaded && (
