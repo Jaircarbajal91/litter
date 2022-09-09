@@ -125,7 +125,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
         setEmailCondClass('email-cond-success')
       }
       errors.email.push('Please enter a valid email')
-    } else if (email.length > 45) {
+    } else if (email.length > 100) {
       setEmailCondClass('email-cond-error')
       errors.email.push('Email is too long')
     } else {
@@ -136,9 +136,13 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     if (password !== repeatPassword) {
       setPasswordCondClass('password-cond-error')
       errors.password.push('Passwords must match')
+    } else if (password.length >= 100 || repeatPassword.length >= 100) {
+      errors.password.push('Password is too long.')
+      setPasswordCondClass('password-cond-error')
     } else {
       setPasswordCondClass('password-cond-success')
     }
+
 
     setUsernameErrors(errors.username)
     setFirstNameErrors(errors.firstName)
