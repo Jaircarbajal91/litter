@@ -23,6 +23,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [showLogin, setShowLogin] = useState(false)
   const [showSignup, setShowSignup] = useState(false)
+  const [showNewTweetForm, setShowNewTweetForm] = useState(false)
   const dispatch = useDispatch();
 
 
@@ -56,7 +57,7 @@ function App() {
           </Route>
           <ProtectedRoute path='/home' exact={true} >
             <div className="home tweets container">
-              <NewTweetForm sessionUser={sessionUser} />
+              <NewTweetForm setShowNewTweetForm={setShowNewTweetForm} sessionUser={sessionUser} />
               <HomeTweets sessionUser={sessionUser} />
             </div>
           </ProtectedRoute>

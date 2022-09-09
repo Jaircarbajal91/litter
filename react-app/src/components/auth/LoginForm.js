@@ -24,8 +24,7 @@ const LoginForm = ({ setShowLogin, setShowSignup }) => {
     if (emailErrors.length || passwordErrors.length) return
     const data = await dispatch(login(email, password));
     if (data) {
-      const arr = data[0].split(' : ')
-      setErrors([arr[1]])
+      setErrors(["Email or password are incorrect"])
     } else {
       setShowLogin(false)
       history.push('/home')
