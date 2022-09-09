@@ -70,7 +70,7 @@ const Comment = ({ comment, sessionUser, tweetOwner }) => {
               <div onClick={(e) => {
                 e.stopPropagation()
                 // setTweet(tweet)
-                // setShowUpdateTweetForm(true)
+                // showNewCommentForm(true)
               }} className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
                 <span className='drop-down text'>Update Comment</span>

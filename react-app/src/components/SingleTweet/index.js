@@ -19,6 +19,7 @@ const SingleTweet = ({ sessionUser }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [showUpdateTweetForm, setShowUpdateTweetForm] = useState(false)
   const [showDeleteTweet, setShowDeleteTweet] = useState(false)
+  const [showNewCommentForm, setShowNewCommentForm] = useState(false)
   const [showUpdateComment, setShowUpdateComment] = useState(false)
   const [showDeleteComment, setShowDeleteComment] = useState(false)
   const [showDropDown, setShowDropDown] = useState(false)
@@ -47,7 +48,7 @@ const SingleTweet = ({ sessionUser }) => {
   let formattedDate;
   if (tweet) {
     newDate = Date.parse(tweet.created_at);
-    formattedDate = format(newDate, 'hh:mm b • MMM i, yyyy')
+    formattedDate = format(newDate, 'hh:mm b • MMMM d, yyyy')
   }
   let user = tweet?.user
   if (isLoaded && !tweet) {
@@ -63,6 +64,9 @@ const SingleTweet = ({ sessionUser }) => {
         </Modal>}
         {showDeleteTweet && <Modal onClose={() => setShowDeleteTweet(false)}>
           <DeleteTweet tweet={tweet} setShowDeleteTweet={setShowDeleteTweet} />
+        </Modal>}
+        {showNewCommentForm && <Modal onClose={() => setShowNewCommentForm(false)}>
+          <NewCommentForm sessionUser={sessionUser} tweet={tweet} setShowNewCommentForm={setShowNewCommentForm} />
         </Modal>}
         <div className="top single tweet-container">
           <div className='user info container'>
@@ -110,12 +114,12 @@ const SingleTweet = ({ sessionUser }) => {
           <span className='tweet-content'>{tweet.content}</span>
         </div>
         <div className='date-container'>
-          <span className='single tweet created-at'>{formattedDate}</span>
+          <span className='single tweet created-at'>{formattedDate} • Litter Web App</span>
         </div>
         <div className='single bottom-tweet-container'>
           <div onClick={(e) => {
             e.stopPropagation()
-            history.push(`/tweets/${tweet.id}`)
+            setShowNewCommentForm(true)
           }} className='comment-info-container'>
             <div className='comment-icon-container'>
               <img className='tweet icon comment' src={commentIcon} alt="comment-icon" />
@@ -124,15 +128,15 @@ const SingleTweet = ({ sessionUser }) => {
               <span>{tweet.tweet_comments.length}</span>
             </div>
           </div>
-          <div className='heart-icon-container'>
+          {/* <div className='heart-icon-container'> */}
             {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
-          </div>
+          {/* </div> */}
         </div>
-        <NewCommentForm sessionUser={sessionUser} tweet={tweet}/>
+        <NewCommentForm setShowNewCommentForm={setShowNewCommentForm} sessionUser={sessionUser} tweet={tweet}/>
       </div>
       <div className='comments-container'>
           {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (
-            <Comment tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment} setShowUpdateComment={setShowUpdateComment} setShowDeleteComment={setShowDeleteComment}/>
+            <Comment tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment} setShowUpdateComment={setShowUpdateComment} setShowDeleteComment={setShowDeleteComment} setShowNewCommentForm={setShowNewCommentForm} />
           ))}
       </div>
     </>

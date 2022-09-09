@@ -5,7 +5,7 @@ import { getAllTweetsThunk } from '../../store/tweets'
 
 import './NewCommentForm.css'
 
-const NewCommentForm = ({ sessionUser, tweet }) => {
+const NewCommentForm = ({ sessionUser, tweet, setShowNewCommentForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const history = useHistory()
@@ -30,6 +30,7 @@ const NewCommentForm = ({ sessionUser, tweet }) => {
     if (res.ok) {
       await dispatch(getAllTweetsThunk())
       setContent('')
+      setShowNewCommentForm(false)
     } else {
       const data = await res.json()
       console.log(data)
@@ -37,7 +38,7 @@ const NewCommentForm = ({ sessionUser, tweet }) => {
   }
 
   return (
-    <div className='new-tweet-container'>
+    <div className='new-tweet-container comment'>
       <div className='right-new-tweet-container'>
         <img onClick={() => history.push(`/${username}`)} className='new-tweet profile-image' src={profileImage} alt="" />
       </div>
