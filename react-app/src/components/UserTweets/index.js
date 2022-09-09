@@ -28,7 +28,7 @@ const UserTweets = ({ sessionUser }) => {
         setIsLoaded(true)
       }
     }())
-  }, [dispatch, userTweets?.length, tweet?.content])
+  }, [dispatch, userTweets?.length, tweet?.content, username])
 
   useEffect(() => {
     async function fetchData() {
@@ -65,7 +65,7 @@ const UserTweets = ({ sessionUser }) => {
         </div>
         <div className="middle container user tweet">
           <div className="user-profile info container">
-            <img className='profile-image user-profile' src={profileImage} alt="" />
+            <img className='profile-image user-profile ' src={profileImage} alt="" />
             <h3>{firstName} {lastName}</h3>
             <span>@{username}</span>
           </div>

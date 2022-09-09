@@ -1,0 +1,62 @@
+.navbar {
+  position: sticky;
+  top: .5em;
+  padding: .5em;
+  width: 20em;
+  box-sizing: border-box;
+  max-height: 40em;
+}
+
+.icon.nav {
+  width: 15%;
+}
+
+.navlink-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: .5em;
+}
+
+.icon.nav.signout {
+  width: 15%;
+}
+
+.logout.button,
+.navlink-container > a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1.5em;
+  text-decoration: none;
+  box-sizing: border-box;
+  max-height: 4em;
+  color: white;
+  border-radius: 3em;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.logout.button:hover,
+.navlink-container > a:hover {
+  background-color: rgb(26, 26, 26);
+}
+
+
+.logout-button.container {
+  display: flex;
+  margin-top: 2em;
+  justify-content: center;
+}
+
+.nav.new-tweet-button {
+  padding: .8em;
+  width: 80%;
+  font-size: 1rem;
+  border-radius: 3em;
+  border: none;
+  background-color: #1B9BEF;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}

@@ -5,7 +5,7 @@ import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 
 import './NewTweetForm.css'
 
-const NewTweetForm = ({ sessionUser }) => {
+const NewTweetForm = ({ sessionUser, setShowNewTweetForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const history = useHistory()
@@ -22,6 +22,7 @@ const NewTweetForm = ({ sessionUser }) => {
     if (errors.length) return
     await dispatch(createNewTweetThunk(content))
     await dispatch(getAllTweetsThunk())
+    setShowNewTweetForm(false)
     setContent('')
   }
 

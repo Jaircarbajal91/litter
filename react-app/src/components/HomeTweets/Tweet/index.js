@@ -42,10 +42,12 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
       <div className='tweet-right-container'>
         <div className='top-tweet-container'>
           <div className='tweet-user-info'>
-            <span onClick={(e) => {
-              e.stopPropagation()
-              history.push(`/${username}`)
-            }} className='tweet-name'>{firstName} {lastName}</span>
+            <div className='name-container'>
+              <span onClick={(e) => {
+                e.stopPropagation()
+                history.push(`/${username}`)
+              }} className='tweet-name'>{firstName} {lastName}</span>
+            </div>
             <span onClick={(e) => {
               e.stopPropagation()
               history.push(`/${username}`)
@@ -88,9 +90,9 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
             <div className='comment-icon-container'>
               <img className='tweet icon comment' src={commentIcon} alt="comment-icon" />
             </div >
-              <div className='comment-counter'>
-                <span>{tweet.tweet_comments.length}</span>
-              </div>
+            <div className='comment-counter'>
+              <span>{tweet.tweet_comments.length}</span>
+            </div>
           </div>
           {/* <div className='heart-icon-container'>
             <img className='tweet icon heart' src={heartIcon} alt="heart-icon" />

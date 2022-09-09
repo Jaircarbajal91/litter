@@ -65,8 +65,10 @@
 
 .tweet-name {
   font-weight: 600;
+  max-width: 100%;
   letter-spacing: -.05rem;
   cursor: pointer;
+  text-overflow: ellipsis;
 }
 
 .tweet-name:hover {
@@ -197,4 +199,10 @@
 
 .comment-info-container > div > span:hover {
   color: #1B9BEF;
+}
+
+.name-container {
+  max-width: 7em;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }

@@ -21,13 +21,9 @@ body {
   display: flex;
   width: 100vw;
   justify-content: center;
-  gap: 2em;
+  gap: 1em;
 }
 
-.navbar {
-  position: sticky;
-  top: 10px;
-}
 
 .home.tweets.container {
   display: flex;
@@ -38,4 +34,5 @@ body {
   box-sizing: border-box;
   border-left: .2px solid grey;
   border-right: .2px solid grey;
+  position: sticky;
 }

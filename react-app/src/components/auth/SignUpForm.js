@@ -80,7 +80,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
 
 
     if (username.length < 1) errors.username.push('Please enter a username')
-    if (username.length > 25) {
+    if (username.length > 15) {
       setUsernameCondClass('username-cond-error')
       errors.username.push('Username is too long')
     } else {
@@ -88,7 +88,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     }
 
     if (firstName.length < 1) errors.firstName.push('Please enter First Name')
-    if (firstName.length > 30) {
+    if (firstName.length > 15) {
       setFirstNameCondClass('first-name-cond-error')
       errors.firstName.push('First name is too long')
     } else {
@@ -96,7 +96,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     }
 
     if (lastName.length < 1) errors.lastName.push('Please enter Last Name')
-    if (lastName.length > 30) {
+    if (lastName.length > 15) {
       setLastNameCondClass('last-name-cond-error')
       errors.lastName.push('Last name is too long')
     } else {
@@ -125,7 +125,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
         setEmailCondClass('email-cond-success')
       }
       errors.email.push('Please enter a valid email')
-    } else if (email.length > 60) {
+    } else if (email.length > 45) {
       setEmailCondClass('email-cond-error')
       errors.email.push('Email is too long')
     } else {
