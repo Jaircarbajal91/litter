@@ -1,6 +1,6 @@
 .new-tweet-container.comment {
   width: 34em;
-  height: fit-content;
+  height: 350px;
 }
 
 .replying-to.content > span:first-child {

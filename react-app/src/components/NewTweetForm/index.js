@@ -25,6 +25,10 @@ const NewTweetForm = ({ sessionUser }) => {
     setContent('')
   }
 
+  const checkKeyDown = (e) => {
+    if(e.keyCode == 13) return false;
+  };
+
   return (
     <div className='new-tweet-container'>
       <div className='right-new-tweet-container'>
@@ -32,15 +36,16 @@ const NewTweetForm = ({ sessionUser }) => {
       </div>
       <div className='left-new-tweet-container'>
         <div className='new-tweet errors'>
-          {errors.length > 0 && errors.map(error => (
-            <p>{error}</p>
+          {errors.length > 0 && errors.map((error, i) => (
+            <p key={i}>{error}</p>
           ))}
         </div>
-        <form className='new-tweet form' onSubmit={handleSubmit}>
-          <input
-            type="textarea"
+        <form className='new-tweet form' onSubmit={handleSubmit} >
+          <textarea
+            type="text"
             placeholder="What's happening?"
             className='input textarea'
+            onKeyDown={(e) => checkKeyDown(e)}
             cols='60'
             rows='8'
             value={content}
