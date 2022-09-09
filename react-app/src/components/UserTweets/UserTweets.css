@@ -3,6 +3,7 @@
   flex-direction: column;
   box-sizing: border-box;
   justify-content: space-around;
+  align-items: center;
   padding-left: 1em;
   padding-right: 1em;
   min-height: 300px;
@@ -13,13 +14,18 @@
 .header-container > h2 {
   padding: 0;
   margin: 0;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
   font-weight: 700;
   font-size: 1.3rem;
 }
 
 .header-container.user {
   height: fit-content;
-  padding-left: 2em;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tweets.count {
@@ -33,13 +39,14 @@
   width: 8em;
   height: 8em;
   border: 2px solid rgb(155, 155, 155);
-  margin-bottom: .6em;
+  margin: 0;
   cursor:unset;
 }
 
 .middle.container.user.tweet {
   display: flex;
   justify-content: space-between;
+  max-width: 70%;
   align-items: center;
 }
 
@@ -54,6 +61,9 @@
   padding: 0;
   margin: 0;
   font-weight: 700;
+  text-align: center;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
   font-size: 1.1rem;
 }
 

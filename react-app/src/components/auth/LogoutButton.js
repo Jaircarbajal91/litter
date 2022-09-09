@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import LogoutIcon from '../../assets/images/signout.svg'
 import { logout } from '../../store/session';
 import { useHistory } from 'react-router-dom';
 
@@ -12,7 +13,12 @@ const LogoutButton = () => {
     history.push('/')
   };
 
-  return <button onClick={onLogout}>Logout</button>;
+  return (
+    <div className='logout button' onClick={onLogout}>
+      <img className='icon nav signout' src={LogoutIcon} alt="logoutIcon" />
+      <span>Logout</span>
+    </div>
+  )
 };
 
 export default LogoutButton;

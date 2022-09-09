@@ -33,13 +33,13 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
       </div>
       <div className='left-new-tweet-container'>
         <h3 className='update-tweet-header'>Update Tweet</h3>
-        <div className='new-tweet errors'>
-          {errors.length > 0 && errors.map(error => (
-            <p>{error}</p>
+        <div className='new-tweet errors update-tweet'>
+          {errors.length > 0 && errors.map((error, i) => (
+            <p key={i}>{error}</p>
           ))}
         </div>
         <form className='new-tweet form' onSubmit={handleSubmit}>
-          <input
+          <textarea
             type="textarea"
             placeholder="What's happening?"
             className='input textarea'

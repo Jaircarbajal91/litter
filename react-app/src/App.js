@@ -42,7 +42,7 @@ function App() {
   return (
     <div className={`main-content-container ${sessionUser !== null}`}>
       <BrowserRouter>
-        {sessionUser && <NavBar />}
+        {sessionUser && <NavBar sessionUser={sessionUser}/>}
         <Switch>
           <Route path='/' exact={true}>
             <SplashPage sessionUser={sessionUser} setShowSignup={setShowSignup} setShowLogin={setShowLogin} />
@@ -68,7 +68,7 @@ function App() {
             </div>
           </ProtectedRoute>
         </Switch>
-        {/* {sessionUser && <UsersList sessionUser={sessionUser} />} */}
+        {sessionUser && <UsersList sessionUser={sessionUser} />}
       </BrowserRouter>
     </div>
   );

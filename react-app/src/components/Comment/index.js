@@ -51,10 +51,12 @@ const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, 
       <div className='tweet-right-container comment'>
         <div className='top-tweet-container'>
           <div className='tweet-user-info'>
-            <span onClick={(e) => {
-              e.stopPropagation()
-              history.push(`/${user.username}`)
-            }} className='tweet-name'>{user.firstName} {user.lastName}</span>
+            <div className="name-container">
+              <span onClick={(e) => {
+                e.stopPropagation()
+                history.push(`/${user.username}`)
+              }} className='tweet-name'>{user.firstName} {user.lastName}</span>
+            </div>
             <span onClick={(e) => {
               e.stopPropagation()
               history.push(`/${user.username}`)
@@ -87,9 +89,9 @@ const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, 
           </div>}
         </div>
         <div className='replying-to content comment'>
-            <span>Replying to </span>
-            <span>@{tweet.user.username}</span>
-          </div>
+          <span>Replying to </span>
+          <span>@{tweet.user.username}</span>
+        </div>
         <div className='middle-tweet-container'>
           <span className='tweet-content comment'>{comment.content}</span>
         </div>
