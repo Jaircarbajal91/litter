@@ -8,22 +8,30 @@ import './UpdateTweetForm.css'
 const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState(tweet.content)
+  const [hasSubmitted, setHasSubmitted] = useState(false)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
   useEffect(() => {
     const newErrors = []
+    if (hasSubmitted) {
+      if (!content.trim().length) newErrors.push("Tweet content is required.")
+    }
     if (content.length >= 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
-  }, [content, errors.length])
+  }, [content, errors.length, hasSubmitted])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (errors.length) return
-    await dispatch(updateTweetThunk(tweet.id, content))
-    await dispatch(getAllTweetsThunk())
-    setContent('')
-    setShowUpdateTweetForm(false)
+    const data = await dispatch(updateTweetThunk(tweet.id, content.trim()))
+    if (Array.isArray(data)) {
+      setHasSubmitted(true)
+    } else {
+      await dispatch(getAllTweetsThunk())
+      setShowUpdateTweetForm(false)
+      setContent('')
+    }
   }
 
   return (
@@ -44,7 +52,11 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
             placeholder="What's happening?"
             className='input textarea'
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value)
+              setHasSubmitted(false)
+              setErrors([])
+            }}
           />
           <div className='new-tweet-button container'>
             <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Update</button>
