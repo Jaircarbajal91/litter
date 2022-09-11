@@ -72,9 +72,9 @@ function App() {
           <Route path='/page-not-found' >
             <PageNotFound />
           </Route>
-          <Route path='*' >
+          <ProtectedRoute path='*' >
             <PageNotFound />
-          </Route>
+          </ProtectedRoute>
         </Switch>
         {sessionUser && <UsersList sessionUser={sessionUser} />}
       </BrowserRouter>
