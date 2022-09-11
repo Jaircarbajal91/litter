@@ -42,6 +42,9 @@
   background-color: rgb(26, 26, 26);
 }
 
+.navlink-container:first-child > a:hover {
+  background-color: black;
+}
 
 .logout-button.container {
   display: flex;

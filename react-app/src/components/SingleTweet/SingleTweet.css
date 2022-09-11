@@ -15,6 +15,11 @@
   justify-content: space-between;
   box-sizing: border-box;
   padding-right: 2em;
+  cursor: unset;
+}
+
+.top.single.tweet-container:hover {
+  background-color: black;
 }
 
 .top.mid.user-info.container {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import commentIcon from '../../../assets/images/commentIcon.svg'
 import heartIcon from '../../../assets/images/heartIcon.svg'
-import litter from '../../../assets/images/litter.svg'
+import litter from '../../../assets/images/threeDots.svg'
 import stretch from '../../../assets/images/stretch.png'
 import stretch2 from '../../../assets/images/stretch2.png'
 import { Modal } from '../../../context/Modal'
@@ -55,10 +55,12 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
             <span className='tweet created-at'>• {formattedDate}</span>
           </div>
           {sessionUser.id === id && <div className='tweet-delete-container'>
-            <img onClick={(e) => {
-              e.stopPropagation()
-              setShowDropDown(prev => !prev)
-            }} className="tweet icon delete" src={litter} alt="delete-icon" />
+            <div className='tweet icon delete container' onClick={(e) => {
+                e.stopPropagation()
+                setShowDropDown(prev => !prev)
+              }}>
+              <img className="tweet icon delete" src={litter} alt="delete-icon" />
+            </div>
             {showDropDown && <div className='drop-down tweet'>
               <div onClick={(e) => {
                 e.stopPropagation()

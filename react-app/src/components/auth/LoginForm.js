@@ -36,8 +36,8 @@ const LoginForm = ({ setShowLogin, setShowSignup }) => {
     const newEmailErrors = []
     const newPasswordErrors = []
 
-    if (email.length < 1) newEmailErrors.push('Email is required')
-    if (password.length < 1) newPasswordErrors.push('Password is required')
+    if (email.trim().length < 1) newEmailErrors.push('Email is required')
+    if (password.trim().length < 1) newPasswordErrors.push('Password is required')
 
     setEmailErrors(newEmailErrors)
     setPasswordErrors(newPasswordErrors)

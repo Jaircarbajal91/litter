@@ -9,8 +9,8 @@ const DeleteTweet = ({ setShowDeleteTweet, tweet, username }) => {
 
   const handleDelete = async () => {
     await dispatch(deleteTweetThunk(tweet.id));
-    setShowDeleteTweet(false);
     await dispatch(getAllTweetsThunk());
+    setShowDeleteTweet(false);
     if (!username) {
       history.push('/home');
     }

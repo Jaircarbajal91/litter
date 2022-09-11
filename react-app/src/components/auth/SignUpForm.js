@@ -44,7 +44,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     e.preventDefault();
     const image = await isImgUrl(profileImage)
     if (image) {
-      const data = await dispatch(signUp(username.toLowerCase().trim(), email.trim(), password.trim(), firstName.trim(), lastName.trim(), profileImage.trim()));
+      const data = await dispatch(signUp(username.toLowerCase().trim(), email.trim(), password, firstName.trim(), lastName.trim(), profileImage.trim()));
       if (data) {
         const arr = data[0].split(' : ')
         setErrors([arr[1]])
@@ -80,7 +80,10 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
 
 
     if (username.length < 1) errors.username.push('Please enter a username')
-    if (username.length > 15) {
+    if (username.includes(' ')) {
+      setUsernameCondClass('username-cond-error')
+      errors.username.push('Username cannot include spaces')
+    } else if (username.length > 15) {
       setUsernameCondClass('username-cond-error')
       errors.username.push('Username is too long')
     } else {
@@ -132,8 +135,12 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       setEmailCondClass('email-cond-success')
     }
 
-    if (password.length < 8 || repeatPassword.length < 8) errors.password.push('Password must be at least 8 characters')
-    if (password !== repeatPassword) {
+    if (password.trim().length < 8 || repeatPassword.trim().length < 8) {
+      errors.password.push('Both password must be at least 8 characters')
+    } else if (password.trim().includes(' ') || repeatPassword.trim().includes(' ')) {
+      setPasswordCondClass('password-cond-error')
+      errors.password.push('Passwords cannot contain spaces')
+    } else if (password !== repeatPassword) {
       setPasswordCondClass('password-cond-error')
       errors.password.push('Passwords must match')
     } else if (password.length >= 100 || repeatPassword.length >= 100) {
@@ -163,9 +170,6 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       setIsDisabled(true)
     }
   }, [username, firstName, lastName, profileImage, email, password, repeatPassword, usernameErrors.length, firstNameErrors.length, lastNameErrors.length, profileImageErrors.length, emailErrors.length, passwordErrors.length, errors.length])
-
-
-
 
 
   const validateEmail = (email) => {
@@ -221,7 +225,13 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               className={`input first-name ${firstNameCondClass}`}
               placeholder='First Name'
               name='first-name'
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {
+                if (firstName.length < 1) {
+                  setFirstName(e.target.value.trim())
+                } else {
+                  setFirstName(e.target.value)
+                }
+              }}
               value={firstName}
               required
             ></input>
@@ -233,7 +243,13 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               className={`input last-name ${lastNameCondClass}`}
               placeholder='Last Name'
               name='last-name'
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => {
+                if (lastName.length < 1) {
+                  setLastName(e.target.value.trim())
+                } else {
+                  setLastName(e.target.value)
+                }
+              }}
               value={lastName}
               required
             ></input>
@@ -246,7 +262,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               placeholder='Profile URL Image'
               name='profile-image'
               onChange={(e) => {
-                setProfileImage(e.target.value)
+                setProfileImage(e.target.value.trim())
                 setErrors([])
               }}
               value={profileImage}
@@ -261,7 +277,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
               placeholder='Email'
               name='email'
               onChange={(e) => {
-                setEmail(e.target.value)
+                setEmail(e.target.value.trim())
                 setErrors([])
               }}
               value={email}

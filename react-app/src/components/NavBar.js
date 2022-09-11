@@ -16,7 +16,7 @@ const NavBar = ({ sessionUser }) => {
   return (
     <nav className='navbar container'>
       {showNewTweetForm && <Modal onClose={() => setShowNewTweetForm(false)}>
-        <NewTweetForm sessionUser={sessionUser} setShowNewTweetForm={setShowNewTweetForm} />
+        <NewTweetForm sessionUser={sessionUser} setShowNewTweetForm={setShowNewTweetForm} showNewTweetForm={showNewTweetForm} />
       </Modal>}
       <div className='navlink-container'>
         <NavLink to='/home' exact={true} activeClassName='active'>

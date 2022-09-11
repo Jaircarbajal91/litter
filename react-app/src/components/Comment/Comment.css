@@ -4,6 +4,10 @@
   height: fit-content;
 }
 
+.tweet-container.comment:hover {
+  background-color: black;
+}
+
 .tweet-content.comment {
   padding: .5em;
 }

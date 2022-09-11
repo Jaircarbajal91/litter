@@ -206,3 +206,15 @@
   text-overflow: ellipsis;
   overflow-x: hidden;
 }
+
+.tweet.icon.delete.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5em;
+  border-radius: 3em;
+}
+
+.tweet.icon.delete.container:hover {
+  background-color: #313030;
+}
