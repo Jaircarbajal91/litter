@@ -23,7 +23,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const data = await dispatch(createNewTweetThunk(content))
+    const data = await dispatch(createNewTweetThunk(content.trim()))
     if (Array.isArray(data)) {
       setHasSubmitted(true)
     } else {
