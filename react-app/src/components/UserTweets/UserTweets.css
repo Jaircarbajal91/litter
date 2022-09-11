@@ -74,3 +74,20 @@
   color: #71767A;
   font-size: .9rem;
 }
+
+.no-tweets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: .5px solid grey;
+  padding: 2em;
+}
+
+.no-tweets > img {
+  width: 35%;
+}
+
+.no-tweets > h3 {
+  font-size: 1.7rem;
+}

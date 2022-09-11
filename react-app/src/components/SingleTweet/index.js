@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getAllTweetsThunk } from "../../store/tweets"
 import commentIcon from '../../assets/images/commentIcon.svg'
 import heartIcon from '../../assets/images/heartIcon.svg'
-import litter from '../../assets/images/litter.svg'
+import litter from '../../assets/images/threeDots.svg'
 import stretch from '../../assets/images/stretch.png'
 import stretch2 from '../../assets/images/stretch2.png'
 import { Modal } from '../../context/Modal'
@@ -56,7 +56,7 @@ const SingleTweet = ({ sessionUser }) => {
   }
   let user = tweet?.user
   if (isLoaded && !tweet) {
-    return <Redirect to={"/home/page-not-found"}/>
+    return <Redirect to={"/home"} />
   }
 
   return isLoaded && (
@@ -97,10 +97,12 @@ const SingleTweet = ({ sessionUser }) => {
             </div>
           </div>
           {sessionUser.id === user.id && <div className='tweet-delete-container'>
-            <img onClick={(e) => {
-              e.stopPropagation()
-              setShowDropDown(prev => !prev)
-            }} className="tweet icon delete" src={litter} alt="delete-icon" />
+            <div className='tweet icon delete container' onClick={(e) => {
+                e.stopPropagation()
+                setShowDropDown(prev => !prev)
+              }} >
+              <img className="tweet icon delete" src={litter} alt="delete-icon" />
+            </div>
             {showDropDown && <div className='drop-down tweet'>
               <div onClick={(e) => {
                 e.stopPropagation()
@@ -138,15 +140,15 @@ const SingleTweet = ({ sessionUser }) => {
             </div>
           </div>
           {/* <div className='heart-icon-container'> */}
-            {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
+          {/* <img className='tweet icon heart' src={heartIcon} alt="heart-icon" /> */}
           {/* </div> */}
         </div>
-        <NewCommentForm setShowNewCommentForm={setShowNewCommentForm} sessionUser={sessionUser} tweet={tweet}/>
+        <NewCommentForm setShowNewCommentForm={setShowNewCommentForm} sessionUser={sessionUser} tweet={tweet} />
       </div>
       <div className='comments-container'>
-          {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (
-            <Comment tweet={tweet} tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment}  setShowDeleteComment={setShowDeleteComment} setShowNewCommentForm={setShowNewCommentForm} setCommentToUpdate={setCommentToUpdate} setShowUpdateCommentForm={setShowUpdateCommentForm}/>
-          ))}
+        {tweet.tweet_comments.length > 0 && tweet.tweet_comments.map(comment => (
+          <Comment tweet={tweet} tweetOwner={user} key={comment.id} sessionUser={sessionUser} comment={comment} setShowDeleteComment={setShowDeleteComment} setShowNewCommentForm={setShowNewCommentForm} setCommentToUpdate={setCommentToUpdate} setShowUpdateCommentForm={setShowUpdateCommentForm} />
+        ))}
       </div>
     </>
   )

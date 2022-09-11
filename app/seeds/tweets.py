@@ -12,7 +12,7 @@ def seed_tweets():
     t9 = Tweet(content="You didn't HAVE to pay all that money for a new bed I won't use. I did say the small piece of paper on the table was fine…", user_id=2)
     t10 = Tweet(content="I am standing on your face because it's time to wake up and feed me!", user_id=2)
     t11 = Tweet(content="Since you are a despicable hunter, I have left a bird on your pillow. And don't worry, I took the liberty of killing it for you.", user_id=3)
-    t12 = Tweet(content="I can't believe I'm STILL awake! I've been up for 20 minutes today.astimezone(get_localzone()).", user_id=3)
+    t12 = Tweet(content="I can't believe I'm STILL awake! I've been up for 20 minutes today.", user_id=3)
     t13 = Tweet(content="I absolutely will not let you put me in the bath, what kind of monster are you!?", user_id=3)
     t14 = Tweet(content="Hello, I am very pleased to see you, allow me to give you a front row view of my butt!", user_id=3)
     t15 = Tweet(content="No, you're not allowed to walk there!", user_id=3)

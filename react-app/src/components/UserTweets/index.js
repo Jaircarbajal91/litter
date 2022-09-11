@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Modal } from "../../context/Modal"
 import DeleteTweet from "../DeleteTweet"
 import UpdateTweetForm from "../UpdateTweetForm"
+import sadCatIcon from '../../assets/images/sadCat.svg'
 import './UserTweets.css'
 
 const UserTweets = ({ sessionUser }) => {
@@ -75,7 +76,10 @@ const UserTweets = ({ sessionUser }) => {
       {userTweets?.length > 0 ? userTweets.map(tweet => (
         <Tweet setTweet={setTweet} key={tweet.id} sessionUser={sessionUser} tweet={tweet} setShowUpdateTweetForm={setShowUpdateTweetForm}  setShowDeleteTweet={setShowDeleteTweet}/>
       )) : (
-        <div>This user currently has no tweets</div>
+        <div className="no-tweets">
+          <h3>This user currently has no tweets</h3>
+          <img src={sadCatIcon} alt="" />
+        </div>
       )}
     </div>
   )

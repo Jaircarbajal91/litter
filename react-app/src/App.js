@@ -57,7 +57,7 @@ function App() {
           </Route>
           <ProtectedRoute path='/home' exact={true} >
             <div className="home tweets container">
-              <NewTweetForm setShowNewTweetForm={setShowNewTweetForm} sessionUser={sessionUser} />
+              <NewTweetForm setShowNewTweetForm={setShowNewTweetForm} sessionUser={sessionUser}  showNewTweetForm={showNewTweetForm}/>
               <HomeTweets sessionUser={sessionUser} />
             </div>
           </ProtectedRoute>
