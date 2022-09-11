@@ -1,6 +1,6 @@
 # Litter
 
-Welcome to Litter! Litter is a pixel perfect social media clone of [Twitter](https://twitter.com/) made specially for cats (No dogs allowed)! Users can create a profile and tweet what's on their mind and also reply to other tweets! A user will also be able to view their profile or other users profile, which will display current profiles tweets.
+Welcome to Litter! Litter is a pixel perfect social media clone of [Twitter](https://twitter.com/) made specially for cats (No dogs allowed)! Users can create a profile and tweet what's on their mind and also reply to other tweets! A user will also be able to view their profile or other users profile, which will display current profiles tweets. Users also have the option to update and delete their own tweets.
 
 Checkout the live site here: [Litter](https://litter-twitter.herokuapp.com/)
 
