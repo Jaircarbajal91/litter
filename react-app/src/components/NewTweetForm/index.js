@@ -30,6 +30,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
       await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
+      history.push(`/tweets/${data.id}`)
     }
   }
 
