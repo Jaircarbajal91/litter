@@ -79,29 +79,29 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     const regex = /^http[^ \!@\$\^&\(\)\+\=]+(\.png|\.jpeg|\.gif|\.jpg)$/;
 
 
-    if (username.length < 1) errors.username.push('Please enter a username')
+    if (username.length < 1) errors.username.push('* Please enter a username')
     if (username.includes(' ')) {
       setUsernameCondClass('username-cond-error')
       errors.username.push('Username cannot include spaces')
     } else if (username.length > 15) {
       setUsernameCondClass('username-cond-error')
-      errors.username.push('Username is too long')
+      errors.username.push('Username is too long. Max Length 15')
     } else {
       setUsernameCondClass('username-cond-success')
     }
 
-    if (firstName.length < 1) errors.firstName.push('Please enter First Name')
+    if (firstName.length < 1) errors.firstName.push('* Please enter First Name')
     if (firstName.length > 15) {
       setFirstNameCondClass('first-name-cond-error')
-      errors.firstName.push('First name is too long')
+      errors.firstName.push('First name is too long. Max Length 15')
     } else {
       setFirstNameCondClass('first-name-cond-success')
     }
 
-    if (lastName.length < 1) errors.lastName.push('Please enter Last Name')
+    if (lastName.length < 1) errors.lastName.push('* Please enter Last Name')
     if (lastName.length > 15) {
       setLastNameCondClass('last-name-cond-error')
-      errors.lastName.push('Last name is too long')
+      errors.lastName.push('Last name is too long. Max Length 15')
     } else {
       setLastNameCondClass('last-name-cond-success')
     }
@@ -112,15 +112,15 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       } else {
         setProfileImageCondClass('profile-image-cond-success')
       }
-      errors.profileImage.push('Please enter a valid image address. \n E.g. "https://example.com/image.jpg"')
+      errors.profileImage.push('* Please enter a valid image address. \n E.g. "https://example.com/image.jpg"')
     } else if (profileImage.length > 200) {
       setProfileImageCondClass('profile-image-cond-error')
-      errors.profileImage.push('Profile image url too long')
+      errors.profileImage.push('Profile image url too long. Max Length 200')
     } else {
       setProfileImageCondClass('profile-image-cond-success')
     }
 
-    if (email.length < 1) errors.email.push('Please enter an email address')
+    if (email.length < 1) errors.email.push('* Please enter an email address')
     if (!validateEmail(email)) {
       if (email.length >= 1) {
         setEmailCondClass('email-cond-error')
@@ -130,13 +130,13 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       errors.email.push('Please enter a valid email')
     } else if (email.length > 100) {
       setEmailCondClass('email-cond-error')
-      errors.email.push('Email is too long')
+      errors.email.push('Email is too long. Max Length 100')
     } else {
       setEmailCondClass('email-cond-success')
     }
 
     if (password.trim().length < 8 || repeatPassword.trim().length < 8) {
-      errors.password.push('Both password must be at least 8 characters')
+      errors.password.push('* Both password must be at least 8 characters')
     } else if (password.trim().includes(' ') || repeatPassword.trim().includes(' ')) {
       setPasswordCondClass('password-cond-error')
       errors.password.push('Passwords cannot contain spaces')
@@ -144,7 +144,7 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
       setPasswordCondClass('password-cond-error')
       errors.password.push('Passwords must match')
     } else if (password.length >= 100 || repeatPassword.length >= 100) {
-      errors.password.push('Password is too long.')
+      errors.password.push('Password is too long. Max Length 100')
       setPasswordCondClass('password-cond-error')
     } else {
       setPasswordCondClass('password-cond-success')
