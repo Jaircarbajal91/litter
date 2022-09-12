@@ -1,6 +1,6 @@
 # Litter
 
-Welcome to Litter! Litter is a pixel perfect social media clone of [Twitter](https://twitter.com/) made specially for cats (No dogs allowed)! Users can create a profile and tweet what's on their mind and also reply to other tweets! A user will also be able to view their profile or other users profile, which will display current profiles tweets.
+Welcome to Litter! Litter is a pixel perfect social media clone of [Twitter](https://twitter.com/) made specially for cats (No dogs allowed)! Users can create a profile and tweet what's on their mind and also reply to other tweets! A user will also be able to view their profile or other users profile, which will display current profiles tweets. Users also have the option to update and delete their own tweets.
 
 Checkout the live site here: [Litter](https://litter-twitter.herokuapp.com/)
 
@@ -18,13 +18,37 @@ Checkout the live site here: [Litter](https://litter-twitter.herokuapp.com/)
 
 ## Wiki Links:
 
-- [DB Schema]()
-- [Features List]()
-- [User Stories]()
-- [WireFrames]()
+- [API Doctumentation](https://github.com/Jaircarbajal91/litter-twitter/wiki/API-Documentation)
+- [DB Schema](https://github.com/Jaircarbajal91/litter-twitter/wiki/DB-Schema)
+- [Features List](https://github.com/Jaircarbajal91/litter-twitter/wiki/Features)
+- [User Stories](https://github.com/Jaircarbajal91/litter-twitter/wiki/User-Stories)
+- [WireFrames](https://github.com/Jaircarbajal91/litter-twitter/wiki/Wireframes)
 
 
 
+## Landing page
+![spashpage](./react-app/src/assets/images/splashpage.png)
+
+## Sign up Form
+![signup](./react-app/src/assets/images/signup.png)
+
+## Sign in Form
+![signin](./react-app/src/assets/images/signin.png)
+
+## Home Page
+![home](./react-app/src/assets/images/homepage.png)
+
+## New Tweet Modal
+![newtweet](./react-app/src/assets/images/newtweetform.png)
+
+## Single Tweet / Reply Form
+![singletweet](./react-app/src/assets/images/singletweet.png)
+
+## Update Pop Up
+![updatepopup](./react-app/src/assets/images/updateComment.png)
+
+## Current Profile
+![currentProfile](./react-app/src/assets/images/currentProfile.png)
 
 ## Steps to clone locally:
 1. Clone this repository:
