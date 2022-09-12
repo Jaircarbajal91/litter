@@ -17,7 +17,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     if (hasSubmitted) {
       if (!content.trim().length) newErrors.push("Tweet content is required.")
     }
-    if (content.length >= 280) newErrors.push("Maximum tweet length is 280 characters.")
+    if (content.length > 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
   }, [content, errors.length, hasSubmitted])
 

@@ -77,14 +77,14 @@ const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, 
                 setShowUpdateCommentForm(true)
               }} className='drop-down item'>
                 <img className='drop-down icon' src={stretch} alt="strech icon" />
-                <span className='drop-down text'>Update Comment</span>
+                <span className='drop-down text'>Update Reply</span>
               </div>
               <div onClick={(e) => {
                 e.stopPropagation()
                 setCommentToUpdate(comment)
                 setShowDeleteComment(true)
               }} className='drop-down item'>
-                <span className='drop-down text'>Delete Comment</span>
+                <span className='drop-down text'>Delete Reply</span>
                 <img className='drop-down icon' src={stretch2} alt="strech icon" />
               </div>
             </div>}

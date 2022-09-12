@@ -17,7 +17,7 @@ const UpdateCommentForm = ({ tweet, sessionUser, comment, setShowUpdateCommentFo
     if (hasSubmitted) {
       if (!content.trim().length) newErrors.push("Reply content is required.")
     }
-    if (content.length >= 280) newErrors.push("Maximum comment length is 280 characters.")
+    if (content.length > 280) newErrors.push("Maximum comment length is 280 characters.")
     setErrors(newErrors)
   }, [content, errors.length, hasSubmitted])
 
