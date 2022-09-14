@@ -189,7 +189,6 @@ const SignUpForm = ({ setShowSignup, setShowLogin }) => {
     setShowLogin(true)
   }
 
-
   return (
     <div className='signup-form-container'>
       <div className='top-row container'>
