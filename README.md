@@ -15,7 +15,6 @@ Checkout the live site here: [Litter](https://litter-twitter.herokuapp.com/)
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 
-
 ## Wiki Links:
 
 - [API Doctumentation](https://github.com/Jaircarbajal91/litter-twitter/wiki/API-Documentation)
@@ -23,8 +22,6 @@ Checkout the live site here: [Litter](https://litter-twitter.herokuapp.com/)
 - [Features List](https://github.com/Jaircarbajal91/litter-twitter/wiki/Features)
 - [User Stories](https://github.com/Jaircarbajal91/litter-twitter/wiki/User-Stories)
 - [WireFrames](https://github.com/Jaircarbajal91/litter-twitter/wiki/Wireframes)
-
-
 
 ## Landing page
 ![spashpage](./react-app/src/assets/images/splashpage.png)
