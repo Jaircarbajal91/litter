@@ -11,6 +11,7 @@ const HomeTweets = ({ sessionUser }) => {
   const [tweet, setTweet] = useState({})
   const [showUpdateTweetForm, setShowUpdateTweetForm] = useState(false)
   const [showDeleteTweet, setShowDeleteTweet] = useState(false)
+  const [liked, setLiked] = useState(false)
   const dispatch = useDispatch()
   const tweets = useSelector(state => state.tweets.tweetsList)
   useEffect(() => {
