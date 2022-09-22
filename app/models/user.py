@@ -19,6 +19,8 @@ class User(db.Model, UserMixin):
 
     user_comments = db.relationship('Comment', back_populates='user', cascade='all, delete')
 
+    user_likes = db.relationship('Like', back_populates='user', cascade='all, delete')
+
 
 
     @property

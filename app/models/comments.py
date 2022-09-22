@@ -23,6 +23,8 @@ class Comment(db.Model, UserMixin):
     tweet = db.relationship(
         'Tweet', back_populates='tweet_comments', foreign_keys=[tweet_id])
 
+    # comment_likes = db.relationship('Like', back_populates='comment', cascade='all, delete')
+
     @property
     def tweet_details(self):
         return self.to_dict()

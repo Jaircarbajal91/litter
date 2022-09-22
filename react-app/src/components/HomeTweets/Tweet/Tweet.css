@@ -98,6 +98,7 @@
   cursor: pointer;
 }
 
+.tweet.icon.heart.liked,
 .tweet.icon.heart:hover {
   filter: invert(36%) sepia(89%) saturate(5470%) hue-rotate(327deg) brightness(90%) contrast(96%);
   /* fill: #E0255E; */
@@ -187,18 +188,24 @@
 
 }
 
+.heart-icon-container,
 .comment-info-container {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
+.heart-icon-container,
 .comment-info-container > div > span {
   color: #71767A;
 }
 
 .comment-info-container > div > span:hover {
   color: #1B9BEF;
+}
+
+.heart-icon-container > div > span:hover {
+  color: #B90F40;
 }
 
 .name-container {

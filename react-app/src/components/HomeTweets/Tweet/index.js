@@ -9,18 +9,24 @@ import stretch2 from '../../../assets/images/stretch2.png'
 import { Modal } from '../../../context/Modal'
 import UpdateTweetForm from '../../UpdateTweetForm'
 import DeleteTweet from '../../DeleteTweet'
+import { likeTweetThunk } from '../../../store/tweets'
+import { useDispatch } from 'react-redux'
+import { getAllTweetsThunk } from '../../../store/tweets'
 import './Tweet.css'
 
 const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdateTweetForm }) => {
   const [showDropDown, setShowDropDown] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isLikedByUser, setIsLikedByUser] = useState(false)
   const newDate = Date.parse(tweet.created_at);
   const formattedDate = intlFormatDistance(new Date(newDate), new Date())
   const history = useHistory()
   const { user } = tweet
   const { email, firstName, lastName, profileImage, username, id } = user
 
-
+  const dispatch = useDispatch()
+  const likesArray = tweet.tweet_likes
+  const likedTweet = likesArray.find(like => like.user_id === sessionUser.id)
 
   useEffect(() => {
     if (!showDropDown) return;
@@ -31,6 +37,25 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
     return () => document.removeEventListener("click", closeMenu);
   }, [showDropDown]);
 
+  useEffect(() => {
+    if (likedTweet) {
+      setIsLikedByUser(true)
+    }
+  }, [likesArray.length, likedTweet])
+
+  const handleLike = async (e) => {
+    e.stopPropagation()
+    if (isLikedByUser) {
+      const unliked = fetch(`/api/likes/${likedTweet.id}`, {
+        method: 'DELETE'
+      })
+      setIsLikedByUser(false)
+      const tweets = dispatch(getAllTweetsThunk())
+    } else {
+      const like = dispatch(likeTweetThunk(tweet.id))
+      const tweets = dispatch(getAllTweetsThunk())
+    }
+  }
   return (
     <div onClick={() => history.push(`/tweets/${tweet.id}`)} className='tweet-container'>
       <div className='tweet-left-container'>
@@ -56,9 +81,9 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
           </div>
           {sessionUser.id === id && <div className='tweet-delete-container'>
             <div className='tweet icon delete container' onClick={(e) => {
-                e.stopPropagation()
-                setShowDropDown(prev => !prev)
-              }}>
+              e.stopPropagation()
+              setShowDropDown(prev => !prev)
+            }}>
               <img className="tweet icon delete" src={litter} alt="delete-icon" />
             </div>
             {showDropDown && <div className='drop-down tweet'>
@@ -96,9 +121,14 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
               <span>{tweet.tweet_comments.length}</span>
             </div>
           </div>
-          {/* <div className='heart-icon-container'>
-            <img className='tweet icon heart' src={heartIcon} alt="heart-icon" />
-          </div> */}
+          <div onClick={handleLike} className={`heart-icon-container`}>
+            <div className='heart-icon-container'>
+              <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={heartIcon} alt="heart-icon" />
+            </div>
+            <div className='comment-counter'>
+              <span>{tweet.tweet_likes.length}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

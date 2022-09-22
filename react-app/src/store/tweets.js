@@ -2,7 +2,8 @@ const GET_ALL_TWEETS = 'tweets/GET_ALL_TWEETS';
 const GET_USER_TWEETS = 'tweets/GET_USER_TWEETS';
 const CREATE_NEW_TWEET = 'tweets/CREATE_NEW_TWEET';
 const UPDATE_TWEET = 'tweets/UPDATE_TWEET';
-const DELETE_TWEET = 'tweets/DELETE_TWEET'
+const DELETE_TWEET = 'tweets/DELETE_TWEET';
+const LIKE_TWEET = 'tweets/LIKE_TWEET';
 
 
 const getAllTweetsAction = (tweets) => ({
@@ -30,6 +31,10 @@ const deleteTweetAction = (id) => ({
   id
 });
 
+const likeTweetAction = (like) => ({
+  type: LIKE_TWEET,
+  like
+})
 
 
 export const getAllTweetsThunk = () => async (dispatch) => {
@@ -72,7 +77,7 @@ export const createNewTweetThunk = (content) => async (dispatch) => {
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({content})
+    body: JSON.stringify({ content })
   });
 
   if (response.ok) {
@@ -95,13 +100,31 @@ export const updateTweetThunk = (id, content) => async (dispatch) => {
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({content})
+    body: JSON.stringify({ content })
   });
 
   if (response.ok) {
     const tweet = await response.json();
     await dispatch(updateTweetAction(tweet))
     return tweet;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
+export const likeTweetThunk = (id) => async (dispatch) => {
+  const response = await fetch(`/api/tweets/${id}/like`, {
+    method: "POST"
+  });
+  if (response.ok) {
+    const like = await response.json();
+    await dispatch(likeTweetAction(like))
+    return like;
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) {
@@ -141,11 +164,11 @@ export default function tweetsReducer(state = {}, action) {
       action.tweets.tweets.forEach(tweet => {
         newState[tweet.id] = tweet
       });
-      newState.tweetsList = [...action.tweets.tweets].sort(function(a,b){
+      newState.tweetsList = [...action.tweets.tweets].sort(function (a, b) {
         return new Date(b.created_at) - new Date(a.created_at);
       })
       newState.tweetsList.forEach(tweet => {
-        tweet.tweet_comments.sort(function(a,b){
+        tweet.tweet_comments.sort(function (a, b) {
           return new Date(b.created_at) - new Date(a.created_at);
         })
       })
@@ -157,11 +180,11 @@ export default function tweetsReducer(state = {}, action) {
       action.tweets.tweets.forEach(tweet => {
         newState.userTweets[tweet.id] = tweet
       })
-      newState.userTweets.userTweetsList = [...action.tweets.tweets].sort(function(a,b){
+      newState.userTweets.userTweetsList = [...action.tweets.tweets].sort(function (a, b) {
         return new Date(b.created_at) - new Date(a.created_at);
       })
       newState.userTweets.userTweetsList.forEach(tweet => {
-        tweet.tweet_comments.sort(function(a,b){
+        tweet.tweet_comments.sort(function (a, b) {
           return new Date(b.created_at) - new Date(a.created_at);
         })
       })
@@ -181,6 +204,10 @@ export default function tweetsReducer(state = {}, action) {
       const newState = { ...state }
       delete newState[action.id]
       return newState
+    }
+    case LIKE_TWEET: {
+      const newState = { ...state }
+      return newState;
     }
     default:
       return state;

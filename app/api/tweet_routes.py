@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import Tweet, comments, db, User, Comment
+from app.models import Tweet, comments, db, User, Comment, Like
 from app.forms import TweetForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -118,3 +118,24 @@ def delete_tweet(id):
             db.session.commit()
             return {"message": "Tweet successfully deleted"}
     return {'errors': 'Tweet not found'}, 404
+
+
+@tweet_routes.route('/<int:id>/like/', methods=['POST'])
+@tweet_routes.route('/<int:id>/like', methods=['POST'])
+def like_tweet(id):
+    tweet = Tweet.query.get(id)
+    if tweet is not None:
+        tweet_dict = tweet.to_dict()
+        likes_list = tweet_dict["tweet_likes"]
+        user_likes = [x for x in likes_list if x["user_id"] == int(current_user.get_id())]
+        if len(user_likes) > 0:
+            return {"message": "Cannot like a tweet more than once"}, 400
+        new_like = Like(
+            user_id = int(current_user.get_id()),
+            tweet_id = id
+        )
+        db.session.add(new_like)
+        db.session.commit()
+        return new_like.to_dict()
+    else:
+        return {"message": "Tweet does not exist"}, 404

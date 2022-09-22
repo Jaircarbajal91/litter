@@ -5,6 +5,7 @@ from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, String, Float, DateTime, Date
 from app.models import User
 
+# tweet_likes = db.Table()
 
 class Tweet(db.Model, UserMixin):
     __tablename__ = 'tweets'
@@ -20,6 +21,7 @@ class Tweet(db.Model, UserMixin):
 
     tweet_comments = db.relationship('Comment', back_populates='tweet', cascade='all, delete')
 
+    tweet_likes = db.relationship('Like', back_populates='tweet', cascade='all, delete')
 
 
     @property
@@ -33,4 +35,5 @@ class Tweet(db.Model, UserMixin):
             'user_id': self.user_id,
             'created_at': self.created_at,
             'tweet_comments': [x.to_dict() for x in self.tweet_comments],
+            'tweet_likes': [like.to_dict() for like in self.tweet_likes]
         }
