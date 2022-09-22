@@ -58,6 +58,7 @@
 .tweet.icon.delete {
   width: 2em;
 }
+
 .tweet.icon {
   width: 1.4em;
   cursor: pointer;
@@ -107,7 +108,6 @@
 .tweet.icon.heart {
   width: 1.12em;
 }
-
 
 .tweet.icon.comment:hover {
   filter: invert(52%) sepia(84%) saturate(2079%) hue-rotate(177deg) brightness(93%) contrast(102%);
@@ -185,7 +185,6 @@
   max-width: 2.5em;
   border-radius: 50%;
   background-color: white;
-
 }
 
 .heart-icon-container,
@@ -196,15 +195,15 @@
 }
 
 .heart-icon-container,
-.comment-info-container > div > span {
+.comment-info-container>div>span {
   color: #71767A;
 }
 
-.comment-info-container > div > span:hover {
+.comment-info-container>div>span:hover {
   color: #1B9BEF;
 }
 
-.heart-icon-container > div > span:hover {
+.heart-icon-container>div>span:hover {
   color: #B90F40;
 }
 
