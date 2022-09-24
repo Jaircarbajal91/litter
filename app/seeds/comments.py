@@ -15,12 +15,10 @@ def seed_comments():
   c12 = Comment(content="Meow meow! I heard you had food!", user_id=2, tweet_id=4)
   c13 = Comment(content="You better not be a dog!", user_id=1, tweet_id=5)
   c14 = Comment(content="I prefer wet food", user_id=1, tweet_id=5)
-  c15 = Comment(content="Portugal the man is a cool band. Meow!", user_id=4, tweet_id=6)
   c16 = Comment(content="I'm just a demo user", user_id=4, tweet_id=6)
   c17 = Comment(content="Meow meow! I heard you had food!", user_id=4, tweet_id=7)
   c18 = Comment(content="You better not be a dog!", user_id=5, tweet_id=7)
   c19 = Comment(content="I prefer wet food", user_id=5, tweet_id=8)
-  c20 = Comment(content="Portugal the man is a cool band. Meow!", user_id=3, tweet_id=8)
 
   db.session.add(c1)
   db.session.add(c2)
@@ -36,12 +34,10 @@ def seed_comments():
   db.session.add(c12)
   db.session.add(c13)
   db.session.add(c14)
-  db.session.add(c15)
   db.session.add(c16)
   db.session.add(c17)
   db.session.add(c18)
   db.session.add(c19)
-  db.session.add(c20)
 
   db.session.commit()
 
