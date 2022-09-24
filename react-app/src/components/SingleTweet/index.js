@@ -163,7 +163,7 @@ const SingleTweet = ({ sessionUser }) => {
               <span>{tweet.tweet_comments.length}</span>
             </div>
           </div>
-          <div onClick={handleLike} className={`heart-icon-container`}>
+          <div onClick={handleLike} className='heart-info-container'>
             <div className='heart-icon-container'>
               <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={heartIcon} alt="heart-icon" />
             </div>

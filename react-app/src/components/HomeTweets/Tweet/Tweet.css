@@ -187,14 +187,14 @@
   background-color: white;
 }
 
-.heart-icon-container,
+.heart-info-container,
 .comment-info-container {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.heart-icon-container,
+.heart-info-container,
 .comment-info-container>div>span {
   color: #71767A;
 }
