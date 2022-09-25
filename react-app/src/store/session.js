@@ -1,6 +1,8 @@
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+const FOLLOW_USER = 'session/FOLLOW_USER'
+const UNFOLLOW_USER = 'session/UNFOLLOW_USER'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -9,6 +11,16 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
+})
+
+const followUser = (id) => ({
+  type: FOLLOW_USER,
+  id
+})
+
+const unfollowUser = (id) => ({
+  type: UNFOLLOW_USER,
+  id
 })
 
 const initialState = { user: null };
@@ -70,6 +82,51 @@ export const logout = () => async (dispatch) => {
 };
 
 
+export const followUserThunk = (id) => async (dispatch) => {
+  const response = await fetch(`/api/follows/${id}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  if (response.ok) {
+    const user = await response.json();
+    await dispatch(followUser(id))
+    return user;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+};
+
+
+export const unfollowUserThunk = (id) => async (dispatch) => {
+  const response = await fetch(`/api/follows/unfollow/${id}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  if (response.ok) {
+    const user = await response.json();
+    await dispatch(followUser(id))
+    return user;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+};
+
+
+
 export const signUp = (username, email, password, firstName, lastName, profileImage) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -106,6 +163,14 @@ export default function reducer(state = initialState, action) {
       return { user: action.payload }
     case REMOVE_USER:
       return { user: null }
+    case FOLLOW_USER: {
+      const newState = { ...state }
+      return newState;
+    }
+    case UNFOLLOW_USER: {
+      const newState = { ...state }
+      return newState;
+    }
     default:
       return state;
   }
