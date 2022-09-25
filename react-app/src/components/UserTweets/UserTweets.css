@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
+  /* align-items: center; */
   padding-left: 1em;
   padding-right: 1em;
-  min-height: 300px;
+  min-height: 400px;
   min-width: 600px;
   border-bottom: .5px solid grey;
 }
@@ -22,10 +22,12 @@
 
 .header-container.user {
   height: fit-content;
-  max-width: 50%;
+  max-width: 100%;
   display: flex;
+  margin-top: .2em;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .tweets.count {
@@ -38,16 +40,20 @@
 .profile-image.user-profile {
   width: 8em;
   height: 8em;
-  border: 2px solid rgb(155, 155, 155);
+  border: 4px solid black;
   margin: 0;
+  margin-bottom: 1em;
+  box-sizing: border-box;
   cursor:unset;
 }
 
 .middle.container.user.tweet {
   display: flex;
   justify-content: space-between;
-  max-width: 70%;
+  max-width: 100%;
   align-items: center;
+  position: relative;
+  top: 2.3em
 }
 
 .user-profile.info.container {
@@ -55,6 +61,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-left: .6em;
+  padding-top: 1em;
 }
 
 .user-profile.info.container > h3 {
@@ -90,4 +98,54 @@
 
 .no-tweets > h3 {
   font-size: 1.7rem;
+}
+
+.follow.button.container {
+  position: relative;
+  top: 2em
+}
+
+.follow.button.container > button {
+  width: 6em;
+  padding: .7em;
+  border-radius: 3em;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: #EFF3F4;
+  box-sizing: border-box;
+  font-size: medium;
+  color: #0F141A;
+}
+
+.follow.button.container > button:hover {
+  background-color: #d6d7d7;
+}
+
+.profile.info.wrapper {
+  z-index: 1;
+  background-size: 100% 50%;
+  background-clip:padding-box;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  background-position: top 22% left;
+}
+
+.followers-content-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 4em
+}
+
+.followers-content-container > strong {
+  margin-right: .2em;
+  margin-left: 1em;
+}
+
+.followers-content-container > span {
+  color: #71767A;
+  font-size: .9rem;
 }
