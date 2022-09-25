@@ -82,7 +82,6 @@ const UserTweets = ({ sessionUser }) => {
       setFollowersCount((prev) => prev - 1)
     }
   }
-  console.log(user)
   return isLoaded && (
     <div className="home user profile tweets container">
       {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
