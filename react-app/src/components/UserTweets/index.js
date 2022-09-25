@@ -9,7 +9,7 @@ import UpdateTweetForm from "../UpdateTweetForm"
 import sadCatIcon from '../../assets/images/sadCat.svg'
 import { followUserThunk, unfollowUserThunk } from "../../store/session"
 import { getAllTweetsThunk } from "../../store/tweets"
-import cats from '../../assets/images/cats.png'
+import cats from '../../assets/images/cats.jpg'
 import './UserTweets.css'
 import { set } from "date-fns"
 
