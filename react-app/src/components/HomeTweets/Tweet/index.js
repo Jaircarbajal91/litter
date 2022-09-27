@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import commentIcon from '../../../assets/images/commentIcon.svg'
 import heartIcon from '../../../assets/images/heartIcon.svg'
+import fullHeartIcon from '../../../assets/images/FullHeart.svg'
 import litter from '../../../assets/images/threeDots.svg'
 import stretch from '../../../assets/images/stretch.png'
 import stretch2 from '../../../assets/images/stretch2.png'
@@ -18,6 +19,9 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
   const [showDropDown, setShowDropDown] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isLikedByUser, setIsLikedByUser] = useState(false)
+  const [likeCounter, setLikeCounter] = useState(tweet.tweet_likes.length)
+  const [likesArray, setLikesArray] = useState(tweet.tweet_likes)
+  const [likedTweet, setLikedTweet] = useState(likesArray.find(like => like.user_id === sessionUser.id))
   const newDate = Date.parse(tweet.created_at);
   const formattedDate = intlFormatDistance(new Date(newDate), new Date())
   const history = useHistory()
@@ -25,8 +29,6 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
   const { email, firstName, lastName, profileImage, username, id } = user
 
   const dispatch = useDispatch()
-  const likesArray = tweet.tweet_likes
-  const likedTweet = likesArray.find(like => like.user_id === sessionUser.id)
 
   useEffect(() => {
     if (!showDropDown) return;
@@ -50,10 +52,13 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
         method: 'DELETE'
       })
       setIsLikedByUser(false)
-      const tweets = dispatch(getAllTweetsThunk())
+      setLikeCounter((prev) => prev - 1)
+      setLikedTweet(null)
     } else {
-      const like = dispatch(likeTweetThunk(tweet.id))
-      const tweets = dispatch(getAllTweetsThunk())
+      const like = await dispatch(likeTweetThunk(tweet.id))
+      setIsLikedByUser(true)
+      setLikedTweet(like)
+      setLikeCounter((prev) => prev + 1)
     }
   }
   return (
@@ -123,10 +128,10 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
           </div>
           <div onClick={handleLike} className={`heart-info-container`}>
             <div className='heart-icon-container'>
-              <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={heartIcon} alt="heart-icon" />
+              <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={likedTweet ? fullHeartIcon : heartIcon} alt="heart-icon" />
             </div>
             <div className='comment-counter'>
-              <span>{tweet.tweet_likes.length}</span>
+              <span>{likeCounter}</span>
             </div>
           </div>
         </div>
