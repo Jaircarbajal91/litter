@@ -10,6 +10,7 @@ import sadCatIcon from '../../assets/images/sadCat.svg'
 import { followUserThunk, unfollowUserThunk } from "../../store/session"
 import { getAllTweetsThunk } from "../../store/tweets"
 import cats from '../../assets/images/cats.jpg'
+import LoadingAnimation from "../LoadingAnimation"
 import './UserTweets.css'
 import { set } from "date-fns"
 
@@ -38,7 +39,9 @@ const UserTweets = ({ sessionUser }) => {
       if (!data) {
         history.push('/home')
       } else {
-        setIsLoaded(true)
+        setTimeout(() => {
+          setIsLoaded(true)
+        }, 1500)
       }
     }())
   }, [dispatch, userTweets?.length, tweet?.content, username])
@@ -82,7 +85,7 @@ const UserTweets = ({ sessionUser }) => {
       setFollowersCount((prev) => prev - 1)
     }
   }
-  return isLoaded && (
+  return isLoaded ? (
     <div className="home user profile tweets container">
       {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
         <UpdateTweetForm tweet={tweet} sessionUser={sessionUser} setShowUpdateTweetForm={setShowUpdateTweetForm} />
@@ -123,6 +126,8 @@ const UserTweets = ({ sessionUser }) => {
         </div>
       )}
     </div>
+  ) : (
+    <LoadingAnimation />
   )
 }
 

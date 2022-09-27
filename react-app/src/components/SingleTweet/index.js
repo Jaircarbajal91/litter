@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getAllTweetsThunk } from "../../store/tweets"
 import commentIcon from '../../assets/images/commentIcon.svg'
 import heartIcon from '../../assets/images/heartIcon.svg'
+import fullHeartIcon from '../../assets/images/FullHeart.svg'
 import litter from '../../assets/images/threeDots.svg'
 import stretch from '../../assets/images/stretch.png'
 import stretch2 from '../../assets/images/stretch2.png'
@@ -18,6 +19,7 @@ import DeleteComment from '../DeleteComment'
 import PageNotFound from '../PageNotFound'
 import { likeTweetThunk } from '../../store/tweets'
 import './SingleTweet.css'
+import LoadingAnimation from '../LoadingAnimation'
 
 const SingleTweet = ({ sessionUser }) => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -40,7 +42,9 @@ const SingleTweet = ({ sessionUser }) => {
   useEffect(() => {
     (async function () {
       await dispatch(getAllTweetsThunk())
-      setIsLoaded(true)
+      setTimeout(() => {
+        setIsLoaded(true)
+      }, 1000)
     }())
   }, [tweet?.content])
 
@@ -83,7 +87,7 @@ const SingleTweet = ({ sessionUser }) => {
       const tweets = dispatch(getAllTweetsThunk())
     }
   }
-  return isLoaded && (
+  return isLoaded ? (
     <>
       <div className="single single tweet container">
         {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
@@ -165,7 +169,7 @@ const SingleTweet = ({ sessionUser }) => {
           </div>
           <div onClick={handleLike} className='heart-info-container'>
             <div className='heart-icon-container'>
-              <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={heartIcon} alt="heart-icon" />
+              <img className={`tweet icon heart ${likedTweet ? 'liked' : 'not-liked'}`} src={likedTweet ? fullHeartIcon : heartIcon} alt="heart-icon" />
             </div>
             <div className='comment-counter'>
               <span>{tweet.tweet_likes.length}</span>
@@ -180,6 +184,8 @@ const SingleTweet = ({ sessionUser }) => {
         ))}
       </div>
     </>
+  ) : (
+    <LoadingAnimation />
   )
 }
 

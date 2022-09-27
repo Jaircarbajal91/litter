@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 
@@ -12,6 +12,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
+  const location = useLocation()
   useEffect(() => {
     const newErrors = []
     if (hasSubmitted) {
@@ -30,7 +31,9 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
       await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
-      history.push(`/tweets/${data.id}`)
+      if (location.pathname !== '/home') {
+        history.push(`/tweets/${data.id}`)
+      }
     }
   }
 
