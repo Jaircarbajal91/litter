@@ -112,7 +112,14 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
           </div>}
         </div>
         <div className='middle-tweet-container'>
-          <span className='tweet-content'>{tweet.content}</span>
+          <div className='tweet-content-container'>
+            <span className='tweet-content'>{tweet.content}</span>
+          </div>
+          {tweet.tweet_images.map.length && <div className='tweet-image-container'>
+              {tweet.tweet_images.map(image => (
+                <img key={image.id} className='tweet-image' src={image.url} alt="" />
+              ))}
+          </div>}
         </div>
         <div className='bottom-tweet-container'>
           <div onClick={(e) => {

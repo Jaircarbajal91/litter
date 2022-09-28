@@ -4,6 +4,7 @@ import { getAllTweetsThunk } from '../../store/tweets'
 import UpdateTweetForm from '../UpdateTweetForm'
 import DeleteTweet from '../DeleteTweet'
 import { Modal } from '../../context/Modal'
+import LoadingAnimation from '../LoadingAnimation'
 import Tweet from './Tweet'
 
 const HomeTweets = ({ sessionUser }) => {
@@ -19,7 +20,7 @@ const HomeTweets = ({ sessionUser }) => {
       dispatch(getAllTweetsThunk()).then(() => setTweetsLoaded(true))
     }
   }, [dispatch, tweets?.length])
-  return tweetsLoaded && (
+  return tweetsLoaded ? (
     <div className='tweets-container'>
       {showUpdateTweetForm && <Modal onClose={() => setShowUpdateTweetForm(false)}>
         <UpdateTweetForm tweet={tweet} sessionUser={sessionUser} setShowUpdateTweetForm={setShowUpdateTweetForm} />
@@ -31,6 +32,8 @@ const HomeTweets = ({ sessionUser }) => {
         <Tweet key={tweet.id} setTweet={setTweet} sessionUser={sessionUser} tweet={tweet} setShowUpdateTweetForm={setShowUpdateTweetForm}  setShowDeleteTweet={setShowDeleteTweet}/>
       ))}
     </div>
+  ) : (
+    <LoadingAnimation />
   )
 }
 

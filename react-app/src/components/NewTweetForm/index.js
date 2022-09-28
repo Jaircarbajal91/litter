@@ -9,6 +9,8 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
@@ -28,6 +30,14 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     if (Array.isArray(data)) {
       setHasSubmitted(true)
     } else {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("type", "tweet");
+      formData.append("tweet_id", data.id)
+      const res = await fetch('/api/images', {
+        method: "POST",
+        body: formData,
+      });
       await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
@@ -41,6 +51,11 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     if (e.keyCode == 13) return false;
   };
 
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  }
   return (
     <div className='new-tweet-container'>
       <div className='right-new-tweet-container'>
@@ -67,6 +82,13 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
               setErrors([])
             }}
           />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={updateImage}
+          />
+          <button type="submit">Submit</button>
+          {(imageLoading) && <p>Loading...</p>}
           <div className='new-tweet-button container'>
             <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
           </div>

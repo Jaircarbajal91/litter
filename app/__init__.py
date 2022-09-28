@@ -12,6 +12,7 @@ from .api.tweet_routes import tweet_routes
 from .api.comment_routes import comment_routes
 from .api.tweet_like_routes import tweet_like_routes
 from .api.follows_routes import follows_routes
+from .api.image_routes import image_routes
 
 
 from .seeds import seed_commands
@@ -40,6 +41,7 @@ app.register_blueprint(tweet_routes, url_prefix='/api/tweets')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(tweet_like_routes, url_prefix='/api/likes')
 app.register_blueprint(follows_routes, url_prefix='/api/follows')
+app.register_blueprint(image_routes, url_prefix='/api/images')
 
 
 db.init_app(app)

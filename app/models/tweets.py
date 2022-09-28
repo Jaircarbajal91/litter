@@ -23,6 +23,8 @@ class Tweet(db.Model, UserMixin):
 
     tweet_likes = db.relationship('Like', back_populates='tweet', cascade='all, delete')
 
+    tweet_images = db.relationship('Image', back_populates='tweet', cascade='all, delete')
+
 
     @property
     def tweet_details(self):
@@ -35,5 +37,6 @@ class Tweet(db.Model, UserMixin):
             'user_id': self.user_id,
             'created_at': self.created_at,
             'tweet_comments': [x.to_dict() for x in self.tweet_comments],
-            'tweet_likes': [like.to_dict() for like in self.tweet_likes]
+            'tweet_likes': [like.to_dict() for like in self.tweet_likes],
+            'tweet_images': [image.to_dict() for image in self.tweet_images]
         }
