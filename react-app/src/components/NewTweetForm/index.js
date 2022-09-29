@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 import fileSelector from '../../assets/images/fileSelector.svg'
+import exit from '../../assets/images/exit.svg'
 
 import './NewTweetForm.css'
 
@@ -12,6 +13,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [newTweet, setNewTweet] = useState(null)
   const [image, setImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
@@ -25,6 +27,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     setErrors(newErrors)
   }, [content, errors.length, hasSubmitted, showNewTweetForm])
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = await dispatch(createNewTweetThunk(content.trim()))
@@ -32,6 +35,16 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
       setHasSubmitted(true)
     } else {
       setNewTweet(data)
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("type", "tweet");
+      formData.append("tweet_id", data.id)
+      const res = await fetch('/api/images', {
+        method: "POST",
+        body: formData,
+      });
+      setImage(null);
+      setPreviewImage(null)
       await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
@@ -48,16 +61,14 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
 
   const updateImage = async (e) => {
     const file = e.target.files[0];
+    // console.log('value 👉️', fileRef.current.value);
     setImage(file);
-    const formData = new FormData();
-      formData.append("image", image);
-      formData.append("type", "tweet");
-      formData.append("tweet_id", newTweet.id)
-      const res = await fetch('/api/images', {
-        method: "POST",
-        body: formData,
-      });
-      setImage(null);
+    const reader = new FileReader(file)
+    const img = new Image();
+    reader.onloadend = function () {
+      setPreviewImage(reader.result)
+    }
+    reader?.readAsDataURL?.(file);
   }
 
   return (
@@ -86,16 +97,28 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
               setErrors([])
             }}
           />
-          {image && <img src={image}/>}
+          <div className='preview-image-container'>
+            {previewImage && <>
+              <img className="preview image" src={previewImage} ></img>
+              <img onClick={(e) => {
+                setPreviewImage(null)
+                setImage(null);
+              }} className='remove-preivew-img icon' src={exit} alt="" />
+            </>}
+          </div>
           <label htmlFor="img-upload"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
           <input
             type="file"
-            accept="image/*"
+            accept=".png,
+                            .jpeg,
+                            .jpg,
+                            .gif,"
             id="img-upload"
             multiple
             style={{
               display: "none"
             }}
+            onClick={event => event.target.value = null}
             onChange={updateImage}
           />
           <div className='new-tweet-button container'>

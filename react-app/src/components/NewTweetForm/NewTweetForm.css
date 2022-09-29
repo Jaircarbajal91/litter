@@ -104,4 +104,43 @@
   align-items: center;
   font-size: .9rem;
   margin-bottom: 1em;
+  width: fit-content;
+}
+
+.preview.image {
+  width: 10em;
+  max-width: 10em;
+  height: 10em;
+  object-fit: contain;
+  border-radius: .7em;
+  border: 1px solid grey;
+  box-shadow: 0 0 4px grey;
+  margin-bottom: 1em;
+}
+
+.preview-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.remove-preivew-img.icon {
+  width: 1em;
+  border: 2px solid grey;
+  box-shadow: 0 0 4px grey;
+  padding: .5em;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: 6em;
+  cursor: pointer;
+}
+.remove-preivew-img.icon.false {
+  display: none;
+}
+
+.remove-preivew-img.icon:hover {
+  background-color: rgb(66, 66, 66);
+  transition: .2s ease-in-out;
 }

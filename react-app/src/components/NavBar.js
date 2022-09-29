@@ -8,11 +8,12 @@ import githubIcon from '../assets/images/github.svg'
 import linkedInIcon from '../assets/images/linkedin.svg'
 import { Modal } from '../context/Modal'
 import './NavBar.css'
+import { useEffect } from 'react';
 
 const NavBar = ({ sessionUser }) => {
   const history = useHistory()
-  // sessionUser, tweet
   const [showNewTweetForm, setShowNewTweetForm] = useState(false)
+  
   return (
     <nav className='navbar container'>
       {showNewTweetForm && <Modal onClose={() => setShowNewTweetForm(false)}>
