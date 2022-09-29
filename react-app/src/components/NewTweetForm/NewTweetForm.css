@@ -92,3 +92,16 @@
 .new-tweet.profile-image {
   margin: 0;
 }
+
+.file-selector {
+  width: 2em;
+  margin-right: 1em;
+}
+
+.new-tweet.form > label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: .9rem;
+  margin-bottom: 1em;
+}
