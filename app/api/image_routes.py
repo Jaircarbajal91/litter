@@ -37,16 +37,16 @@ def upload_image():
       new_image = Image(user=current_user, url=url, type=type, tweet_id=tweet_id)
       db.session.add(new_image)
       db.session.commit()
-      return {"url": data}
+      return {"url": url}
     if type == 'comment':
       comment_id = int(request.form.get('comment_id'))
       new_image = Image(user=current_user, url=url, type=type, comment_id=comment_id)
       db.session.add(new_image)
       db.session.commit()
-      return {"url": data}
+      return {"url": url}
     if type == 'user':
       user_id = int(request.form.get('user_id'))
       new_image = Image(user=current_user, url=url, type=type, user_id=user_id)
       db.session.add(new_image)
       db.session.commit()
-      return {"url": data}
+      return {"url": url}

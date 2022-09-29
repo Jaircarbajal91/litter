@@ -5,34 +5,33 @@ import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 import fileSelector from '../../assets/images/fileSelector.svg'
 import exit from '../../assets/images/exit.svg'
 
-import './NewTweetForm.css'
-
-const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) => {
+const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweetFormModal }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
-  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [hasSubmittedModal, setHasSubmittedModal] = useState(false)
   const [newTweet, setNewTweet] = useState(null)
   const [image, setImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null)
+  const [previewImageModal, setPreviewImageModal] = useState(null)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
   const location = useLocation()
+
   useEffect(() => {
     const newErrors = []
-    if (hasSubmitted) {
+    if (hasSubmittedModal) {
       if (!content.trim().length) newErrors.push("Tweet content is required.")
     }
     if (content.length > 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
-  }, [content, errors.length, hasSubmitted, showNewTweetForm])
+  }, [content, errors.length, hasSubmittedModal, showNewTweetFormModal])
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = await dispatch(createNewTweetThunk(content.trim()))
     if (Array.isArray(data)) {
-      setHasSubmitted(true)
+      setHasSubmittedModal(true)
     } else {
       setNewTweet(data)
       if (image) {
@@ -46,9 +45,9 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
         });
       }
       setImage(null);
-      setPreviewImage(null)
+      setPreviewImageModal(null)
       await dispatch(getAllTweetsThunk())
-      setShowNewTweetForm(false)
+      setShowNewTweetFormModal(false)
       setContent('')
       if (location.pathname !== '/home') {
         history.push(`/tweets/${data.id}`)
@@ -61,17 +60,18 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   };
 
 
-  const updateImage = async (e) => {
+  const updateImageModal = async (e) => {
     const file = e.target.files[0];
-    // console.log('value 👉️', fileRef.current.value);
     setImage(file);
     const reader = new FileReader(file)
     reader.readAsDataURL(file);
     reader.onloadend = function () {
-      setPreviewImage(reader.result)
+      setPreviewImageModal(reader.result)
     }
-    console.log("Not Modal", previewImage)
+    console.log("Modal", previewImageModal)
   }
+
+
   return (
     <div className='new-tweet-container'>
       <div className='right-new-tweet-container'>
@@ -94,33 +94,33 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
             value={content}
             onChange={(e) => {
               setContent(e.target.value)
-              setHasSubmitted(false)
+              setHasSubmittedModal(false)
               setErrors([])
             }}
           />
           <div className='preview-image-container'>
-            {previewImage && <>
-              <img className="preview image" src={previewImage} ></img>
+            {previewImageModal && <>
+              <img className="preview image" src={previewImageModal} ></img>
               <img onClick={(e) => {
-                setPreviewImage(null)
+                setPreviewImageModal(null)
                 setImage(null);
               }} className='remove-preivew-img icon' src={exit} alt="" />
             </>}
           </div>
-          <label htmlFor="img-upload"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
+          <label htmlFor="img-upload-modal"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
           <input
             type="file"
             accept=".png,
                             .jpeg,
                             .jpg,
                             .gif,"
-            id="img-upload"
+            id="img-upload-modal"
             multiple
             style={{
               display: "none"
             }}
             onClick={event => event.target.value = null}
-            onChange={updateImage}
+            onChange={updateImageModal}
           />
           <div className='new-tweet-button container'>
             <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
@@ -131,4 +131,4 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   )
 }
 
-export default NewTweetForm
+export default NewTweetFormModal
