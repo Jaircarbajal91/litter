@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
+import fileSelector from '../../assets/images/fileSelector.svg'
 
 import './NewTweetForm.css'
 
@@ -9,6 +10,8 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [newTweet, setNewTweet] = useState(null)
+  const [image, setImage] = useState(null);
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
@@ -28,6 +31,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     if (Array.isArray(data)) {
       setHasSubmitted(true)
     } else {
+      setNewTweet(data)
       await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
@@ -40,6 +44,21 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const checkKeyDown = (e) => {
     if (e.keyCode == 13) return false;
   };
+
+
+  const updateImage = async (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    const formData = new FormData();
+      formData.append("image", image);
+      formData.append("type", "tweet");
+      formData.append("tweet_id", newTweet.id)
+      const res = await fetch('/api/images', {
+        method: "POST",
+        body: formData,
+      });
+      setImage(null);
+  }
 
   return (
     <div className='new-tweet-container'>
@@ -66,6 +85,18 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
               setHasSubmitted(false)
               setErrors([])
             }}
+          />
+          {image && <img src={image}/>}
+          <label htmlFor="img-upload"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            id="img-upload"
+            multiple
+            style={{
+              display: "none"
+            }}
+            onChange={updateImage}
           />
           <div className='new-tweet-button container'>
             <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
