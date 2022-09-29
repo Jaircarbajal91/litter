@@ -7,18 +7,19 @@ import NewTweetForm from '../components/NewTweetForm'
 import githubIcon from '../assets/images/github.svg'
 import linkedInIcon from '../assets/images/linkedin.svg'
 import { Modal } from '../context/Modal'
+import NewTweetModal from './NewTweetModal';
 import './NavBar.css'
 import { useEffect } from 'react';
 
 const NavBar = ({ sessionUser }) => {
   const history = useHistory()
   const [showNewTweetForm, setShowNewTweetForm] = useState(false)
-  
+
   return (
     <nav className='navbar container'>
-      {showNewTweetForm && <Modal onClose={() => setShowNewTweetForm(false)}>
+      {/* {showNewTweetForm && <Modal onClose={() => setShowNewTweetForm(false)}>
         <NewTweetForm sessionUser={sessionUser} setShowNewTweetForm={setShowNewTweetForm} showNewTweetForm={showNewTweetForm} />
-      </Modal>}
+      </Modal>} */}
       <div className='navlink-container'>
         <NavLink to='/home' exact={true} activeClassName='active'>
           <img className='icon nav' src={WhiteCatIcon} alt='cat-icon' />
@@ -61,7 +62,8 @@ const NavBar = ({ sessionUser }) => {
         <LogoutButton />
       </div>
       <div className='logout-button container'>
-        <button className='nav new-tweet-button' onClick={() => setShowNewTweetForm(true)}>Tweet</button>
+        {/* <button className='nav new-tweet-button' onClick={() => setShowNewTweetForm(true)}>Tweet</button> */}
+        <NewTweetModal sessionUser={sessionUser}/>
       </div>
     </nav>
   );
