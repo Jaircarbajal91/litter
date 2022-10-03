@@ -11,6 +11,7 @@ image_routes = Blueprint("images", __name__)
 @image_routes.route("", methods=["POST"])
 @login_required
 def upload_image():
+    print('this is happening on line 14')
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
@@ -18,20 +19,21 @@ def upload_image():
     type = request.form.get('type')
 
     data = request.json
+    print('this is happening on line 22')
     if not allowed_file(image.filename):
         return {"errors": f"file type not permitted {data}"}, 400
 
     image.filename = get_unique_filename(image.filename)
 
     upload = upload_file_to_s3(image)
-
+    print('this is happening on line 29')
     if "url" not in upload:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
         return upload, 400
 
-    url = str(upload["url"])
+    url = upload["url"]
     # flask_login allows us to get the current user from the request
     if type == 'tweet':
       tweet_id = int(request.form.get('tweet_id'))
