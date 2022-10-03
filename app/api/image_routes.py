@@ -31,7 +31,7 @@ def upload_image():
         # so we send back that error message
         return upload, 400
 
-    url = upload["url"]
+    url = str(upload["url"])
     # flask_login allows us to get the current user from the request
     if type == 'tweet':
       tweet_id = int(request.form.get('tweet_id'))
