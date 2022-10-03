@@ -44,6 +44,9 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
           method: "POST",
           body: formData,
         });
+        if (!res.ok) {
+          console.log(res)
+        }
       }
       setImage(null);
       setPreviewImage(null)
