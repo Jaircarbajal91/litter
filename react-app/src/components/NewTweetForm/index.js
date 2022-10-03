@@ -14,8 +14,8 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const [newTweet, setNewTweet] = useState(null)
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null)
-  const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
+  const history = useHistory()
   const dispatch = useDispatch()
   const location = useLocation()
   useEffect(() => {
