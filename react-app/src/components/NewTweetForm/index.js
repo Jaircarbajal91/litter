@@ -51,7 +51,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
       }
       setImage(null);
       setPreviewImage(null)
-      await dispatch(getAllTweetsThunk())
+      // await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
       if (location.pathname !== '/home') {
