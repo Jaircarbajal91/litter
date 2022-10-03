@@ -45,7 +45,8 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
           body: formData,
         });
         if (!res.ok) {
-          console.log(res)
+          const data = await res.json()
+          console.log(data)
         }
       }
       setImage(null);
