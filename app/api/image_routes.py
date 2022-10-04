@@ -11,46 +11,43 @@ image_routes = Blueprint("images", __name__)
 @image_routes.route("", methods=["POST"])
 @login_required
 def upload_image():
-    print('this is happening on line 14')
     if "image" not in request.files:
         return {"errors": "image required"}, 400
 
     image = request.files["image"]
-    type = request.form.get('type')
+    form_type = request.form.get('type')
 
     data = request.json
-    print('this is happening on line 22')
     if not allowed_file(image.filename):
         return {"errors": f"file type not permitted {data}"}, 400
 
     image.filename = get_unique_filename(image.filename)
 
     upload = upload_file_to_s3(image)
-    print('this is happening on line 29')
+
     if "url" not in upload:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
-        print('this is happening on line 34', upload)
         return upload, 400
 
     url = upload["url"]
     # flask_login allows us to get the current user from the request
-    if type == 'tweet':
+    if form_type == 'tweet':
       tweet_id = int(request.form.get('tweet_id'))
-      new_image = Image(user=current_user, url=url, type=type, tweet_id=tweet_id)
+      new_image = Image(url=url, type=form_type, tweet_id=tweet_id)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
-    if type == 'comment':
+    if form_type == 'comment':
       comment_id = int(request.form.get('comment_id'))
-      new_image = Image(user=current_user, url=url, type=type, comment_id=comment_id)
+      new_image = Image(url=url, type=form_type, comment_id=comment_id)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
-    if type == 'user':
+    if form_type == 'user':
       user_id = int(request.form.get('user_id'))
-      new_image = Image(user=current_user, url=url, type=type, user_id=user_id)
+      new_image = Image(url=url, type=form_type, user_id=user_id)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
