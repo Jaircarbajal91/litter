@@ -44,14 +44,10 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
           method: "POST",
           body: formData,
         });
-        if (!res.ok) {
-          const data = await res.json()
-          console.log(data)
-        }
       }
       setImage(null);
       setPreviewImage(null)
-      // await dispatch(getAllTweetsThunk())
+      await dispatch(getAllTweetsThunk())
       setShowNewTweetForm(false)
       setContent('')
       if (location.pathname !== '/home') {
