@@ -40,7 +40,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
         formData.append("image", image);
         formData.append("type", "tweet");
         formData.append("tweet_id", data.id)
-        const res = await fetch('/api/images', {
+        const res = await fetch('/api/images/', {
           method: "POST",
           body: formData,
         });
