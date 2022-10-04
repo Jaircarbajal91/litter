@@ -41,7 +41,7 @@ const UserTweets = ({ sessionUser }) => {
       } else {
         setTimeout(() => {
           setIsLoaded(true)
-        }, 1500)
+        }, 1000)
       }
     }())
   }, [dispatch, userTweets?.length, tweet?.content, username])

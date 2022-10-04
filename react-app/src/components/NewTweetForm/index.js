@@ -6,10 +6,12 @@ import fileSelector from '../../assets/images/fileSelector.svg'
 import exit from '../../assets/images/exit.svg'
 
 import './NewTweetForm.css'
+import { set } from 'date-fns'
 
 const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [newTweet, setNewTweet] = useState(null)
   const [image, setImage] = useState(null);
@@ -25,6 +27,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     }
     if (content.length > 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
+    return () => setIsSubmitting(false)
   }, [content, errors.length, hasSubmitted, showNewTweetForm])
 
 
@@ -35,6 +38,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
       setHasSubmitted(true)
     } else {
       setNewTweet(data)
+      setIsSubmitting(true)
       if (image) {
         const formData = new FormData();
         formData.append("image", image);
@@ -122,7 +126,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
             onChange={updateImage}
           />
           <div className='new-tweet-button container'>
-            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
+            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0 || isSubmitting} type='submit'>Meow</button>
           </div>
         </form>
       </div>
