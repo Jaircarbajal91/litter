@@ -70,7 +70,6 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     reader.onloadend = function () {
       setPreviewImage(reader.result)
     }
-    console.log("Not Modal", previewImage)
   }
   return (
     <div className='new-tweet-container'>
