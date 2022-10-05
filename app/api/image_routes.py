@@ -4,6 +4,9 @@ from flask_login import current_user, login_required
 from .s3_image_upload import (
     upload_file_to_s3, allowed_file, get_unique_filename)
 
+import boto3
+import os
+
 image_routes = Blueprint("images", __name__)
 
 
@@ -29,26 +32,37 @@ def upload_image():
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
-        print("uploaoaadeded", upload)
         return upload, 400
 
     url = upload["url"]
     # flask_login allows us to get the current user from the request
     if form_type == 'tweet':
       tweet_id = int(request.form.get('tweet_id'))
-      new_image = Image(url=url, type=form_type, tweet_id=tweet_id)
+      new_image = Image(url=url, type=form_type, tweet_id=tweet_id, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
     if form_type == 'comment':
       comment_id = int(request.form.get('comment_id'))
-      new_image = Image(url=url, type=form_type, comment_id=comment_id)
+      new_image = Image(url=url, type=form_type, comment_id=comment_id, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
     if form_type == 'user':
       user_id = int(request.form.get('user_id'))
-      new_image = Image(url=url, type=form_type, user_id=user_id)
+      new_image = Image(url=url, type=form_type, user_id=user_id, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
+
+
+@image_routes.route("/", methods=["DELETE"])
+@image_routes.route("", methods=["DELETE"])
+@login_required
+def delete_image_from_bucket():
+  s3_recource=boto3.client('s3')
+  s3_recource.delete_object(
+    Bucket='litter-twitter',
+    Key="2e99be34ee8840e89ac808c1e609d8b2.jpeg"
+  )
+  return {"message": "item successfully deleted from s3 bucket"}

@@ -11,3 +11,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL').replace('postgres://', 'postgresql://')
     SQLALCHEMY_ECHO = True
+    aws_access_key_id=os.environ.get('S3_KEY')
+    aws_secret_access_key=os.environ.get('S3_SECRET')
+    region='us-west-2'
+    output='json'
