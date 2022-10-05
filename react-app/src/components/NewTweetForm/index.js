@@ -13,7 +13,6 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
   const [content, setContent] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState(false)
-  const [newTweet, setNewTweet] = useState(null)
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null)
   const { email, firstName, lastName, profileImage, username } = sessionUser
@@ -37,7 +36,6 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
     if (Array.isArray(data)) {
       setHasSubmitted(true)
     } else {
-      setNewTweet(data)
       setIsSubmitting(true)
       if (image) {
         const formData = new FormData();

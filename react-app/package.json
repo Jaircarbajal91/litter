@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.183.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "aws-sdk": "^2.1229.0",
     "date-fns": "^2.29.2",
     "http-proxy-middleware": "^1.0.5",
     "react": "^17.0.2",
@@ -18,10 +20,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "prebuild": "aws s3 cp s3://${S3_BUCKET}/aws-exports.js ./src/aws-exports.js",
     "start": "react-scripts start",
+    "deploy": "aws s3 cp ./build s3://${S3_BUCKET}/ --recursive",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test –env=jsdom",
+		"eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
