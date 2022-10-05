@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 import fileSelector from '../../assets/images/fileSelector.svg'
 import exit from '../../assets/images/exit.svg'
+import ButtonLoadingAnimation from '../LoadingAnimation/ButtonLoadingAnimation'
 
 const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweetFormModal }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState('')
   const [hasSubmittedModal, setHasSubmittedModal] = useState(false)
-  const [newTweet, setNewTweet] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [image, setImage] = useState(null);
   const [previewImageModal, setPreviewImageModal] = useState(null)
   const history = useHistory()
@@ -24,6 +25,7 @@ const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweet
     }
     if (content.length > 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
+    return () => setIsSubmitting(false)
   }, [content, errors.length, hasSubmittedModal, showNewTweetFormModal])
 
 
@@ -33,7 +35,7 @@ const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweet
     if (Array.isArray(data)) {
       setHasSubmittedModal(true)
     } else {
-      setNewTweet(data)
+      setIsSubmitting(true)
       if (image) {
         const formData = new FormData();
         formData.append("image", image);
@@ -73,7 +75,7 @@ const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweet
 
 
   return (
-    <div className='new-tweet-container'>
+    <div className='new-tweet-container modal'>
       <div className='right-new-tweet-container'>
         <img onClick={() => history.push(`/${username}`)} className='new-tweet profile-image' src={profileImage} alt="" />
       </div>
@@ -123,7 +125,7 @@ const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweet
             onChange={updateImageModal}
           />
           <div className='new-tweet-button container'>
-            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>
+            {isSubmitting ? <ButtonLoadingAnimation /> : <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Meow</button>}
           </div>
         </form>
       </div>
