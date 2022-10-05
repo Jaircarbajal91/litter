@@ -62,7 +62,11 @@ def upload_image():
 def delete_image_from_bucket():
   key = request.form.get('key')
   print('------------------------------',key)
-  s3_recource=boto3.client('s3')
+  s3_recource=boto3.client(
+    's3',
+    aws_access_key_id=os.environ.get("S3_KEY"),
+    aws_secret_access_key=os.environ.get("S3_SECRET")
+  )
   s3_recource.delete_object(
     Bucket='litter-twitter',
     Key=key
