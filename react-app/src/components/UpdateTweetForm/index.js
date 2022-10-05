@@ -17,7 +17,6 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
-  console.log(tweet)
   useEffect(() => {
     const newErrors = []
     if (hasSubmitted) {
@@ -64,10 +63,14 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   }
 
   const handleDeleteImage = async (e) => {
-    const res = await fetch("https://litter-twitter.s3.us-west-1.amazonaws.com/8ec2a1cbb2064a91a2d5524b34df169a.gif", {
+    const formData = new FormData();
+    formData.append("key", tweet.tweet_images[0].key);
+    const res = await fetch('/api/images/', {
       method: "DELETE",
-      Authorization: "AWS" + " " + process.env.KEY + ":" + process.env.S3_SECRET
-    })
+      body: formData,
+    });
+    const data = await res.json()
+    console.log(data)
     setPreviewImage(null)
     setImage(null);
   }

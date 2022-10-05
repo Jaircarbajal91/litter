@@ -60,9 +60,11 @@ def upload_image():
 @image_routes.route("", methods=["DELETE"])
 @login_required
 def delete_image_from_bucket():
+  key = request.form.get('key')
+  print('------------------------------',key)
   s3_recource=boto3.client('s3')
   s3_recource.delete_object(
     Bucket='litter-twitter',
-    Key="2e99be34ee8840e89ac808c1e609d8b2.jpeg"
+    Key=key
   )
   return {"message": "item successfully deleted from s3 bucket"}
