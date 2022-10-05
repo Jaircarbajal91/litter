@@ -1,6 +1,9 @@
 .new-tweet-container.update {
-  width: 34em;
+  width: 36em;
+  min-height: 500px;
   height: fit-content;
+  padding: 1.5em;
+  border: none;
 }
 
 .update-tweet-header {
@@ -15,4 +18,22 @@
 .new-tweet.errors.update-tweet {
   position: relative;
   bottom: 1.7em;
+}
+
+.input.textarea.update-tweet {
+  min-height: 20%;
+  position: relative;
+  bottom: 1.2em;
+  
+}
+
+.preview-image-container.update-tweet {
+  height: fit-content;
+  min-height: fit-content;
+}
+
+.new-tweet.form.update {
+  min-height: fit-content;
+  position: relative;
+  bottom: 1em
 }

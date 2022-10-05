@@ -36,6 +36,7 @@
 .new-tweet-button.container {
   border-top: 1px solid rgb(85, 83, 83);
   width: 100%;
+  min-height: 2.5em;
   display: flex;
   justify-content: right;
   padding-top: 1em;
@@ -143,4 +144,8 @@
 .remove-preivew-img.icon:hover {
   background-color: rgb(66, 66, 66);
   transition: .2s ease-in-out;
+}
+
+.new-tweet-container.modal {
+  border: none;
 }

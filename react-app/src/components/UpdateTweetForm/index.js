@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import exit from '../../assets/images/exit.svg'
 import fileSelector from '../../assets/images/fileSelector.svg'
 import { getAllTweetsThunk, updateTweetThunk } from '../../store/tweets'
+import handleDeleteImage from '../../utils/DeleteImage'
+import ButtonLoadingAnimation from '../LoadingAnimation/ButtonLoadingAnimation'
 
 import './UpdateTweetForm.css'
 
@@ -25,6 +27,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     }
     if (content.length > 280) newErrors.push("Maximum tweet length is 280 characters.")
     setErrors(newErrors)
+    return () => setIsSubmitting(false)
   }, [content, errors.length, hasSubmitted])
 
   const handleSubmit = async (e) => {
@@ -36,7 +39,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     } else {
       setIsSubmitting(true)
       if (initialPreviewImage && (initialPreviewImage !== previewImage)) {
-        await handleDeleteImage()
+        await handleDeleteImage(dispatch, tweet.tweet_images[0].id, tweet.tweet_images[0].key, setInitialPreviewImage)
       }
       if (image) {
         const formData = new FormData();
@@ -66,19 +69,19 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     }
   }
 
-  const handleDeleteImage = async (e) => {
-    const formData = new FormData();
-    formData.append("id", tweet.tweet_images[0].id);
-    formData.append("key", tweet.tweet_images[0].key);
+  // const handleDeleteImage = async () => {
+  //   const formData = new FormData();
+  //   formData.append("id", tweet.tweet_images[0].id);
+  //   formData.append("key", tweet.tweet_images[0].key);
 
-    const res = await fetch('/api/images/', {
-      method: "DELETE",
-      body: formData,
-    });
-    const data = await res.json()
-    await dispatch(getAllTweetsThunk())
-    setInitialPreviewImage(null)
-  }
+  //   const res = await fetch('/api/images/', {
+  //     method: "DELETE",
+  //     body: formData,
+  //   });
+  //   const data = await res.json()
+  //   await dispatch(getAllTweetsThunk())
+  //   setInitialPreviewImage(null)
+  // }
   return (
     <div className='new-tweet-container update'>
       <div className='right-new-tweet-container update'>
@@ -91,11 +94,11 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
             <p key={i}>{error}</p>
           ))}
         </div>
-        <form className='new-tweet form' onSubmit={handleSubmit}>
+        <form className='new-tweet form update' onSubmit={handleSubmit}>
           <textarea
             type="textarea"
             placeholder="What's happening?"
-            className='input textarea'
+            className='input textarea update-tweet'
             value={content}
             onChange={(e) => {
               setContent(e.target.value)
@@ -103,7 +106,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
               setErrors([])
             }}
           />
-          <div className='preview-image-container'>
+          <div className='preview-image-container update-tweet'>
             {previewImage && <>
               <img className="preview image" src={previewImage} ></img>
               <img  onClick={(e) => {
@@ -112,14 +115,14 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
               }} className='remove-preivew-img icon' src={exit} alt="" />
             </>}
           </div>
-          <label htmlFor="img-upload-update"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
+          <label htmlFor="img-upload-update-tweet"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
           <input
             type="file"
             accept=".png,
                             .jpeg,
                             .jpg,
                             .gif,"
-            id="img-upload-update"
+            id="img-upload-update-tweet"
             multiple
             style={{
               display: "none"
@@ -128,7 +131,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
             onChange={updateImage}
           />
           <div className='new-tweet-button container'>
-            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Update</button>
+            {isSubmitting ? <ButtonLoadingAnimation /> : <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0 || isSubmitting} type='submit'>Update</button>}
           </div>
         </form>
       </div>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getAllTweetsThunk, createNewTweetThunk } from '../../store/tweets'
 import fileSelector from '../../assets/images/fileSelector.svg'
 import exit from '../../assets/images/exit.svg'
-
+import ButtonLoadingAnimation from '../LoadingAnimation/ButtonLoadingAnimation'
 import './NewTweetForm.css'
 import { set } from 'date-fns'
 
@@ -124,7 +124,7 @@ const NewTweetForm = ({ sessionUser, setShowNewTweetForm, showNewTweetForm }) =>
             onChange={updateImage}
           />
           <div className='new-tweet-button container'>
-            <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0 || isSubmitting} type='submit'>Meow</button>
+            {isSubmitting ? <ButtonLoadingAnimation /> : <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0 || isSubmitting} type='submit'>Meow</button>}
           </div>
         </form>
       </div>
