@@ -8,6 +8,7 @@ class Image(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(40), nullable=False)
+    key=db.Column(db.String(255), nullable=False)
     url = db.Column(db.String(255), nullable=False)
     tweet_id = db.Column(db.Integer, db.ForeignKey('tweets.id'))
     comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
@@ -31,4 +32,5 @@ class Image(db.Model):
         return {
             'id': self.id,
             'url': self.url,
+            'key': self.key
         }
