@@ -32,5 +32,6 @@ class Image(db.Model):
         return {
             'id': self.id,
             'url': self.url,
-            'key': self.key
+            'key': self.key,
+            'user_id': self.user_id
         }
