@@ -10,7 +10,8 @@ import './UpdateTweetForm.css'
 const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState(tweet.content)
-  const [previewImage, setPreviewImage] = useState(tweet.tweet_images[0].url)
+  const [initialPreviewImage, setInitialPreviewImage] = useState(tweet.tweet_images?.[0]?.url)
+  const [previewImage, setPreviewImage] = useState(tweet.tweet_images?.[0]?.url)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [image, setImage] = useState(null);
   const [hasSubmitted, setHasSubmitted] = useState(false)
@@ -34,6 +35,9 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
       setHasSubmitted(true)
     } else {
       setIsSubmitting(true)
+      if (initialPreviewImage && (initialPreviewImage !== previewImage)) {
+        await handleDeleteImage()
+      }
       if (image) {
         const formData = new FormData();
         formData.append("image", image);
@@ -64,15 +68,16 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
 
   const handleDeleteImage = async (e) => {
     const formData = new FormData();
+    formData.append("id", tweet.tweet_images[0].id);
     formData.append("key", tweet.tweet_images[0].key);
+
     const res = await fetch('/api/images/', {
       method: "DELETE",
       body: formData,
     });
     const data = await res.json()
-    console.log(data)
-    setPreviewImage(null)
-    setImage(null);
+    await dispatch(getAllTweetsThunk())
+    setInitialPreviewImage(null)
   }
   return (
     <div className='new-tweet-container update'>
@@ -101,7 +106,10 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
           <div className='preview-image-container'>
             {previewImage && <>
               <img className="preview image" src={previewImage} ></img>
-              <img onClick={handleDeleteImage} className='remove-preivew-img icon' src={exit} alt="" />
+              <img  onClick={(e) => {
+                setPreviewImage(null)
+                setImage(null);
+              }} className='remove-preivew-img icon' src={exit} alt="" />
             </>}
           </div>
           <label htmlFor="img-upload-update"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
