@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import AWS from 'aws-sdk';
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import exit from '../../assets/images/exit.svg'
