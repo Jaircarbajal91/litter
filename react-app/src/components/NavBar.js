@@ -8,6 +8,7 @@ import githubIcon from '../assets/images/github.svg'
 import linkedInIcon from '../assets/images/linkedin.svg'
 import { Modal } from '../context/Modal'
 import NewTweetModal from './NewTweetModal';
+import ProfileIcon from  '../assets/images/profile.svg'
 import './NavBar.css'
 import { useEffect } from 'react';
 
@@ -29,6 +30,12 @@ const NavBar = ({ sessionUser }) => {
         <NavLink to='/home' exact={true} activeClassName='active'>
           <img className='icon nav' src={HomeIcon} alt="home-icon" />
           <span>Home</span>
+        </NavLink>
+      </div>
+      <div className='navlink-container'>
+        <NavLink to={`/${sessionUser.username}`} exact={true} activeClassName='active'>
+          <img className='icon nav' src={ProfileIcon} alt='cat-icon' />
+          <span>Profile</span>
         </NavLink>
       </div>
       <div className='navlink-container'>

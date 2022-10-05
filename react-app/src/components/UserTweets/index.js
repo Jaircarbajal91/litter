@@ -34,14 +34,16 @@ const UserTweets = ({ sessionUser }) => {
   const userTweets = useSelector(state => state.tweets.userTweets?.userTweetsList)
   useEffect(() => {
     (async function () {
-      setIsLoaded(false)
-      const data = await dispatch(getUserTweetsThunk(username))
-      if (!data) {
-        history.push('/home')
-      } else {
-        setTimeout(() => {
-          setIsLoaded(true)
-        }, 1500)
+      if (!showDeleteTweet && !showUpdateTweetForm) {
+        setIsLoaded(false)
+        const data = await dispatch(getUserTweetsThunk(username))
+        if (!data) {
+          history.push('/home')
+        } else {
+          setTimeout(() => {
+            setIsLoaded(true)
+          }, 1000)
+        }
       }
     }())
   }, [dispatch, userTweets?.length, tweet?.content, username])

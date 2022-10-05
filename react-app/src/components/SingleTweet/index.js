@@ -150,7 +150,14 @@ const SingleTweet = ({ sessionUser }) => {
           </div>}
         </div>
         <div className='middle-tweet-container single'>
-          <span className='tweet-content'>{tweet.content}</span>
+          <div className='tweet-content-container single'>
+            <span className='tweet-content'>{tweet.content}</span>
+          </div>
+          {tweet.tweet_images.map.length && <div className='tweet-image-container single'>
+              {tweet.tweet_images.map(image => (
+                <img key={image.id} className='tweet-image single' src={image.url} alt="" />
+              ))}
+          </div>}
         </div>
         <div className='date-container'>
           <span className='single tweet created-at'>{formattedDate} • Litter Web App</span>

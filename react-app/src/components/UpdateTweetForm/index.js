@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import AWS from 'aws-sdk';
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import exit from '../../assets/images/exit.svg'
+import fileSelector from '../../assets/images/fileSelector.svg'
 import { getAllTweetsThunk, updateTweetThunk } from '../../store/tweets'
 
 import './UpdateTweetForm.css'
@@ -8,10 +11,14 @@ import './UpdateTweetForm.css'
 const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
   const [errors, setErrors] = useState([])
   const [content, setContent] = useState(tweet.content)
+  const [previewImage, setPreviewImage] = useState(tweet.tweet_images[0].url)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [image, setImage] = useState(null);
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const history = useHistory()
   const { email, firstName, lastName, profileImage, username } = sessionUser
   const dispatch = useDispatch()
+  console.log(tweet)
   useEffect(() => {
     const newErrors = []
     if (hasSubmitted) {
@@ -28,12 +35,43 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     if (Array.isArray(data)) {
       setHasSubmitted(true)
     } else {
+      setIsSubmitting(true)
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("type", "tweet");
+        formData.append("tweet_id", data.id)
+        const res = await fetch('/api/images/', {
+          method: "POST",
+          body: formData,
+        });
+      }
+      setImage(null);
+      setPreviewImage(null)
       await dispatch(getAllTweetsThunk())
       setShowUpdateTweetForm(false)
       setContent('')
     }
   }
 
+  const updateImage = async (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    const reader = new FileReader(file)
+    reader.readAsDataURL(file);
+    reader.onloadend = function () {
+      setPreviewImage(reader.result)
+    }
+  }
+
+  const handleDeleteImage = async (e) => {
+    const res = await fetch("https://litter-twitter.s3.us-west-1.amazonaws.com/8ec2a1cbb2064a91a2d5524b34df169a.gif", {
+      method: "DELETE",
+      Authorization: "AWS" + " " + process.env.KEY + ":" + process.env.S3_SECRET
+    })
+    setPreviewImage(null)
+    setImage(null);
+  }
   return (
     <div className='new-tweet-container update'>
       <div className='right-new-tweet-container update'>
@@ -57,6 +95,27 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
               setHasSubmitted(false)
               setErrors([])
             }}
+          />
+          <div className='preview-image-container'>
+            {previewImage && <>
+              <img className="preview image" src={previewImage} ></img>
+              <img onClick={handleDeleteImage} className='remove-preivew-img icon' src={exit} alt="" />
+            </>}
+          </div>
+          <label htmlFor="img-upload-update"><img className='file-selector' src={fileSelector} alt="" /> Add Image</label>
+          <input
+            type="file"
+            accept=".png,
+                            .jpeg,
+                            .jpg,
+                            .gif,"
+            id="img-upload-update"
+            multiple
+            style={{
+              display: "none"
+            }}
+            onClick={event => event.target.value = null}
+            onChange={updateImage}
           />
           <div className='new-tweet-button container'>
             <button className='new-tweet button' disabled={errors.length > 0 || content.length === 0} type='submit'>Update</button>
