@@ -27,3 +27,8 @@
 
   color: white;
 }
+
+.delete-tweet.buttons.container.loading {
+  
+  justify-content: center;
+}
