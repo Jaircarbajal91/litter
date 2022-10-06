@@ -64,10 +64,10 @@ const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, 
             <span className='tweet created-at'>• {formattedDate} ago</span>
           </div>
           {sessionUser.id === comment.user_id && <div className='tweet-delete-container'>
-            <div className='tweet icon delete container'  onClick={(e) => {
-                e.stopPropagation()
-                setShowDropDown(prev => !prev)
-              }}>
+            <div className='tweet icon delete container' onClick={(e) => {
+              e.stopPropagation()
+              setShowDropDown(prev => !prev)
+            }}>
               <img className="tweet icon delete" src={litter} alt="delete-icon" />
             </div>
             {showDropDown && <div className='drop-down tweet'>
@@ -95,7 +95,14 @@ const Comment = ({ tweet, comment, sessionUser, tweetOwner, setCommentToUpdate, 
           <span>@{tweet.user.username}</span>
         </div>
         <div className='middle-tweet-container'>
-          <span className='tweet-content comment'>{comment.content}</span>
+          <div className='tweet-content-container'>
+            <span className='tweet-content comment'>{comment.content}</span>
+          </div>
+          {comment.comment_images.length > 0 && <div className='tweet-image-container'>
+              {comment.comment_images.map(image => (
+                <img key={image.id} className='tweet-image' src={image.url} alt="" />
+              ))}
+          </div>}
         </div>
         {/* <div className='bottom-tweet-container comment'>
           <div onClick={(e) => {

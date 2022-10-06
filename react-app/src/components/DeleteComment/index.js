@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAllTweetsThunk } from "../../store/tweets";
+import handleDeleteImage from "../../utils/DeleteImage";
 
 
 const DeleteComment = ({ setShowDeleteComment, comment }) => {
@@ -8,6 +9,9 @@ const DeleteComment = ({ setShowDeleteComment, comment }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
+    if (comment.comment_images.length) {
+      await handleDeleteImage(dispatch, comment.comment_images[0].id, comment.comment_images[0].key)
+    }
     const res = await fetch(`/api/comments/${comment.id}`, {
       method: 'DELETE'
     })

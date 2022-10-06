@@ -1,6 +1,6 @@
 .new-tweet-container.comment {
-  width: 34em;
-  height: 350px;
+  width: 95%;
+  /* border: 1px solid green; */
 }
 
 .replying-to.content > span:first-child {
@@ -14,4 +14,9 @@
   position: relative;
   top: 1em;
   font-size: .9rem;
+}
+
+.new-tweet.form.comment > textarea {
+  width: 95%;
+  height: 45%;
 }
