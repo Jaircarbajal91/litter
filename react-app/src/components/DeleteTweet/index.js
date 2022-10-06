@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteTweetThunk, getAllTweetsThunk } from "../../store/tweets";
+import handleDeleteImage from "../../utils/DeleteImage";
 import './DeleteTweet.css'
 
 const DeleteTweet = ({ setShowDeleteTweet, tweet, username }) => {
@@ -8,6 +9,17 @@ const DeleteTweet = ({ setShowDeleteTweet, tweet, username }) => {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
+    if (tweet.tweet_comments.length) {
+      for (let comment of tweet.tweet_comments) {
+        console.log(comment)
+        if (comment.comment_images.length) {
+          await handleDeleteImage(dispatch, comment.comment_images[0].id, comment.comment_images[0].key)
+        }
+      }
+    }
+    if (tweet.tweet_images.length) {
+      await handleDeleteImage(dispatch, tweet.tweet_images[0].id, tweet.tweet_images[0].key)
+    }
     await dispatch(deleteTweetThunk(tweet.id));
     await dispatch(getAllTweetsThunk());
     setShowDeleteTweet(false);

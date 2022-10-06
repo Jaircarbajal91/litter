@@ -41,6 +41,7 @@ const NewTweetFormModal = ({ sessionUser, setShowNewTweetFormModal, showNewTweet
         formData.append("image", image);
         formData.append("type", "tweet");
         formData.append("tweet_id", data.id)
+        formData.append("user_id", sessionUser.id)
         const res = await fetch('/api/images', {
           method: "POST",
           body: formData,

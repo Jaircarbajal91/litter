@@ -46,6 +46,7 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
         formData.append("image", image);
         formData.append("type", "tweet");
         formData.append("tweet_id", data.id)
+        formData.append("user_id", sessionUser.id)
         const res = await fetch('/api/images/', {
           method: "POST",
           body: formData,
@@ -69,19 +70,6 @@ const UpdateTweetForm = ({ sessionUser, tweet, setShowUpdateTweetForm }) => {
     }
   }
 
-  // const handleDeleteImage = async () => {
-  //   const formData = new FormData();
-  //   formData.append("id", tweet.tweet_images[0].id);
-  //   formData.append("key", tweet.tweet_images[0].key);
-
-  //   const res = await fetch('/api/images/', {
-  //     method: "DELETE",
-  //     body: formData,
-  //   });
-  //   const data = await res.json()
-  //   await dispatch(getAllTweetsThunk())
-  //   setInitialPreviewImage(null)
-  // }
   return (
     <div className='new-tweet-container update'>
       <div className='right-new-tweet-container update'>

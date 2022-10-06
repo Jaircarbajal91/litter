@@ -5,13 +5,14 @@ const handleDeleteImage = async (dispatch, id, key, setInitialPreviewImage) => {
   formData.append("id", id);
   formData.append("key", key);
 
-  const res = await fetch('/api/images/', {
+  await fetch('/api/images/', {
     method: "DELETE",
     body: formData,
   });
-  const data = await res.json()
   await dispatch(getAllTweetsThunk())
-  setInitialPreviewImage(null)
+  if (setInitialPreviewImage) {
+    setInitialPreviewImage(null)
+  }
 }
 
 export default handleDeleteImage

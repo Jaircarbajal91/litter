@@ -97,7 +97,7 @@ const SingleTweet = ({ sessionUser }) => {
           <DeleteTweet tweet={tweet} setShowDeleteTweet={setShowDeleteTweet} />
         </Modal>}
         {showNewCommentForm && <Modal onClose={() => setShowNewCommentForm(false)}>
-          <NewCommentForm sessionUser={sessionUser} tweet={tweet} setShowNewCommentForm={setShowNewCommentForm} />
+          <NewCommentForm showNewCommentForm={showNewCommentForm} sessionUser={sessionUser} tweet={tweet} setShowNewCommentForm={setShowNewCommentForm} />
         </Modal>}
         {showUpdateCommentForm && <Modal onClose={() => setShowUpdateCommentForm(false)}>
           <UpdateCommentForm comment={commentToUpdate} sessionUser={sessionUser} tweet={tweet} setShowUpdateCommentForm={setShowUpdateCommentForm} />

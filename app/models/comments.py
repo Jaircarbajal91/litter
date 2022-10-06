@@ -36,5 +36,6 @@ class Comment(db.Model, UserMixin):
             'content': self.content,
             'user_id': self.user_id,
             'tweet_id': self.tweet_id,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'comment_images': [image.to_dict() for image in self.comment_images]
         }

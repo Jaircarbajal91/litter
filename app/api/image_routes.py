@@ -19,6 +19,7 @@ def upload_image():
 
     image = request.files["image"]
     form_type = request.form.get('type')
+    user_id = request.form.get('user_id')
 
     data = request.json
     if not allowed_file(image.filename):
@@ -38,19 +39,19 @@ def upload_image():
     # flask_login allows us to get the current user from the request
     if form_type == 'tweet':
       tweet_id = int(request.form.get('tweet_id'))
-      new_image = Image(user_id=int(current_user.get_id()), url=url, type=form_type, tweet_id=tweet_id, key=image.filename)
+      new_image = Image(user_id=user_id, url=url, type=form_type, tweet_id=tweet_id, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
     if form_type == 'comment':
       comment_id = int(request.form.get('comment_id'))
-      new_image = Image(user_id=int(current_user.get_id()), url=url, type=form_type, comment_id=comment_id, key=image.filename)
+      new_image = Image(user_id=user_id, url=url, type=form_type, comment_id=comment_id, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}
     if form_type == 'user':
       user_id = int(request.form.get('user_id'))
-      new_image = Image(user_id=int(current_user.get_id()), url=url, type=form_type, key=image.filename)
+      new_image = Image(user_id=user_id, url=url, type=form_type, key=image.filename)
       db.session.add(new_image)
       db.session.commit()
       return {"url": url}

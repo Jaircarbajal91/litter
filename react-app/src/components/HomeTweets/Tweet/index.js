@@ -115,7 +115,7 @@ const Tweet = ({ setTweet, tweet, sessionUser, setShowDeleteTweet, setShowUpdate
           <div className='tweet-content-container'>
             <span className='tweet-content'>{tweet.content}</span>
           </div>
-          {tweet.tweet_images.map.length && <div className='tweet-image-container'>
+          {tweet.tweet_images.length > 0 && <div className='tweet-image-container'>
               {tweet.tweet_images.map(image => (
                 <img key={image.id} className='tweet-image' src={image.url} alt="" />
               ))}
