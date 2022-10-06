@@ -14,9 +14,8 @@ import LoadingAnimation from "../LoadingAnimation"
 import './UserTweets.css'
 import { set } from "date-fns"
 
-const UserTweets = ({ sessionUser }) => {
+const UserTweets = ({ sessionUser, setIsFollowing, isFollowing, users }) => {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -25,7 +24,6 @@ const UserTweets = ({ sessionUser }) => {
   const [followersCount, setFollowersCount] = useState(0)
   const [followingCount, setFollowingCount] = useState(0)
   const [tweet, setTweet] = useState({})
-  const [isFollowing, setIsFollowing] = useState(false)
   const [showUpdateTweetForm, setShowUpdateTweetForm] = useState(false)
   const [showDeleteTweet, setShowDeleteTweet] = useState(false)
   const dispatch = useDispatch()
@@ -47,17 +45,6 @@ const UserTweets = ({ sessionUser }) => {
       }
     }())
   }, [dispatch, userTweets?.length, tweet?.content, username])
-
-  useEffect(() => {
-    async function fetchData() {
-      if (sessionUser) {
-        const response = await fetch('/api/users/');
-        const responseData = await response.json();
-        setUsers(responseData.users);
-      }
-    }
-    fetchData();
-  }, []);
 
   useEffect(() => {
     setIsFollowing(sessionUser.following.some(id => id === user?.id))

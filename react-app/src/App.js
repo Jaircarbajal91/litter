@@ -23,6 +23,8 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [showLogin, setShowLogin] = useState(false)
   const [showSignup, setShowSignup] = useState(false)
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [users, setUsers] = useState();
   const [showNewTweetForm, setShowNewTweetForm] = useState(false)
   const dispatch = useDispatch();
 
@@ -35,7 +37,18 @@ function App() {
       setLoaded(true);
 
     })();
-  }, [dispatch]);
+  }, [dispatch, isFollowing, sessionUser?.following.length]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+        const response = await fetch('/api/users/');
+        const responseData = await response.json();
+        setUsers(responseData.users);
+    }
+    if (sessionUser) {
+      getUsers()
+    }
+  }, [sessionUser])
 
   if (!loaded) {
     return null;
@@ -62,7 +75,7 @@ function App() {
             </div>
           </ProtectedRoute>
           <ProtectedRoute path='/:username' exact={true} >
-            <UserTweets sessionUser={sessionUser} />
+            <UserTweets users={users} setIsFollowing={setIsFollowing} isFollowing={isFollowing} sessionUser={sessionUser} />
           </ProtectedRoute>
           <ProtectedRoute path='/tweets/:tweetId' exact={true} >
             <div className="home tweets container">
